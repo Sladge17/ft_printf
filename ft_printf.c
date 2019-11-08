@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/07 20:14:38 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/08 21:17:04 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,32 @@ int		ft_printf(const char *str, ...)
 					continue ;
 				}
 				
+			if (flags == 4)
+				{
+					len = ft_lennumb(value_d);
+					if (value_d >= 0)
+						len += 1;
+					len_empty = width - len;
+					i = 0;
+					while (i < len_empty)
+					{
+						write(1, &c_empty, 1);
+						i +=1 ;
+					}
+					str += 1;
+					if (value_d < 0)
+					{
+						value_d = (-1) * value_d;
+						write(1, "-", 1);
+					}
+					else
+					{
+						write(1, " ", 1);
+					}
+					ft_putnbr(value_d, &amount);
+					continue ;
+				}
+				
 				if (flags == 16)
 				{
 					len = ft_lennumb(value_d);
@@ -212,7 +238,61 @@ int		ft_printf(const char *str, ...)
 					str += 1;
 					continue ;
 				}
+
+				if (flags == 18)
+				{
+					len = ft_lennumb(value_d);
+					len_empty = width - len;
+					if (value_d >= 0)
+						len_empty -= 1;
+					if (value_d < 0)
+					{
+						value_d = (-1) * value_d;
+						write(1, "-", 1);
+					}
+					else
+						write(1, "+", 1);
+					
+					i = 0;
+					while (i < len_empty)
+					{
+						write(1, &c_empty, 1);
+						i +=1 ;
+					}
+					ft_putnbr(value_d, &amount);
+					str += 1;
+					continue ;
+				}
+
+				if (flags == 20)
+				{
+					len = ft_lennumb(value_d);
+					len_empty = width - len;
+					if (value_d >= 0)
+						len_empty -= 1;
+					if (value_d < 0)
+					{
+						value_d = (-1) * value_d;
+						write(1, "-", 1);
+					}
+					else
+						write(1, " ", 1);
+					
+					i = 0;
+					while (i < len_empty)
+					{
+						write(1, &c_empty, 1);
+						i +=1 ;
+					}
+					ft_putnbr(value_d, &amount);
+					str += 1;
+					continue ;
+				}
 			}
+			if (flags == 2 && value_d >= 0)
+				write(1, "+", 1);
+			if (flags == 4 && value_d >= 0)
+				write(1, " ", 1);
 			ft_putnbr(value_d, &amount);
 			str += 1;
 			continue ;
