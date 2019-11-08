@@ -1,0 +1,258 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
+/*   Updated: 2019/11/07 20:14:38 by jthuy            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+# include "ft_printf.h"
+
+void		ft_putnbr(int n, int *amount)
+{
+	if (n == -2147483648)
+	{
+		write(1, "-", 1);
+		write(1, "2", 1);
+		*amount += 2;
+		ft_putnbr(147483648, &(*amount));
+		return ;
+	}
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		*amount += 1;
+		ft_putnbr((-1) * n, &(*amount));
+		return ;
+	}
+	if (n < 10)
+	{
+		n = n + 48;
+		write(1, &n, 1);
+		*amount += 1;
+		return ;
+	}
+	ft_putnbr(n / 10, &(*amount));
+	n = (n % 10) + 48;
+	write(1, &n, 1);
+	*amount += 1;
+}
+
+void	ft_putstr(char const *s, int *amount)
+{
+	if (!s)
+		return ;
+	while (*s != '\0')
+	{
+		write(1, s, 1);
+		*amount += 1;
+		s += 1;
+	}
+}
+
+int		ft_lennumb(int value_d)
+{
+	int		len;
+
+	len = value_d < 0 ? 2 : 1;
+	value_d = value_d < 0 ? (-1) * value_d : value_d;
+	while (value_d > 9)
+	{
+		value_d /= 10;
+		len += 1;
+	}
+	return (len);
+}
+
+int		print_freesymbols(const char **str, int *amount)
+{
+	while (**str != '%')
+	{
+		if (**str == '\0')
+			return (0);
+		write(1, *str, 1);
+		*str += 1;
+		*amount += 1;
+		continue ;
+	}
+	*str += 1;
+	return (1);
+}
+
+int		ft_printf(const char *str, ...)
+{
+	int		amount;
+	va_list	args;
+	char	flags;
+	int		width;
+	int		len;
+	
+	int		value_d;
+	char	*value_s;
+
+	char	c_empty;
+	int		len_empty;
+	int		i;
+	
+	
+	amount = 0;
+	va_start(args, str);
+	while (*str)
+	{
+		c_empty = ' ';
+		if(!print_freesymbols(&str, &amount))
+			break ;
+		
+		flags = check_flag(&str);
+		
+		width = def_width(&str);
+		
+		if (*str == 'c')
+		{
+			value_d = va_arg(args, int);
+			write(1, &value_d, 1);
+			str += 1;
+			amount += 1;
+			continue ;
+		}
+		if (*str == 'd' || *str == 'i')
+		{
+			c_empty = flags & 16 ? '0' : ' ';
+			
+			value_d = va_arg(args, int);
+			
+			if (width)
+			{
+				if (!flags)
+				{
+					len = ft_lennumb(value_d);
+					len_empty = width - len;
+					i = 0;
+					while (i < len_empty)
+					{
+						write(1, &c_empty, 1);
+						i +=1 ;
+					}
+					if (value_d < 0)
+					{
+						value_d = (-1) * value_d;
+						write(1, "-", 1);
+					}
+					ft_putnbr(value_d, &amount);
+					str += 1;
+					continue ;
+				}
+
+			if (flags == 1)
+				{
+					len = ft_lennumb(value_d);
+					len_empty = width - len;
+					i = 0;
+					if (value_d < 0)
+					{
+						value_d = (-1) * value_d;
+						write(1, "-", 1);
+					}
+					ft_putnbr(value_d, &amount);
+					while (i < len_empty)
+					{
+						write(1, &c_empty, 1);
+						i +=1 ;
+					}
+					str += 1;
+					continue ;
+				}
+				
+			if (flags == 2)
+				{
+					len = ft_lennumb(value_d);
+					if (value_d >= 0)
+						len += 1;
+					len_empty = width - len;
+					i = 0;
+					while (i < len_empty)
+					{
+						write(1, &c_empty, 1);
+						i +=1 ;
+					}
+					str += 1;
+					if (value_d < 0)
+					{
+						value_d = (-1) * value_d;
+						write(1, "-", 1);
+					}
+					else
+					{
+						write(1, "+", 1);
+					}
+					ft_putnbr(value_d, &amount);
+					continue ;
+				}
+				
+				if (flags == 16)
+				{
+					len = ft_lennumb(value_d);
+					len_empty = width - len;
+					if (value_d < 0)
+					{
+						value_d = (-1) * value_d;
+						write(1, "-", 1);
+					}
+					i = 0;
+					while (i < len_empty)
+					{
+						write(1, &c_empty, 1);
+						i +=1 ;
+					}
+					ft_putnbr(value_d, &amount);
+					str += 1;
+					continue ;
+				}
+			}
+			ft_putnbr(value_d, &amount);
+			str += 1;
+			continue ;
+			
+			
+
+
+			
+			// len = ft_lennumb(value_d);
+			// len_empty = width - len;
+			// if (value_d < 0 && flags & 16)
+			// {
+			// 	value_d = (-1) * value_d;
+			// 	write(1, "-", 1);
+			// }
+			// i = 0;
+			// while (i < len_empty)
+			// {
+			// 	write(1, &c_empty, 1);
+			// 	i +=1 ;
+			// }
+			// ft_putnbr(value_d, &amount);
+			// str += 1;
+			// continue ;
+		}
+		if (*str == 's')
+		{
+			value_s = va_arg(args, char *);
+			ft_putstr(value_s, &amount);
+			str += 1;
+			continue ;
+		}
+		if (*str == '%')
+		{
+			write(1, "%", 1);
+			str += 1;
+			amount += 1;
+			continue ;
+		}
+	}
+	va_end(args);
+	return (amount);
+}
