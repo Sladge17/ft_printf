@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/11 16:55:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/11 17:36:15 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,6 @@ int		ft_printf(const char *str, ...)
 			{
 				if (!flags)
 				{
-					// len = len_numb_abc(value_d);
-					// len_space = width - len;
 					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					i = 0;
 					while (i < len_space)
@@ -154,8 +152,6 @@ int		ft_printf(const char *str, ...)
 
 				if (flags == 1 || flags == 17)
 				{
-					// len = len_numb_abc(value_d);
-					// len_space = width - len;
 					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					i = 0;
 					if (value_d < 0)
@@ -177,10 +173,6 @@ int		ft_printf(const char *str, ...)
 					
 				if (flags == 2)
 				{
-					// len = len_numb_abc(value_d);
-					// if (value_d >= 0)
-					// 	len += 1;
-					// len_space = width - len;
 					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					i = 0;
 					while (i < len_space)
@@ -207,10 +199,6 @@ int		ft_printf(const char *str, ...)
 
 				if (flags == 3 || flags == 7 || flags == 19 || flags == 23)
 				{
-					// len = len_numb_abc(value_d);
-					// if (value_d >= 0)
-					// 	len += 1;
-					// len_space = width - len;
 					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					if (value_d < 0)
 					{
@@ -237,10 +225,6 @@ int		ft_printf(const char *str, ...)
 				
 				if (flags == 4)
 				{
-					// len = len_numb_abc(value_d);
-					// if (value_d >= 0)
-					// 	len += 1;
-					// len_space = width - len;
 					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					i = 0;
 					while (i < len_space)
@@ -267,10 +251,6 @@ int		ft_printf(const char *str, ...)
 
 				if (flags == 5 || flags == 21)
 				{
-					// len = len_numb_abc(value_d);
-					// if (value_d >= 0)
-					// 	len += 1;
-					// len_space = width - len;
 					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					if (value_d < 0)
 					{
@@ -298,8 +278,6 @@ int		ft_printf(const char *str, ...)
 				if (flags == 16)
 				{
 					c_space = '0';
-					// len = len_numb_abc(value_d);
-					// len_space = width - len;
 					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					if (value_d < 0)
 					{
@@ -322,16 +300,11 @@ int		ft_printf(const char *str, ...)
 				if (flags == 18)
 				{
 					c_space = '0';
-					// len = len_numb_abc(value_d);
-					// len_space = width - len;
-					// if (value_d >= 0)
-					// 	len_space -= 1;
 					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					if (value_d < 0)
 					{
 						value_d = (-1) * value_d;
 						write(1, "-", 1);
-						// amount += 1;
 					}
 					else
 						write(1, "+", 1);
@@ -352,11 +325,7 @@ int		ft_printf(const char *str, ...)
 				if (flags == 20)
 				{
 					c_space = '0';
-					// len = len_numb_abc(value_d);
-					// len_space = width - len;
 					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
-					// if (value_d >= 0)
-					// 	len_space -= 1;
 					if (value_d < 0)
 					{
 						value_d = (-1) * value_d;
