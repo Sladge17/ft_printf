@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/11 15:23:21 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/11 15:48:25 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,7 @@ int		ft_printf(const char *str, ...)
 		
 		width = def_width(&str);
 		
-		if (*str == 'c')
-		{
-			value_d = va_arg(args, int);
-			write(1, &value_d, 1);
-			str += 1;
-			amount += 1;
-			continue ;
-		}
+
 		if (*str == 'd' || *str == 'i')
 		{
 			c_empty = ' ';
@@ -135,11 +128,13 @@ int		ft_printf(const char *str, ...)
 					while (i < len_empty)
 					{
 						write(1, &c_empty, 1);
+						amount += 1;
 						i +=1 ;
 					}
 					if (value_d < 0)
 					{
 						value_d = (-1) * value_d;
+						amount += 1;
 						write(1, "-", 1);
 					}
 					ft_putnbr(value_d, &amount);
@@ -156,11 +151,13 @@ int		ft_printf(const char *str, ...)
 					{
 						value_d = (-1) * value_d;
 						write(1, "-", 1);
+						amount += 1;
 					}
 					ft_putnbr(value_d, &amount);
 					while (i < len_empty)
 					{
 						write(1, &c_empty, 1);
+						amount += 1;
 						i +=1 ;
 					}
 					str += 1;
@@ -177,6 +174,7 @@ int		ft_printf(const char *str, ...)
 					while (i < len_empty)
 					{
 						write(1, &c_empty, 1);
+						amount += 1;
 						i +=1 ;
 					}
 					str += 1;
@@ -184,10 +182,12 @@ int		ft_printf(const char *str, ...)
 					{
 						value_d = (-1) * value_d;
 						write(1, "-", 1);
+						amount += 1;
 					}
 					else
 					{
 						write(1, "+", 1);
+						amount += 1;
 					}
 					ft_putnbr(value_d, &amount);
 					continue ;
@@ -203,10 +203,12 @@ int		ft_printf(const char *str, ...)
 					{
 						value_d = (-1) * value_d;
 						write(1, "-", 1);
+						amount += 1;
 					}
 					else
 					{
 						write(1, "+", 1);
+						amount += 1;
 					}
 					str += 1;
 					ft_putnbr(value_d, &amount);
@@ -214,6 +216,7 @@ int		ft_printf(const char *str, ...)
 					while (i < len_empty)
 					{
 						write(1, &c_empty, 1);
+						amount += 1;
 						i +=1 ;
 					}
 					continue ;
@@ -229,6 +232,7 @@ int		ft_printf(const char *str, ...)
 					while (i < len_empty)
 					{
 						write(1, &c_empty, 1);
+						amount += 1;
 						i +=1 ;
 					}
 					str += 1;
@@ -236,10 +240,12 @@ int		ft_printf(const char *str, ...)
 					{
 						value_d = (-1) * value_d;
 						write(1, "-", 1);
+						amount += 1;
 					}
 					else
 					{
 						write(1, " ", 1);
+						amount += 1;
 					}
 					ft_putnbr(value_d, &amount);
 					continue ;
@@ -255,10 +261,12 @@ int		ft_printf(const char *str, ...)
 					{
 						value_d = (-1) * value_d;
 						write(1, "-", 1);
+						amount += 1;
 					}
 					else
 					{
 						write(1, " ", 1);
+						amount += 1;
 					}
 					str += 1;
 					ft_putnbr(value_d, &amount);
@@ -266,6 +274,7 @@ int		ft_printf(const char *str, ...)
 					while (i < len_empty)
 					{
 						write(1, &c_empty, 1);
+						amount += 1;
 						i +=1 ;
 					}
 					continue ;
@@ -280,11 +289,13 @@ int		ft_printf(const char *str, ...)
 					{
 						value_d = (-1) * value_d;
 						write(1, "-", 1);
+						amount += 1;
 					}
 					i = 0;
 					while (i < len_empty)
 					{
 						write(1, &c_empty, 1);
+						amount += 1;
 						i +=1 ;
 					}
 					ft_putnbr(value_d, &amount);
@@ -303,14 +314,17 @@ int		ft_printf(const char *str, ...)
 					{
 						value_d = (-1) * value_d;
 						write(1, "-", 1);
+						// amount += 1;
 					}
 					else
 						write(1, "+", 1);
+						amount += 1;
 					
 					i = 0;
 					while (i < len_empty)
 					{
 						write(1, &c_empty, 1);
+						amount += 1;
 						i +=1 ;
 					}
 					ft_putnbr(value_d, &amount);
@@ -329,14 +343,19 @@ int		ft_printf(const char *str, ...)
 					{
 						value_d = (-1) * value_d;
 						write(1, "-", 1);
+						amount += 1;
 					}
 					else
+					{
 						write(1, " ", 1);
+						amount += 1;
+					}
 					
 					i = 0;
 					while (i < len_empty)
 					{
 						write(1, &c_empty, 1);
+						amount += 1;
 						i +=1 ;
 					}
 					ft_putnbr(value_d, &amount);
@@ -345,33 +364,29 @@ int		ft_printf(const char *str, ...)
 				}
 			}
 			if ((flags == 2 || flags == 6) && value_d >= 0)
+			{
 				write(1, "+", 1);
+				amount += 1;
+			}
 			if (flags == 4 && value_d >= 0)
+			{
 				write(1, " ", 1);
+				amount += 1;
+			}
 			ft_putnbr(value_d, &amount);
 			str += 1;
 			continue ;
 			
+		
+		if (*str == 'c')
+		{
+			value_d = va_arg(args, int);
+			write(1, &value_d, 1);
+			str += 1;
+			amount += 1;
+			continue ;
+		}
 			
-
-
-			
-			// len = ft_lennumb(value_d);
-			// len_empty = width - len;
-			// if (value_d < 0 && flags & 16)
-			// {
-			// 	value_d = (-1) * value_d;
-			// 	write(1, "-", 1);
-			// }
-			// i = 0;
-			// while (i < len_empty)
-			// {
-			// 	write(1, &c_empty, 1);
-			// 	i +=1 ;
-			// }
-			// ft_putnbr(value_d, &amount);
-			// str += 1;
-			// continue ;
 		}
 		if (*str == 's')
 		{
