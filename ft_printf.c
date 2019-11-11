@@ -6,27 +6,24 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/11 17:36:15 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/11 20:01:15 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_printf.h"
 
-void		ft_putnbr(int n, int *amount)
+void		put_abs(int n, int *amount)
 {
 	if (n == -2147483648)
 	{
-		write(1, "-", 1);
 		write(1, "2", 1);
-		*amount += 2;
-		ft_putnbr(147483648, &(*amount));
+		*amount += 1;
+		put_abs(147483648, &(*amount));
 		return ;
 	}
 	if (n < 0)
 	{
-		write(1, "-", 1);
-		*amount += 1;
-		ft_putnbr((-1) * n, &(*amount));
+		put_abs((-1) * n, &(*amount));
 		return ;
 	}
 	if (n < 10)
@@ -36,7 +33,7 @@ void		ft_putnbr(int n, int *amount)
 		*amount += 1;
 		return ;
 	}
-	ft_putnbr(n / 10, &(*amount));
+	put_abs(n / 10, &(*amount));
 	n = (n % 10) + 48;
 	write(1, &n, 1);
 	*amount += 1;
@@ -68,7 +65,7 @@ int		len_numb_abc(int value_d)
 	return (len);
 }
 
-int		len_sign(int flags, int value_d)
+int		len_sign(int value_d, char flags)
 {
 	if (value_d < 0)
 		return (1);
@@ -76,6 +73,44 @@ int		len_sign(int flags, int value_d)
 		return (1);
 	return (0);
 }
+
+void	put_space(int width, int value_d, char flags, char c_space, int *amount)
+{
+	int		len_space;
+	int		i;
+
+	len_space = width - len_numb_abc(value_d) - len_sign(value_d, flags);
+	i = 0;
+	while (i < len_space)
+	{
+		write(1, &c_space, 1);
+		*amount += 1;
+		i +=1 ;
+	}
+}
+
+void	put_sign(int value_d, char flags, int *amount)
+{
+	if (value_d < 0)
+	{
+		write(1, "-", 1);
+		*amount += 1;
+		return ;
+	}
+	if (flags & 2)
+	{
+		write(1, "+", 1);
+		*amount += 1;
+		return ;
+	}
+	if (flags & 4)
+	{
+		write(1, " ", 1);
+		*amount += 1;
+		return ;
+	}
+}
+
 
 int		print_freesymbols(const char **str, int *amount)
 {
@@ -127,242 +162,102 @@ int		ft_printf(const char *str, ...)
 			
 			value_d = va_arg(args, int);
 			
-			if (width)
+			if (!width)
 			{
-				if (!flags)
+				put_sign(value_d, flags, &amount);
+				put_abs(value_d, &amount);
+				str += 1;
+				continue ;
+			}
+			
+			// if (width)
+			// {
+				if (!flags || flags == 2 || flags == 4)
 				{
-					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
-					i = 0;
-					while (i < len_space)
-					{
-						write(1, &c_space, 1);
-						amount += 1;
-						i +=1 ;
-					}
-					if (value_d < 0)
-					{
-						value_d = (-1) * value_d;
-						amount += 1;
-						write(1, "-", 1);
-					}
-					ft_putnbr(value_d, &amount);
+					put_space(width, value_d, flags, ' ', &amount);
+					put_sign(value_d, flags, &amount);
+					put_abs(value_d, &amount);
 					str += 1;
 					continue ;
 				}
 
-				if (flags == 1 || flags == 17)
+				if (flags == 1 || flags == 17 || flags == 3 || flags == 7
+					|| flags == 19 || flags == 23 || flags == 5 || flags == 21)
 				{
-					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
-					i = 0;
-					if (value_d < 0)
-					{
-						value_d = (-1) * value_d;
-						write(1, "-", 1);
-						amount += 1;
-					}
-					ft_putnbr(value_d, &amount);
-					while (i < len_space)
-					{
-						write(1, &c_space, 1);
-						amount += 1;
-						i +=1 ;
-					}
+					put_sign(value_d, flags, &amount);
+					put_abs(value_d, &amount);
+					put_space(width, value_d, flags, ' ', &amount);
 					str += 1;
 					continue ;
 				}
 					
-				if (flags == 2)
-				{
-					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
-					i = 0;
-					while (i < len_space)
-					{
-						write(1, &c_space, 1);
-						amount += 1;
-						i +=1 ;
-					}
-					str += 1;
-					if (value_d < 0)
-					{
-						value_d = (-1) * value_d;
-						write(1, "-", 1);
-						amount += 1;
-					}
-					else
-					{
-						write(1, "+", 1);
-						amount += 1;
-					}
-					ft_putnbr(value_d, &amount);
-					continue ;
-				}
+				// if (flags == 2)
+				// {
+				// 	put_space(width, value_d, flags, ' ', &amount);
+				// 	put_sign(value_d, flags, &amount);
+				// 	put_abs(value_d, &amount);
+				// 	str += 1;
+				// 	continue ;
+				// }
 
-				if (flags == 3 || flags == 7 || flags == 19 || flags == 23)
-				{
-					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
-					if (value_d < 0)
-					{
-						value_d = (-1) * value_d;
-						write(1, "-", 1);
-						amount += 1;
-					}
-					else
-					{
-						write(1, "+", 1);
-						amount += 1;
-					}
-					str += 1;
-					ft_putnbr(value_d, &amount);
-					i = 0;
-					while (i < len_space)
-					{
-						write(1, &c_space, 1);
-						amount += 1;
-						i +=1 ;
-					}
-					continue ;
-				}
+				// if (flags == 3 || flags == 7 || flags == 19 || flags == 23)
+				// {
+				// 	put_sign(value_d, flags, &amount);
+				// 	put_abs(value_d, &amount);
+				// 	put_space(width, value_d, flags, ' ', &amount);
+				// 	str += 1;
+				// 	continue ;
+				// }
 				
-				if (flags == 4)
-				{
-					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
-					i = 0;
-					while (i < len_space)
-					{
-						write(1, &c_space, 1);
-						amount += 1;
-						i +=1 ;
-					}
-					str += 1;
-					if (value_d < 0)
-					{
-						value_d = (-1) * value_d;
-						write(1, "-", 1);
-						amount += 1;
-					}
-					else
-					{
-						write(1, " ", 1);
-						amount += 1;
-					}
-					ft_putnbr(value_d, &amount);
-					continue ;
-				}
+				// if (flags == 4)
+				// {
+				// 	put_space(width, value_d, flags, ' ', &amount);
+				// 	put_sign(value_d, flags, &amount);
+				// 	put_abs(value_d, &amount);
+				// 	str += 1;
+				// 	continue ;
+				// }
 
-				if (flags == 5 || flags == 21)
-				{
-					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
-					if (value_d < 0)
-					{
-						value_d = (-1) * value_d;
-						write(1, "-", 1);
-						amount += 1;
-					}
-					else
-					{
-						write(1, " ", 1);
-						amount += 1;
-					}
-					str += 1;
-					ft_putnbr(value_d, &amount);
-					i = 0;
-					while (i < len_space)
-					{
-						write(1, &c_space, 1);
-						amount += 1;
-						i +=1 ;
-					}
-					continue ;
-				}
+				// if (flags == 5 || flags == 21)
+				// {
+				// 	put_sign(value_d, flags, &amount);
+				// 	put_abs(value_d, &amount);
+				// 	put_space(width, value_d, flags, ' ', &amount);
+				// 	str += 1;
+				// 	continue ;
+				// }
 					
-				if (flags == 16)
+				if (flags == 16 || flags == 18 || flags == 20)
 				{
-					c_space = '0';
-					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
-					if (value_d < 0)
-					{
-						value_d = (-1) * value_d;
-						write(1, "-", 1);
-						amount += 1;
-					}
-					i = 0;
-					while (i < len_space)
-					{
-						write(1, &c_space, 1);
-						amount += 1;
-						i +=1 ;
-					}
-					ft_putnbr(value_d, &amount);
+					put_sign(value_d, flags, &amount);
+					put_space(width, value_d, flags, '0', &amount);
+					put_abs(value_d, &amount);
 					str += 1;
 					continue ;
 				}
 
-				if (flags == 18)
-				{
-					c_space = '0';
-					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
-					if (value_d < 0)
-					{
-						value_d = (-1) * value_d;
-						write(1, "-", 1);
-					}
-					else
-						write(1, "+", 1);
-						amount += 1;
-					
-					i = 0;
-					while (i < len_space)
-					{
-						write(1, &c_space, 1);
-						amount += 1;
-						i +=1 ;
-					}
-					ft_putnbr(value_d, &amount);
-					str += 1;
-					continue ;
-				}
+				// if (flags == 18)
+				// {
+				// 	put_sign(value_d, flags, &amount);
+				// 	put_space(width, value_d, flags, '0', &amount);
+				// 	put_abs(value_d, &amount);
+				// 	str += 1;
+				// 	continue ;
+				// }
 
-				if (flags == 20)
-				{
-					c_space = '0';
-					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
-					if (value_d < 0)
-					{
-						value_d = (-1) * value_d;
-						write(1, "-", 1);
-						amount += 1;
-					}
-					else
-					{
-						write(1, " ", 1);
-						amount += 1;
-					}
-					
-					i = 0;
-					while (i < len_space)
-					{
-						write(1, &c_space, 1);
-						amount += 1;
-						i +=1 ;
-					}
-					ft_putnbr(value_d, &amount);
-					str += 1;
-					continue ;
-				}
-			}
-			if ((flags == 2 || flags == 6) && value_d >= 0)
-			{
-				write(1, "+", 1);
-				amount += 1;
-			}
-			if (flags == 4 && value_d >= 0)
-			{
-				write(1, " ", 1);
-				amount += 1;
-			}
-			ft_putnbr(value_d, &amount);
-			str += 1;
-			continue ;
+				// if (flags == 20)
+				// {
+				// 	put_sign(value_d, flags, &amount);
+				// 	put_space(width, value_d, flags, '0', &amount);
+				// 	put_abs(value_d, &amount);
+				// 	str += 1;
+				// 	continue ;
+				// }
+			// }
+			// put_sign(value_d, flags, &amount);
+			// put_abs(value_d, &amount);
+			// str += 1;
+			// continue ;
 			
 		
 		if (*str == 'c')
