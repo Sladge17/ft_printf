@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/11 15:48:25 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/11 16:55:45 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	ft_putstr(char const *s, int *amount)
 	}
 }
 
-int		ft_lennumb(int value_d)
+int		len_numb_abc(int value_d)
 {
 	int		len;
 
-	len = value_d < 0 ? 2 : 1;
+	len = 1;
 	value_d = value_d < 0 ? (-1) * value_d : value_d;
 	while (value_d > 9)
 	{
@@ -66,6 +66,15 @@ int		ft_lennumb(int value_d)
 		len += 1;
 	}
 	return (len);
+}
+
+int		len_sign(int flags, int value_d)
+{
+	if (value_d < 0)
+		return (1);
+	if (flags & 2 || flags & 4)
+		return (1);
+	return (0);
 }
 
 int		print_freesymbols(const char **str, int *amount)
@@ -94,8 +103,8 @@ int		ft_printf(const char *str, ...)
 	int		value_d;
 	char	*value_s;
 
-	char	c_empty;
-	int		len_empty;
+	char	c_space;
+	int		len_space;
 	int		i;
 	
 	
@@ -103,7 +112,7 @@ int		ft_printf(const char *str, ...)
 	va_start(args, str);
 	while (*str)
 	{
-		c_empty = ' ';
+		c_space = ' ';
 		if(!print_freesymbols(&str, &amount))
 			break ;
 		
@@ -114,7 +123,7 @@ int		ft_printf(const char *str, ...)
 
 		if (*str == 'd' || *str == 'i')
 		{
-			c_empty = ' ';
+			c_space = ' ';
 			
 			value_d = va_arg(args, int);
 			
@@ -122,12 +131,13 @@ int		ft_printf(const char *str, ...)
 			{
 				if (!flags)
 				{
-					len = ft_lennumb(value_d);
-					len_empty = width - len;
+					// len = len_numb_abc(value_d);
+					// len_space = width - len;
+					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					i = 0;
-					while (i < len_empty)
+					while (i < len_space)
 					{
-						write(1, &c_empty, 1);
+						write(1, &c_space, 1);
 						amount += 1;
 						i +=1 ;
 					}
@@ -144,8 +154,9 @@ int		ft_printf(const char *str, ...)
 
 				if (flags == 1 || flags == 17)
 				{
-					len = ft_lennumb(value_d);
-					len_empty = width - len;
+					// len = len_numb_abc(value_d);
+					// len_space = width - len;
+					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					i = 0;
 					if (value_d < 0)
 					{
@@ -154,9 +165,9 @@ int		ft_printf(const char *str, ...)
 						amount += 1;
 					}
 					ft_putnbr(value_d, &amount);
-					while (i < len_empty)
+					while (i < len_space)
 					{
-						write(1, &c_empty, 1);
+						write(1, &c_space, 1);
 						amount += 1;
 						i +=1 ;
 					}
@@ -166,14 +177,15 @@ int		ft_printf(const char *str, ...)
 					
 				if (flags == 2)
 				{
-					len = ft_lennumb(value_d);
-					if (value_d >= 0)
-						len += 1;
-					len_empty = width - len;
+					// len = len_numb_abc(value_d);
+					// if (value_d >= 0)
+					// 	len += 1;
+					// len_space = width - len;
+					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					i = 0;
-					while (i < len_empty)
+					while (i < len_space)
 					{
-						write(1, &c_empty, 1);
+						write(1, &c_space, 1);
 						amount += 1;
 						i +=1 ;
 					}
@@ -195,10 +207,11 @@ int		ft_printf(const char *str, ...)
 
 				if (flags == 3 || flags == 7 || flags == 19 || flags == 23)
 				{
-					len = ft_lennumb(value_d);
-					if (value_d >= 0)
-						len += 1;
-					len_empty = width - len;
+					// len = len_numb_abc(value_d);
+					// if (value_d >= 0)
+					// 	len += 1;
+					// len_space = width - len;
+					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					if (value_d < 0)
 					{
 						value_d = (-1) * value_d;
@@ -213,9 +226,9 @@ int		ft_printf(const char *str, ...)
 					str += 1;
 					ft_putnbr(value_d, &amount);
 					i = 0;
-					while (i < len_empty)
+					while (i < len_space)
 					{
-						write(1, &c_empty, 1);
+						write(1, &c_space, 1);
 						amount += 1;
 						i +=1 ;
 					}
@@ -224,14 +237,15 @@ int		ft_printf(const char *str, ...)
 				
 				if (flags == 4)
 				{
-					len = ft_lennumb(value_d);
-					if (value_d >= 0)
-						len += 1;
-					len_empty = width - len;
+					// len = len_numb_abc(value_d);
+					// if (value_d >= 0)
+					// 	len += 1;
+					// len_space = width - len;
+					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					i = 0;
-					while (i < len_empty)
+					while (i < len_space)
 					{
-						write(1, &c_empty, 1);
+						write(1, &c_space, 1);
 						amount += 1;
 						i +=1 ;
 					}
@@ -253,10 +267,11 @@ int		ft_printf(const char *str, ...)
 
 				if (flags == 5 || flags == 21)
 				{
-					len = ft_lennumb(value_d);
-					if (value_d >= 0)
-						len += 1;
-					len_empty = width - len;
+					// len = len_numb_abc(value_d);
+					// if (value_d >= 0)
+					// 	len += 1;
+					// len_space = width - len;
+					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					if (value_d < 0)
 					{
 						value_d = (-1) * value_d;
@@ -271,9 +286,9 @@ int		ft_printf(const char *str, ...)
 					str += 1;
 					ft_putnbr(value_d, &amount);
 					i = 0;
-					while (i < len_empty)
+					while (i < len_space)
 					{
-						write(1, &c_empty, 1);
+						write(1, &c_space, 1);
 						amount += 1;
 						i +=1 ;
 					}
@@ -282,9 +297,10 @@ int		ft_printf(const char *str, ...)
 					
 				if (flags == 16)
 				{
-					c_empty = '0';
-					len = ft_lennumb(value_d);
-					len_empty = width - len;
+					c_space = '0';
+					// len = len_numb_abc(value_d);
+					// len_space = width - len;
+					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					if (value_d < 0)
 					{
 						value_d = (-1) * value_d;
@@ -292,9 +308,9 @@ int		ft_printf(const char *str, ...)
 						amount += 1;
 					}
 					i = 0;
-					while (i < len_empty)
+					while (i < len_space)
 					{
-						write(1, &c_empty, 1);
+						write(1, &c_space, 1);
 						amount += 1;
 						i +=1 ;
 					}
@@ -305,11 +321,12 @@ int		ft_printf(const char *str, ...)
 
 				if (flags == 18)
 				{
-					c_empty = '0';
-					len = ft_lennumb(value_d);
-					len_empty = width - len;
-					if (value_d >= 0)
-						len_empty -= 1;
+					c_space = '0';
+					// len = len_numb_abc(value_d);
+					// len_space = width - len;
+					// if (value_d >= 0)
+					// 	len_space -= 1;
+					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
 					if (value_d < 0)
 					{
 						value_d = (-1) * value_d;
@@ -321,9 +338,9 @@ int		ft_printf(const char *str, ...)
 						amount += 1;
 					
 					i = 0;
-					while (i < len_empty)
+					while (i < len_space)
 					{
-						write(1, &c_empty, 1);
+						write(1, &c_space, 1);
 						amount += 1;
 						i +=1 ;
 					}
@@ -334,11 +351,12 @@ int		ft_printf(const char *str, ...)
 
 				if (flags == 20)
 				{
-					c_empty = '0';
-					len = ft_lennumb(value_d);
-					len_empty = width - len;
-					if (value_d >= 0)
-						len_empty -= 1;
+					c_space = '0';
+					// len = len_numb_abc(value_d);
+					// len_space = width - len;
+					len_space = width - len_numb_abc(value_d) - len_sign(flags, value_d);
+					// if (value_d >= 0)
+					// 	len_space -= 1;
 					if (value_d < 0)
 					{
 						value_d = (-1) * value_d;
@@ -352,9 +370,9 @@ int		ft_printf(const char *str, ...)
 					}
 					
 					i = 0;
-					while (i < len_empty)
+					while (i < len_space)
 					{
-						write(1, &c_empty, 1);
+						write(1, &c_space, 1);
 						amount += 1;
 						i +=1 ;
 					}
