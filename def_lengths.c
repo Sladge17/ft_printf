@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/12 20:44:22 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/12 21:39:48 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int		def_width(const char **str)
 		width = width * 10 + (**str - '0');
 		*str += 1;
 	}
-	if (**str == 'u')
-		width += 1;
 	return (width);
 }
 
