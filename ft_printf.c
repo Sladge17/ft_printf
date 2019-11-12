@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/12 13:32:57 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:55:37 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ int		ft_printf(const char *str, ...)
 		width = def_width(&str);
 		
 
-		if (*str == 'd' || *str == 'i')
+		if (*str == 'd' || *str == 'i' || *str == 'u')
 		{		
 			value_d = va_arg(args, int);
 			
 			if (!width)
 			{
-				put_sign(value_d, flags, &amount);
+				if (*str == 'd' || *str == 'i')
+					put_sign(value_d, flags, &amount);
 				put_abs(value_d, &amount);
 				str += 1;
 				continue ;
@@ -49,7 +50,8 @@ int		ft_printf(const char *str, ...)
 			if (!flags || flags == 2 || flags == 4)
 			{
 				put_space(width, value_d, flags, &amount);
-				put_sign(value_d, flags, &amount);
+				if (*str == 'd' || *str == 'i')
+					put_sign(value_d, flags, &amount);
 				put_abs(value_d, &amount);
 				str += 1;
 				continue ;
@@ -58,7 +60,8 @@ int		ft_printf(const char *str, ...)
 			if (flags == 1 || flags == 17 || flags == 3 || flags == 7
 				|| flags == 19 || flags == 23 || flags == 5 || flags == 21)
 			{
-				put_sign(value_d, flags, &amount);
+				if (*str == 'd' || *str == 'i')
+					put_sign(value_d, flags, &amount);
 				put_abs(value_d, &amount);
 				put_space(width, value_d, flags, &amount);
 				str += 1;
@@ -67,12 +70,14 @@ int		ft_printf(const char *str, ...)
 				
 			if (flags == 16 || flags == 18 || flags == 20)
 			{
-				put_sign(value_d, flags, &amount);
+				if (*str == 'd' || *str == 'i')
+					put_sign(value_d, flags, &amount);
 				put_space(width, value_d, flags, &amount);
 				put_abs(value_d, &amount);
 				str += 1;
 				continue ;
 			}
+		}	
 		
 		if (*str == 'c')
 		{
@@ -83,7 +88,6 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		}
 			
-		}
 		if (*str == 's')
 		{
 			value_s = va_arg(args, char *);
