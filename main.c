@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/11 16:55:00 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/12 12:26:04 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,29 @@ int		main()
 
 	test = 0;
 	
+	//  ------[ TESTS 1 - 20 ]-------
+	
 	test += 1;
+	printf("test %d  <----------\n", test);
+	rez = printf("Hello world\n");
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("Hello world\n");
+	printf("->%d\n", rez);
+	
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("Min int %d\n", -2147483648);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("Min int %d\n", -2147483648);
+	printf("->%d\n", rez);
+	
+	test += 1;
+	printf("\n");
 	printf("test %d  <----------\n", test);
 	rez = printf("%d\n%d\n%d\n", -126, 0, 1258);
 	printf("->%d\n", rez);
@@ -171,7 +193,6 @@ int		main()
 	rez = ft_printf("%+06d\n%+06d\n%+06d\n", -124, 0, 1258);
 	printf("->%d\n", rez);
 	
-	// 
 	test += 1;
 	printf("\n");
 	printf("test %d  <----------\n", test);
@@ -211,6 +232,18 @@ int		main()
 	fflush(NULL);
 	rez = ft_printf("%+0- 6d\n%+0- 6d\n%+0- 6d\n", -124, 0, 1258);
 	printf("->%d\n", rez);
+
+	//  ------[ TESTS 21 - ]-------
+	
+	// test += 1;
+	// printf("\n");
+	// printf("test %d  <----------\n", test);
+	// rez = printf("%+0- 6d\n%+0- 6d\n%+0- 6d\n", -124, 0, 1258);
+	// printf("->%d\n", rez);
+	// printf("---\n");
+	// fflush(NULL);
+	// rez = ft_printf("%+0- 6d\n%+0- 6d\n%+0- 6d\n", -124, 0, 1258);
+	// printf("->%d\n", rez);
 
 
 	

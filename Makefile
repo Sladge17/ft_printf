@@ -1,6 +1,10 @@
 NAME = libftprintf.a
 FLAG = -Wall -Wextra -Werror
-SRC = ft_printf.c find_flags.c check_flag.c def_width.c
+SRC = 	ft_printf.c\
+		check_flag.c\
+		find_flags.c\
+		def_lengths.c\
+		put_symbols.c
 OBJ = $(SRC:.c=.o)
 
 TMP = main.c ##### DELL IT <<<<<<<<<<<<<
