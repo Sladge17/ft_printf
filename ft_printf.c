@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/12 20:55:37 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/12 21:04:27 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int		ft_printf(const char *str, ...)
 	
 	int		value_d;
 	char	*value_s;
-	
 	
 	amount = 0;
 	va_start(args, str);
