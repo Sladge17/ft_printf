@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/13 18:41:18 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/13 19:33:52 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -426,6 +426,198 @@ int		main()
 	rez = ft_printf("%+0- 6u\n%+0- 6u\n%+0- 6u\n", -124, 0, 1258);
 	printf("->%d\n", rez);
 	
+	//  ------[ TESTS 40]-------
+
+		test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("Min int %o\n", -2147483648);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("Min int %o\n", -2147483648);
+	printf("->%d\n", rez);
+	
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%o\n%o\n%o\n", -126, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%o\n%o\n%o\n", -126, 0, 1258);
+	printf("->%d\n", rez);
+	
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%+o\n%+o\n%+o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%+o\n%+o\n%+o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	//
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("% +o\n% +o\n% +o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("% +o\n% +o\n% +o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%6o\n%6o\n%6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%6o\n%6o\n%6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%3o\n%3o\n%3o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%3o\n%3o\n%3o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%-6o\n%-6o\n%-6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%-6o\n%-6o\n%-6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%+6o\n%+6o\n%+6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%+6o\n%+6o\n%+6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%-+6o\n%-+6o\n%-+6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%-+6o\n%-+6o\n%-+6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("% -6o\n% -6o\n% -6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("% -6o\n% -6o\n% -6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("% +-6o\n% +-6o\n% +-6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("% +-6o\n% +-6o\n% +-6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%06o\n%06o\n%06o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%06o\n%06o\n%06o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%03o\n%03o\n%03o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%03o\n%03o\n%03o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%-06o\n%-06o\n%-06o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%-06o\n%-06o\n%-06o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%+06o\n%+06o\n%+06o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%+06o\n%+06o\n%+06o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%0 6o\n%0 6o\n%0 6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%0 6o\n%0 6o\n%0 6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%0-+6o\n%0-+6o\n%0-+6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%0-+6o\n%0-+6o\n%0-+6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%0- 6o\n%0- 6o\n%0- 6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%0- 6o\n%0- 6o\n%0- 6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+
+	test += 1;
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("%+0- 6o\n%+0- 6o\n%+0- 6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
+	printf("---\n");
+	fflush(NULL);
+	rez = ft_printf("%+0- 6o\n%+0- 6o\n%+0- 6o\n", -124, 0, 1258);
+	printf("->%d\n", rez);
 	
 	// ft_printf("0#qw");
 
