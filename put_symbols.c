@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/12 20:55:23 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/13 15:42:03 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	put_space(int width, int value_d, char flags, int *amount)
 	int		i;
 
 	space = ' ';
-	if (flags == 16 || flags == 18 || flags == 20)
+	if (flags & 16 && !(flags & 1))
 		space = '0';
 	len_space = width - len_numb_abc(value_d) - len_sign(value_d, flags);
 	i = 0;

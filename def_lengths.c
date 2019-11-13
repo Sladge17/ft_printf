@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/12 21:39:48 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/13 14:32:05 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int		len_numb_abc(int value_d)
 
 int		len_sign(int value_d, char flags)
 {
+	if (flags & 32)
+		return (0);
 	if (value_d < 0)
 		return (1);
 	if (flags & 2 || flags & 4)

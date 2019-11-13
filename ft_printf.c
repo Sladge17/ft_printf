@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/12 21:04:27 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/13 15:42:39 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int		ft_printf(const char *str, ...)
 		
 		flags = check_flag(&str);
 		width = def_width(&str);
-		
+
+		if (*str == 'u')
+			flags |= 32;
 
 		if (*str == 'd' || *str == 'i' || *str == 'u')
 		{		
@@ -39,27 +41,16 @@ int		ft_printf(const char *str, ...)
 			
 			if (!width)
 			{
-				if (*str == 'd' || *str == 'i')
+				if (!(flags & 32))
 					put_sign(value_d, flags, &amount);
 				put_abs(value_d, &amount);
 				str += 1;
 				continue ;
 			}
 
-			if (!flags || flags == 2 || flags == 4)
+			if (flags & 1)
 			{
-				put_space(width, value_d, flags, &amount);
-				if (*str == 'd' || *str == 'i')
-					put_sign(value_d, flags, &amount);
-				put_abs(value_d, &amount);
-				str += 1;
-				continue ;
-			}
-
-			if (flags == 1 || flags == 17 || flags == 3 || flags == 7
-				|| flags == 19 || flags == 23 || flags == 5 || flags == 21)
-			{
-				if (*str == 'd' || *str == 'i')
+				if (!(flags & 32))
 					put_sign(value_d, flags, &amount);
 				put_abs(value_d, &amount);
 				put_space(width, value_d, flags, &amount);
@@ -67,15 +58,21 @@ int		ft_printf(const char *str, ...)
 				continue ;
 			}
 				
-			if (flags == 16 || flags == 18 || flags == 20)
+			if (flags & 16)
 			{
-				if (*str == 'd' || *str == 'i')
+				if (!(flags & 32))
 					put_sign(value_d, flags, &amount);
 				put_space(width, value_d, flags, &amount);
 				put_abs(value_d, &amount);
 				str += 1;
 				continue ;
 			}
+			
+			put_space(width, value_d, flags, &amount);
+			if (!(flags & 32))
+				put_sign(value_d, flags, &amount);
+			put_abs(value_d, &amount);
+			str += 1;
 		}	
 		
 		if (*str == 'c')
