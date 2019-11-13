@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/13 15:42:03 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/13 17:28:05 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,21 @@ void	put_abs(int n, int *amount)
 	*amount += 1;
 }
 
+void	put_uabs(unsigned int n, int *amount)
+{
+	if (n < 10)
+	{
+		n = n + 48;
+		write(1, &n, 1);
+		*amount += 1;
+		return ;
+	}
+	put_abs(n / 10, &(*amount));
+	n = (n % 10) + 48;
+	write(1, &n, 1);
+	*amount += 1;
+}
+
 void	put_sign(int value_d, char flags, int *amount)
 {
 	if (value_d < 0)
@@ -85,7 +100,10 @@ void	put_space(int width, int value_d, char flags, int *amount)
 	space = ' ';
 	if (flags & 16 && !(flags & 1))
 		space = '0';
-	len_space = width - len_numb_abc(value_d) - len_sign(value_d, flags);
+	if (!(flags & 32))
+		len_space = width - len_numb_abc(value_d) - len_sign(value_d, flags);
+	if (flags & 32)
+		len_space = width - len_numb_uabc(value_d);
 	i = 0;
 	while (i < len_space)
 	{

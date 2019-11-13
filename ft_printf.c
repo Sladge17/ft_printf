@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/13 15:42:39 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/13 17:11:31 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ int		ft_printf(const char *str, ...)
 			if (!width)
 			{
 				if (!(flags & 32))
+				{
 					put_sign(value_d, flags, &amount);
-				put_abs(value_d, &amount);
+					put_abs(value_d, &amount);
+				}
+				if (flags & 32)
+					put_uabs(value_d, &amount);
 				str += 1;
 				continue ;
 			}
@@ -51,9 +55,16 @@ int		ft_printf(const char *str, ...)
 			if (flags & 1)
 			{
 				if (!(flags & 32))
+				{
 					put_sign(value_d, flags, &amount);
-				put_abs(value_d, &amount);
-				put_space(width, value_d, flags, &amount);
+					put_abs(value_d, &amount);
+					put_space(width, value_d, flags, &amount);
+				}
+				if (flags & 32)
+				{
+					put_uabs(value_d, &amount);
+					put_space(width, value_d, flags, &amount);
+				}
 				str += 1;
 				continue ;
 			}
@@ -61,17 +72,32 @@ int		ft_printf(const char *str, ...)
 			if (flags & 16)
 			{
 				if (!(flags & 32))
+				{
 					put_sign(value_d, flags, &amount);
-				put_space(width, value_d, flags, &amount);
-				put_abs(value_d, &amount);
+					put_space(width, value_d, flags, &amount);
+					put_abs(value_d, &amount);
+				}
+				if (flags & 32)
+				{
+					put_space(width, value_d, flags, &amount);
+					put_uabs(value_d, &amount);
+				}
 				str += 1;
 				continue ;
 			}
 			
-			put_space(width, value_d, flags, &amount);
+			
 			if (!(flags & 32))
+			{
+				put_space(width, value_d, flags, &amount);
 				put_sign(value_d, flags, &amount);
-			put_abs(value_d, &amount);
+				put_abs(value_d, &amount);
+			}
+			if (flags & 32)
+			{
+				put_space(width, value_d, flags, &amount);
+				put_uabs(value_d, &amount);
+			}
 			str += 1;
 		}	
 		

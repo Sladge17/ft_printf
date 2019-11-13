@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/12 13:38:22 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/13 17:24:34 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ char	find_zero(const char **str, char *flags);
 */
 int		def_width(const char **str);
 int		len_numb_abc(int value_d);
+int		len_numb_uabc(unsigned int value_d);
 int		len_sign(int value_d, char flags);
 
 /*
-** put_symbols.c
+** put_symbols.c  <--- 6 functions
 */
 int		put_freesmb(const char **str, int *amount);
 void	put_abs(int n, int *amount);
+void	put_uabs(unsigned int n, int *amount);
 void	put_sign(int value_d, char flags, int *amount);
 void	put_space(int width, int value_d, char flags, int *amount);
 void	ft_putstr(char const *s, int *amount);
