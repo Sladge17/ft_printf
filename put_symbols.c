@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/13 17:28:05 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/13 18:48:38 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	put_uabs(unsigned int n, int *amount)
 		*amount += 1;
 		return ;
 	}
-	put_abs(n / 10, &(*amount));
+	put_uabs(n / 10, &(*amount));
 	n = (n % 10) + 48;
 	write(1, &n, 1);
 	*amount += 1;

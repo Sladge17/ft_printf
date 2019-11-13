@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/13 15:48:27 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/13 18:41:18 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ int		main()
 	printf("->%d\n", rez);
 	printf("---\n");
 	fflush(NULL);
-	rez = ft_printf("Min int %d\n", -2147483648);
+	rez = ft_printf("Min int %u\n", -2147483648);
 	printf("->%d\n", rez);
 	
 	test += 1;
@@ -366,7 +366,6 @@ int		main()
 	rez = ft_printf("%03u\n%03u\n%03u\n", -124, 0, 1258);
 	printf("->%d\n", rez);
 
-	// 11
 	test += 1;
 	printf("\n");
 	printf("test %d  <----------\n", test);
