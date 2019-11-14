@@ -6,11 +6,31 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/13 19:42:04 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/14 20:33:54 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_printf.h"
+
+int		two_inpower(int power)
+{
+	if (power == 0)
+		return (1);
+	if (power == 1)
+		return (2);
+	return (two_inpower(power - 1) * 2);
+}
+
+int		ppower(int number, int power)
+{
+	if (power == 0)
+		return (1);
+	if (number == 0)
+		return (0);
+	if (power == 1)
+		return (number);
+	return (ppower(number, power - 1) * number);
+}
 
 int		ft_printf(const char *str, ...)
 {
@@ -32,10 +52,69 @@ int		ft_printf(const char *str, ...)
 		flags = check_flag(&str);
 		width = def_width(&str);
 
+		
+		
 		if (*str == 'o')
 		{
+			int				len;
+			unsigned int	mask;
+			int		i;
+			int		rez;
+			
 			value_d = va_arg(args, int);
+			len = len_numb_uabc(value_d);
+			printf("\n\nlen = %d\n", len);
+			
+			mask = 1;
+			i = 0;
+			while (!(mask & 2147483648))
+			{
+				if (value_d & mask)
+				{
+					rez = i;
+				}
+				i += 1;
+				mask <<= 1;
+			}
+			if (value_d & mask)
+				{
+					rez = i;
+				}
+			while ((rez + 1) % 3)
+			{
+				rez += 1;
+			}
+			mask = 1;
+			mask <<= rez;
+			printf("\n\nmask = %d\n", mask);
+
+			int		finrez;
+			char	bit;
+			
+			finrez = 0;
+			while (mask)
+			{
+				rez = 0;
+				i = 0;
+				while (i < 3)
+				{
+					if (value_d & mask)
+						rez += two_inpower(2 - i);
+					// bit = value_d & mask ? 1 : 0;
+					// rez = rez + bit * ppower(2, (2 - i));
+					mask >>= 1;
+					i += 1;
+				}
+				finrez = finrez * 10 + rez;
+			}
+			printf("\n\nfinrez =  %d\n", finrez);
+
+			exit (0);
 		}
+
+
+
+		
 		
 		if (*str == 'u')
 			flags |= 32;
