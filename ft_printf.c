@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/15 14:35:01 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/15 18:21:14 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,14 @@ int		ft_printf(const char *str, ...)
 	{
 		if(!put_freesmb(&str, &amount))
 			break ;
+
+		if (*str == 's')
+		{
+			value_s = va_arg(args, char *);
+			ft_putstr(value_s, &amount);
+			str += 1;
+			continue ;
+		}
 		
 		flags = check_flag(&str);
 		width = def_width(&str);
@@ -173,20 +181,12 @@ int		ft_printf(const char *str, ...)
 		
 		if (*str == 'c')
 		{
-			value_d = va_arg(args, int);    // <-  need change
 			write(1, &value_d, 1);
 			str += 1;
 			amount += 1;
 			continue ;
 		}
 			
-		if (*str == 's')
-		{
-			value_s = va_arg(args, char *);    // <-  need change
-			ft_putstr(value_s, &amount);
-			str += 1;
-			continue ;
-		}
 		if (*str == '%')
 		{
 			write(1, "%", 1);
