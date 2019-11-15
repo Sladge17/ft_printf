@@ -6,11 +6,57 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/14 20:33:54 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/15 14:35:01 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
+
+int		binto_oct(int value_d)
+{
+	int		oct;
+	int		bitmask;
+	int		i;
+	int		factor;
+
+	bitmask = 1;
+	bitmask <<= def_bitborder(value_d);
+	oct = 0;
+	while (bitmask)
+	{
+		factor = 0;
+		i = 0;
+		while (i < 3)  // <-- need change for hex
+		{
+			if (value_d & bitmask)
+				factor += two_inpower(2 - i);
+			bitmask >>= 1;
+			i += 1;
+		}
+		oct = oct * 10 + factor;
+	}
+	return (oct);
+}
+
+int		def_bitborder(int value_d)
+{
+	int		bitborder;
+	int		bitmask;
+	int		i;
+
+	bitmask = 1;
+	i = 0;
+	while (i < 32)
+	{
+		if (value_d & bitmask)
+			bitborder = i;
+		i += 1;
+		bitmask <<= 1;
+	}
+	while ((bitborder + 1) % 3)  // <-- need change for hex
+		bitborder += 1;
+	return (bitborder);
+}
 
 int		two_inpower(int power)
 {
@@ -21,15 +67,13 @@ int		two_inpower(int power)
 	return (two_inpower(power - 1) * 2);
 }
 
-int		ppower(int number, int power)
+void	put_prefix(int *amount, int value_d, char flags)
 {
-	if (power == 0)
-		return (1);
-	if (number == 0)
-		return (0);
-	if (power == 1)
-		return (number);
-	return (ppower(number, power - 1) * number);
+	if (value_d && flags & 8)
+	{
+		write(1, "0", 1);
+		*amount += 1;
+	}
 }
 
 int		ft_printf(const char *str, ...)
@@ -52,77 +96,20 @@ int		ft_printf(const char *str, ...)
 		flags = check_flag(&str);
 		width = def_width(&str);
 
-		
+		value_d = va_arg(args, int);
 		
 		if (*str == 'o')
 		{
-			int				len;
-			unsigned int	mask;
-			int		i;
-			int		rez;
-			
-			value_d = va_arg(args, int);
-			len = len_numb_uabc(value_d);
-			printf("\n\nlen = %d\n", len);
-			
-			mask = 1;
-			i = 0;
-			while (!(mask & 2147483648))
-			{
-				if (value_d & mask)
-				{
-					rez = i;
-				}
-				i += 1;
-				mask <<= 1;
-			}
-			if (value_d & mask)
-				{
-					rez = i;
-				}
-			while ((rez + 1) % 3)
-			{
-				rez += 1;
-			}
-			mask = 1;
-			mask <<= rez;
-			printf("\n\nmask = %d\n", mask);
-
-			int		finrez;
-			char	bit;
-			
-			finrez = 0;
-			while (mask)
-			{
-				rez = 0;
-				i = 0;
-				while (i < 3)
-				{
-					if (value_d & mask)
-						rez += two_inpower(2 - i);
-					// bit = value_d & mask ? 1 : 0;
-					// rez = rez + bit * ppower(2, (2 - i));
-					mask >>= 1;
-					i += 1;
-				}
-				finrez = finrez * 10 + rez;
-			}
-			printf("\n\nfinrez =  %d\n", finrez);
-
-			exit (0);
+			value_d =binto_oct(value_d);
+			flags |= 32;
+			put_prefix(&amount, value_d, flags);
 		}
-
-
-
-		
 		
 		if (*str == 'u')
 			flags |= 32;
 
-		if (*str == 'd' || *str == 'i' || *str == 'u')
+		if (*str == 'd' || *str == 'i' || flags & 32)
 		{		
-			value_d = va_arg(args, int);
-			
 			if (!width)
 			{
 				if (!(flags & 32))
@@ -170,7 +157,6 @@ int		ft_printf(const char *str, ...)
 				continue ;
 			}
 			
-			
 			if (!(flags & 32))
 			{
 				put_space(width, value_d, flags, &amount);
@@ -187,7 +173,7 @@ int		ft_printf(const char *str, ...)
 		
 		if (*str == 'c')
 		{
-			value_d = va_arg(args, int);
+			value_d = va_arg(args, int);    // <-  need change
 			write(1, &value_d, 1);
 			str += 1;
 			amount += 1;
@@ -196,7 +182,7 @@ int		ft_printf(const char *str, ...)
 			
 		if (*str == 's')
 		{
-			value_s = va_arg(args, char *);
+			value_s = va_arg(args, char *);    // <-  need change
 			ft_putstr(value_s, &amount);
 			str += 1;
 			continue ;

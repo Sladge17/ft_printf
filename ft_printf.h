@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/14 20:13:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/15 14:26:24 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 /*
 ** ft_printf.c
 */
-
+int		binto_oct(int value_d);
+int		def_bitborder(int value_d);
+int		two_inpower(int power);
 
 /*
 ** check_flag.c
