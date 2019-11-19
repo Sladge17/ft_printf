@@ -6,66 +6,11 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/19 17:29:36 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/19 18:47:45 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int		binto_oct(int value_d)
-{
-	int		oct;
-	int		bitmask;
-	int		i;
-	int		factor;
-
-	bitmask = 1;
-	bitmask <<= def_bitborder(value_d);
-	oct = 0;
-	while (bitmask)
-	{
-		factor = 0;
-		i = 0;
-		while (i < 3)  // <-- need change for hex
-		{
-			if (value_d & bitmask)
-				factor += two_inpower(2 - i);
-			bitmask >>= 1;
-			i += 1;
-		}
-		oct = oct * 10 + factor;
-	}
-	return (oct);
-}
-
-int		def_bitborder(int value_d)
-{
-	int		bitborder;
-	int		bitmask;
-	int		i;
-
-	bitmask = 1;
-	i = 0;
-	while (i < 32)
-	{
-		if (value_d & bitmask)
-			bitborder = i;
-		i += 1;
-		bitmask <<= 1;
-	}
-	while ((bitborder + 1) % 3)  // <-- need change for hex
-		bitborder += 1;
-	return (bitborder);
-}
-
-int		two_inpower(int power)
-{
-	if (power == 0)
-		return (1);
-	if (power == 1)
-		return (2);
-	return (two_inpower(power - 1) * 2);
-}
 
 void	put_prefix(int *amount, int value_d, char flags)
 {

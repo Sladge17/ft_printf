@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/19 18:38:56 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/19 18:46:15 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@
 /*
 ** ft_printf.c
 */
-int		binto_oct(int value_d);
-int		def_bitborder(int value_d);
-int		two_inpower(int power);
+void	put_prefix(int *amount, int value_d, char flags);
 
 /*
 ** check_flag.c
@@ -47,6 +45,13 @@ int		len_numb_abc(int value_d);
 int		len_numb_uabc(unsigned int value_d);
 int		len_sign(int value_d, char flags);
 int		len_str(const char *str);
+
+/*
+** conversion.c
+*/
+int		binto_oct(int value_d);
+int		def_bitborder(int value_d);
+int		two_inpower(int power);
 
 /*
 ** put_symbols.c  <--- 7 functions
