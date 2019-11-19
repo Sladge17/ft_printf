@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/19 19:59:42 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/19 20:24:20 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ int		ft_printf(const char *str, ...)
 		if (*str == 's')
 		{
 			value_s = va_arg(args, char *);
+			if (!value_s)
+			{
+				write(1, "(null)", 6);
+				amount += 6;
+				str += 1;
+				continue ;
+			}
 			ft_putstr(value_s, &amount);
 			str += 1;
 			continue ;
@@ -122,6 +129,7 @@ int		ft_printf(const char *str, ...)
 				put_uabs(value_d, &amount);
 			}
 			str += 1;
+			continue ;
 		}	
 		
 		if (*str == 'c')
@@ -142,23 +150,19 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		}
 			
-		// if (*str != '\0')
-		// {
-			if (width)
+		if (width)
+		{
+			if (flags & 1)
 			{
-				if (flags & 1)
-				{
-					put_char(*str, &str, &amount);
-					put_space(width, 1, flags, &amount);
-					continue ;
-				}
-				put_space(width, 1, flags, &amount);
 				put_char(*str, &str, &amount);
+				put_space(width, 1, flags, &amount);
 				continue ;
 			}
+			put_space(width, 1, flags, &amount);
 			put_char(*str, &str, &amount);
 			continue ;
-		// }
+		}
+		put_char(*str, &str, &amount);
 	}
 	va_end(args);
 	return (amount);
