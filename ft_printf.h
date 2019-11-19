@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/15 14:26:24 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/19 18:38:56 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ int		def_width(const char **str);
 int		len_numb_abc(int value_d);
 int		len_numb_uabc(unsigned int value_d);
 int		len_sign(int value_d, char flags);
+int		len_str(const char *str);
 
 /*
-** put_symbols.c  <--- 6 functions
+** put_symbols.c  <--- 7 functions
 */
+void	put_char(char symbol, const char **str, int *amount);
 int		put_freesmb(const char **str, int *amount);
 void	put_abs(int n, int *amount);
 void	put_uabs(unsigned int n, int *amount);

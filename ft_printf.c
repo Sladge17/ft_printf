@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/15 18:21:14 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/19 17:29:36 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ int		ft_printf(const char *str, ...)
 	{
 		if(!put_freesmb(&str, &amount))
 			break ;
+			
+		flags = check_flag(&str);
+		width = def_width(&str);
 
 		if (*str == 's')
 		{
@@ -100,9 +103,6 @@ int		ft_printf(const char *str, ...)
 			str += 1;
 			continue ;
 		}
-		
-		flags = check_flag(&str);
-		width = def_width(&str);
 
 		value_d = va_arg(args, int);
 		
@@ -181,17 +181,37 @@ int		ft_printf(const char *str, ...)
 		
 		if (*str == 'c')
 		{
-			write(1, &value_d, 1);
-			str += 1;
-			amount += 1;
+			if (width)
+			{
+				if (flags & 1)
+				{
+					put_char(value_d, &str, &amount);
+					put_space(width, 1, flags, &amount);
+					continue ;
+				}
+				put_space(width, 1, flags, &amount);
+				put_char(value_d, &str, &amount);
+				continue ;
+			}
+			put_char(value_d, &str, &amount);
 			continue ;
 		}
 			
-		if (*str == '%')
+		if (*str != '\0')
 		{
-			write(1, "%", 1);
-			str += 1;
-			amount += 1;
+			if (width)
+			{
+				if (flags & 1)
+				{
+					put_char(*str, &str, &amount);
+					put_space(width, 1, flags, &amount);
+					continue ;
+				}
+				put_space(width, 1, flags, &amount);
+				put_char(*str, &str, &amount);
+				continue ;
+			}
+			put_char(*str, &str, &amount);
 			continue ;
 		}
 	}

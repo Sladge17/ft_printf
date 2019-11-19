@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/14 20:13:52 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/19 18:38:47 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,14 @@ int		len_sign(int value_d, char flags)
 	if (flags & 2 || flags & 4)
 		return (1);
 	return (0);
+}
+
+int		len_str(const char *str)
+{
+	int		len;
+
+	len = 0;
+	while (str[len] != '\0')
+		len += 1;
+	return (len);
 }
