@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/19 18:38:38 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/19 19:39:30 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		put_freesmb(const char **str, int *amount)
 		if (**str == '\0')
 			return (0);
 		put_char(**str, &(*str), &(*amount));
-		continue ;
 	}
 	*str += 1;
 	return (1);

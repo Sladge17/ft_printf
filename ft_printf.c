@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/19 18:47:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/19 19:59:42 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		}
 			
-		if (*str != '\0')
-		{
+		// if (*str != '\0')
+		// {
 			if (width)
 			{
 				if (flags & 1)
@@ -158,7 +158,7 @@ int		ft_printf(const char *str, ...)
 			}
 			put_char(*str, &str, &amount);
 			continue ;
-		}
+		// }
 	}
 	va_end(args);
 	return (amount);
