@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/20 17:24:46 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/20 18:15:32 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		main()
 	char	c;
 	char	*name;
 	int		numb;
-	int		amount_std;
-	int		amount_cst;
+	// int		amount_std;
+	// int		amount_cst;
 
 	c = 'w';
 	name = "School";
