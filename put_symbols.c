@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/20 15:20:00 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/20 17:50:58 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,29 +94,6 @@ void	put_sign(int value_d, char flags, int *amount)
 		return ;
 	}
 }
-
-// void	put_space(int width, int value_d, char flags, int *amount)
-// {
-// 	int		len_space;
-// 	char	space;
-// 	int		i;
-
-// 	space = ' ';
-// 	if (flags & 16 && !(flags & 1))
-// 		space = '0';
-// 	if (!(flags & 32))
-// 		// len_space = width - len_numb_abc(value_d) - len_sign(value_d, flags);
-// 		len_space = width - len_numb(value_d, len_sign(value_d, flags));
-// 	if (flags & 32)
-// 		len_space = width - len_unumb(value_d);
-// 	i = 0;
-// 	while (i < len_space)
-// 	{
-// 		write(1, &space, 1);
-// 		*amount += 1;
-// 		i += 1;
-// 	}
-// }
 
 void	put_space(int len_space, char flags, int *amount)
 {

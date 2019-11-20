@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/20 15:26:30 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/20 17:52:44 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,11 @@ char	find_zero(const char **str, char *flags);
 ** def_lengths.c
 */
 int		def_width(const char **str);
-// int		len_numb_abc(int value_d);
 int		len_numb(int value_d, char len_sign);
 int		len_unumb(unsigned int value_d);
-// int		len_sign(int value_d, char flags);
 char	len_sign(int value_d, char flags);
 int		len_str(const char *str);
-// int		len_space(char flags, int width, int len_symbols, int len_sign);
-int		len_space(int width, int len_symbols);
+int		len_space(int width, const char **str, void *value, char flags);
 
 /*
 ** conversion.c
@@ -65,7 +62,6 @@ int		put_freesmb(const char **str, int *amount);
 void	put_abs(int n, int *amount);
 void	put_uabs(unsigned int n, int *amount);
 void	put_sign(int value_d, char flags, int *amount);
-// void	put_space(int width, int value_d, char flags, int *amount);
 void	put_space(int len_space, char flags, int *amount);
 void	ft_putstr(char const *s, int *amount);
 
