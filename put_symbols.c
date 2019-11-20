@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/19 19:39:30 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/20 15:19:22 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,10 @@ void	put_space(int width, int value_d, char flags, int *amount)
 	if (flags & 16 && !(flags & 1))
 		space = '0';
 	if (!(flags & 32))
-		len_space = width - len_numb_abc(value_d) - len_sign(value_d, flags);
+		// len_space = width - len_numb_abc(value_d) - len_sign(value_d, flags);
+		len_space = width - len_numb(value_d, len_sign(value_d, flags));
 	if (flags & 32)
-		len_space = width - len_numb_uabc(value_d);
+		len_space = width - len_unumb(value_d);
 	i = 0;
 	while (i < len_space)
 	{
@@ -116,6 +117,23 @@ void	put_space(int width, int value_d, char flags, int *amount)
 		i += 1;
 	}
 }
+
+// void	put_space(int len_space, char flags, int *amount)
+// {
+// 	char	space;
+// 	int		i;
+
+// 	space = ' ';
+// 	if (flags & 16 && !(flags & 1))
+// 		space = '0';
+// 	i = 0;
+// 	while (i < len_space)
+// 	{
+// 		write(1, &space, 1);
+// 		*amount += 1;
+// 		i += 1;
+// 	}
+// }
 
 void	ft_putstr(char const *s, int *amount)
 {

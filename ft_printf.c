@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/19 20:24:20 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/20 13:53:37 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		ft_printf(const char *str, ...)
 		if (*str == 's')
 		{
 			value_s = va_arg(args, char *);
+			flags |= 32;
 			if (!value_s)
 			{
 				write(1, "(null)", 6);
@@ -51,6 +52,19 @@ int		ft_printf(const char *str, ...)
 				str += 1;
 				continue ;
 			}
+			// if (width)
+			// {
+			// 	if (flags & 1)
+			// 	{
+			// 		ft_putstr(value_s, &amount);
+			// 		put_space(width, 1, flags, &amount);
+			// 		continue ;
+			// 	}
+			// 	put_space(width, 1, flags, &amount);
+			// 	ft_putstr(value_s, &amount);
+			// 	continue ;
+			// }
+			
 			ft_putstr(value_s, &amount);
 			str += 1;
 			continue ;

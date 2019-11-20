@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/19 18:38:47 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/20 14:19:05 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		def_width(const char **str)
 	return (width);
 }
 
-int		len_numb_abc(int value_d)
+int		len_numb(int value_d, char len_sign)
 {
 	int		len;
 
@@ -36,10 +36,10 @@ int		len_numb_abc(int value_d)
 		value_d /= 10;
 		len += 1;
 	}
-	return (len);
+	return (len + len_sign);
 }
 
-int		len_numb_uabc(unsigned int value_d)
+int		len_unumb(unsigned int value_d)
 {
 	int		len;
 
@@ -52,7 +52,16 @@ int		len_numb_uabc(unsigned int value_d)
 	return (len);
 }
 
-int		len_sign(int value_d, char flags)
+// int		len_sign(int value_d, char flags)
+// {
+// 	if (value_d < 0)
+// 		return (1);
+// 	if (flags & 2 || flags & 4)
+// 		return (1);
+// 	return (0);
+// }
+
+char	len_sign(int value_d, char flags)
 {
 	if (value_d < 0)
 		return (1);
@@ -69,4 +78,15 @@ int		len_str(const char *str)
 	while (str[len] != '\0')
 		len += 1;
 	return (len);
+}
+
+int		len_space(char flags, int width, int len_symbols, int len_sign)
+{
+	int		len_space;
+	
+	if (!(flags & 32))
+		len_space = width - len_symbols - len_sign;
+	if (flags & 32)
+		len_space = width - len_sign;
+	return (len_space);
 }
