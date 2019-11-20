@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/20 18:25:47 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/20 20:48:33 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@ void	put_prefix(int *amount, int value_d, char flags)
 	}
 }
 
+void	*def_type(const char **str, va_list *args)
+{	
+	if (**str == 's')
+	{
+		return (va_arg(*args, char *));
+		// value = va_arg(*args, char *);
+		// return (value);
+	}
+	return (va_arg(*args, int *));
+}
+
 int		ft_printf(const char *str, ...)
 {
 	int		amount;
@@ -28,8 +39,9 @@ int		ft_printf(const char *str, ...)
 	char	flags;
 	int		width;
 	
-	int		value_d;
-	char	*value_s;
+	// void	*value;
+	void	*value_d;
+	// char	*value_s;
 	
 	amount = 0;
 	va_start(args, str);
@@ -40,11 +52,14 @@ int		ft_printf(const char *str, ...)
 			
 		flags = check_flag(&str);
 		width = def_width(&str);
+		value_d = def_type(&str, &args);
 
 		if (*str == 's')
 		{
-			value_s = va_arg(args, char *);
-			if (!value_s)
+			// value_s = va_arg(args, char *);
+			// value = def_type(&str, &args);
+			// if (!value_s)
+			if (!value_d)
 			{
 				write(1, "(null)", 6);
 				amount += 6;
@@ -55,22 +70,27 @@ int		ft_printf(const char *str, ...)
 			{
 				if (flags & 1)
 				{
-					ft_putstr(value_s, &amount);
-					put_space(len_space(width, &str, value_s, flags), flags, &amount);
+					// ft_putstr(value_s, &amount);
+					ft_putstr(value_d, &amount);
+					// put_space(len_space(width, &str, value_s, flags), flags, &amount);
+					put_space(len_space(width, &str, value_d, flags), flags, &amount);
 					continue ;
 				}
-				put_space(len_space(width, &str, value_s, flags), flags, &amount);
-				ft_putstr(value_s,&amount);
+				// put_space(len_space(width, &str, value_s, flags), flags, &amount);
+				put_space(len_space(width, &str, value_d, flags), flags, &amount);
+				// ft_putstr(value_s,&amount);
+				ft_putstr(value_d, &amount);
 				str += 1;
 				continue ;
 			}
 			
-			ft_putstr(value_s, &amount);
+			// ft_putstr(value_s, &amount);
+			ft_putstr(value_d, &amount);
 			str += 1;
 			continue ;
 		}
 
-		value_d = va_arg(args, int);
+		// value_d = va_arg(args, int);
 		
 		if (*str == 'o')
 		{
