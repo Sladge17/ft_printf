@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/21 18:45:20 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/21 19:04:21 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ int		ft_printf(const char *str, ...)
 			{
 				if (flags & 1)
 				{
-					ft_putstr(value, &amount);
+					put_str(value, &amount);
 					put_space(len_space(width, &str, value, flags), flags, &amount);
 					continue ;
 				}
 				put_space(len_space(width, &str, value, flags), flags, &amount);
-				ft_putstr(value, &amount);
+				put_str(value, &amount);
 				str += 1;
 				continue ;
 			}
-			ft_putstr(value, &amount);
+			put_str(value, &amount);
 			str += 1;
 			continue ;
 		}

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/21 17:57:04 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/21 19:03:28 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	put_abs(int value, char flags, int *amount);
 void	put_uabs(unsigned int value, char flags, int *amount);
 void	put_sign(int value, char flags, int *amount);
 void	put_space(int len_space, char flags, int *amount);
-void	ft_putstr(char const *s, int *amount);
+void	put_str(char const *str, int *amount);
 
 
 #endif
