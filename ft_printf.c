@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/20 20:48:33 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/21 13:36:55 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,13 @@ void	put_prefix(int *amount, int value_d, char flags)
 	}
 }
 
-void	*def_type(const char **str, va_list *args)
-{	
-	if (**str == 's')
-	{
-		return (va_arg(*args, char *));
-		// value = va_arg(*args, char *);
-		// return (value);
-	}
-	return (va_arg(*args, int *));
-}
-
 int		ft_printf(const char *str, ...)
 {
 	int		amount;
 	va_list	args;
 	char	flags;
 	int		width;
-	
-	// void	*value;
-	void	*value_d;
-	// char	*value_s;
+	void	*value;
 	
 	amount = 0;
 	va_start(args, str);
@@ -50,16 +36,13 @@ int		ft_printf(const char *str, ...)
 		if(!put_freesmb(&str, &amount))
 			break ;
 			
-		flags = check_flag(&str);
+		flags = check_flags(&str);
 		width = def_width(&str);
-		value_d = def_type(&str, &args);
+		value = va_arg(args, void *);
 
 		if (*str == 's')
 		{
-			// value_s = va_arg(args, char *);
-			// value = def_type(&str, &args);
-			// if (!value_s)
-			if (!value_d)
+			if (!value)
 			{
 				write(1, "(null)", 6);
 				amount += 6;
@@ -70,33 +53,25 @@ int		ft_printf(const char *str, ...)
 			{
 				if (flags & 1)
 				{
-					// ft_putstr(value_s, &amount);
-					ft_putstr(value_d, &amount);
-					// put_space(len_space(width, &str, value_s, flags), flags, &amount);
-					put_space(len_space(width, &str, value_d, flags), flags, &amount);
+					ft_putstr(value, &amount);
+					put_space(len_space(width, &str, value, flags), flags, &amount);
 					continue ;
 				}
-				// put_space(len_space(width, &str, value_s, flags), flags, &amount);
-				put_space(len_space(width, &str, value_d, flags), flags, &amount);
-				// ft_putstr(value_s,&amount);
-				ft_putstr(value_d, &amount);
+				put_space(len_space(width, &str, value, flags), flags, &amount);
+				ft_putstr(value, &amount);
 				str += 1;
 				continue ;
 			}
-			
-			// ft_putstr(value_s, &amount);
-			ft_putstr(value_d, &amount);
+			ft_putstr(value, &amount);
 			str += 1;
 			continue ;
 		}
-
-		// value_d = va_arg(args, int);
 		
 		if (*str == 'o')
 		{
-			value_d =binto_oct(value_d);
+			value =binto_oct((int)value);
 			flags |= 32;
-			put_prefix(&amount, value_d, flags);
+			put_prefix(&amount, (int)value, flags);
 		}
 		
 		if (*str == 'u')
@@ -108,11 +83,11 @@ int		ft_printf(const char *str, ...)
 			{
 				if (!(flags & 32))
 				{
-					put_sign(value_d, flags, &amount);
-					put_abs(value_d, &amount);
+					put_sign((int)value, flags, &amount);
+					put_abs((int)value, &amount);
 				}
 				if (flags & 32)
-					put_uabs(value_d, &amount);
+					put_uabs((int)value, &amount);
 				str += 1;
 				continue ;
 			}
@@ -121,14 +96,14 @@ int		ft_printf(const char *str, ...)
 			{
 				if (!(flags & 32))
 				{
-					put_sign(value_d, flags, &amount);
-					put_abs(value_d, &amount);
-					put_space(len_space(width, &str, &value_d, flags), flags, &amount);
+					put_sign((int)value, flags, &amount);
+					put_abs((int)value, &amount);
+					put_space(len_space(width, &str, &value, flags), flags, &amount);
 				}
 				if (flags & 32)
 				{
-					put_uabs(value_d, &amount);
-					put_space(len_space(width, &str, &value_d, flags), flags, &amount);
+					put_uabs((int)value, &amount);
+					put_space(len_space(width, &str, &value, flags), flags, &amount);
 				}
 				str += 1;
 				continue ;
@@ -138,14 +113,14 @@ int		ft_printf(const char *str, ...)
 			{
 				if (!(flags & 32))
 				{
-					put_sign(value_d, flags, &amount);
-					put_space(len_space(width, &str, &value_d, flags), flags, &amount);
-					put_abs(value_d, &amount);
+					put_sign((int)value, flags, &amount);
+					put_space(len_space(width, &str, &value, flags), flags, &amount);
+					put_abs((int)value, &amount);
 				}
 				if (flags & 32)
 				{
-					put_space(len_space(width, &str, &value_d, flags), flags, &amount);
-					put_uabs(value_d, &amount);
+					put_space(len_space(width, &str, &value, flags), flags, &amount);
+					put_uabs((int)value, &amount);
 				}
 				str += 1;
 				continue ;
@@ -153,14 +128,14 @@ int		ft_printf(const char *str, ...)
 			
 			if (!(flags & 32))
 			{
-				put_space(len_space(width, &str, &value_d, flags), flags, &amount);
-				put_sign(value_d, flags, &amount);
-				put_abs(value_d, &amount);
+				put_space(len_space(width, &str, &value, flags), flags, &amount);
+				put_sign((int)value, flags, &amount);
+				put_abs((int)value, &amount);
 			}
 			if (flags & 32)
 			{
-				put_space(len_space(width, &str, &value_d, flags), flags, &amount);
-				put_uabs(value_d, &amount);
+				put_space(len_space(width, &str, &value, flags), flags, &amount);
+				put_uabs((int)value, &amount);
 			}
 			str += 1;
 			continue ;
@@ -172,15 +147,15 @@ int		ft_printf(const char *str, ...)
 			{
 				if (flags & 1)
 				{
-					put_char(value_d, &str, &amount);
-					put_space(len_space(width, &str, &value_d, flags), flags, &amount);
+					put_char((char)value, &str, &amount);
+					put_space(len_space(width, &str, &value, flags), flags, &amount);
 					continue ;
 				}
-				put_space(len_space(width, &str, &value_d, flags), flags, &amount);
-				put_char(value_d, &str, &amount);
+				put_space(len_space(width, &str, &value, flags), flags, &amount);
+				put_char((char)value, &str, &amount);
 				continue ;
 			}
-			put_char(value_d, &str, &amount);
+			put_char((char)value, &str, &amount);
 			continue ;
 		}
 			
@@ -189,10 +164,10 @@ int		ft_printf(const char *str, ...)
 			if (flags & 1)
 			{
 				put_char(*str, &str, &amount);
-				put_space(len_space(width, &str, &value_d, flags), flags, &amount);
+				put_space(len_space(width, &str, &value, flags), flags, &amount);
 				continue ;
 			}
-			put_space(len_space(width, &str, &value_d, flags), flags, &amount);
+			put_space(len_space(width, &str, &value, flags), flags, &amount);
 			put_char(*str, &str, &amount);
 			continue ;
 		}

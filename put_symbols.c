@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/20 17:50:58 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/21 12:38:49 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	put_uabs(unsigned int n, int *amount)
 	*amount += 1;
 }
 
-void	put_sign(int value_d, char flags, int *amount)
+void	put_sign(int value, char flags, int *amount)
 {
-	if (value_d < 0)
+	if (value < 0)
 	{
 		write(1, "-", 1);
 		*amount += 1;

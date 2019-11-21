@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/20 21:00:57 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/21 12:38:49 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		binto_oct(int value_d)
+int		binto_oct(int value)
 {
 	int		oct;
 	int		bitmask;
@@ -20,7 +20,7 @@ int		binto_oct(int value_d)
 	int		factor;
 
 	bitmask = 1;
-	bitmask <<= def_bitborder(value_d);
+	bitmask <<= def_bitborder(value);
 	oct = 0;
 	while (bitmask)
 	{
@@ -28,7 +28,7 @@ int		binto_oct(int value_d)
 		i = 0;
 		while (i < 3)  // <-- need change for hex
 		{
-			if (value_d & bitmask)
+			if (value & bitmask)
 				factor += two_inpower(2 - i);
 			bitmask >>= 1;
 			i += 1;
@@ -38,7 +38,7 @@ int		binto_oct(int value_d)
 	return (oct);
 }
 
-int		def_bitborder(int value_d)
+int		def_bitborder(int value)
 {
 	int		bitborder;
 	int		bitmask;
@@ -48,7 +48,7 @@ int		def_bitborder(int value_d)
 	i = 0;
 	while (i < 32)
 	{
-		if (value_d & bitmask)
+		if (value & bitmask)
 			bitborder = i;
 		i += 1;
 		bitmask <<= 1;

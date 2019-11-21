@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_flag.c                                       :+:      :+:    :+:   */
+/*   def_params.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 15:35:42 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/12 19:24:16 by jthuy            ###   ########.fr       */
+/*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
+/*   Updated: 2019/11/21 12:27:10 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	check_flag(const char **str)
+char	check_flags(const char **str)
 {
 	char	flags;
 
@@ -32,4 +32,17 @@ char	check_flag(const char **str)
 		break ;
 	}
 	return (flags);
+}
+
+int		def_width(const char **str)
+{
+	int		width;
+
+	width = 0;
+	while ('0' <= **str && **str <= '9')
+	{
+		width = width * 10 + (**str - '0');
+		*str += 1;
+	}
+	return (width);
 }
