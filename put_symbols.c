@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/21 12:38:49 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/21 18:38:50 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,67 +31,76 @@ int		put_freesmb(const char **str, int *amount)
 	return (1);
 }
 
-void	put_abs(int n, int *amount)
+void	put_abs(int value, char flags, int *amount)
 {
-	if (n == -2147483648)
+	if (!(flags & 32))
 	{
-		write(1, "2", 1);
+		if (value == -2147483648)
+		{
+			write(1, "2", 1);
+			*amount += 1;
+			put_abs(147483648, flags, &(*amount));
+			return ;
+		}
+		if (value < 0)
+		{
+			put_abs((-1) * value, flags, &(*amount));
+			return ;
+		}
+		if (value < 10)
+		{
+			value = value + 48;
+			write(1, &value, 1);
+			*amount += 1;
+			return ;
+		}
+		put_abs(value / 10, flags, &(*amount));
+		value = (value % 10) + 48;
+		write(1, &value, 1);
 		*amount += 1;
-		put_abs(147483648, &(*amount));
-		return ;
 	}
-	if (n < 0)
-	{
-		put_abs((-1) * n, &(*amount));
-		return ;
-	}
-	if (n < 10)
-	{
-		n = n + 48;
-		write(1, &n, 1);
-		*amount += 1;
-		return ;
-	}
-	put_abs(n / 10, &(*amount));
-	n = (n % 10) + 48;
-	write(1, &n, 1);
-	*amount += 1;
 }
 
-void	put_uabs(unsigned int n, int *amount)
+void	put_uabs(unsigned int value, char flags, int *amount)
 {
-	if (n < 10)
+	if (flags & 32)
 	{
-		n = n + 48;
-		write(1, &n, 1);
+		if (value < 10)
+		{
+			value = value + 48;
+			write(1, &value, 1);
+			*amount += 1;
+			return ;
+		}
+		put_uabs(value / 10, flags, &(*amount));
+		value = (value % 10) + 48;
+		write(1, &value, 1);
 		*amount += 1;
-		return ;
 	}
-	put_uabs(n / 10, &(*amount));
-	n = (n % 10) + 48;
-	write(1, &n, 1);
-	*amount += 1;
 }
 
 void	put_sign(int value, char flags, int *amount)
 {
-	if (value < 0)
+	if (!(flags & 32))
 	{
-		write(1, "-", 1);
-		*amount += 1;
-		return ;
-	}
-	if (flags & 2)
-	{
-		write(1, "+", 1);
-		*amount += 1;
-		return ;
-	}
-	if (flags & 4)
-	{
-		write(1, " ", 1);
-		*amount += 1;
-		return ;
+		if (value < 0)
+		{
+			write(1, "-", 1);
+			*amount += 1;
+			return ;
+		}
+		if (flags & 2)
+		{
+			write(1, "+", 1);
+			*amount += 1;
+			return ;
+		}
+		if (flags & 4)
+		{
+			write(1, " ", 1);
+			*amount += 1;
+			return ;
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/21 12:53:24 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/21 17:24:33 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int		len_space(int width, const char **str, void *value, char flags)
 		len_symbols = len_unumb(*(int *)value);
 	if (**str == 's')
 		len_symbols = len_str((char *)value);
+	if (**str == 'o' && flags & 8)
+		len_symbols += 1;
 	len_space = width - len_symbols;
 	return (len_space);
 }
