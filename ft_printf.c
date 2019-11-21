@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/21 19:04:21 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/21 20:12:45 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,22 @@ int		ft_printf(const char *str, ...)
 		
 		if (*str == 'u')
 			flags |= 32;
+
+		// if (*str == 'd' || *str == 'i' || flags & 32)
+		// {	
+		// 	if (width && !(flags & 17))                                      <------ NEED DEFINE
+		// 		put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 	put_sign((int)value, flags, &amount);
+		// 	if (width && flags & 16)
+		// 		put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 	put_abs((int)value, flags, &amount);
+		// 	put_prefix((int)value, flags, &amount);
+		// 	put_uabs((int)value, flags, &amount);
+		// 	if (width && flags & 1)
+		// 		put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 	str += 1;
+		// 	continue ;
+		// }
 
 		if (*str == 'd' || *str == 'i' || flags & 32)
 		{		
