@@ -6,23 +6,11 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/21 20:12:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/22 12:44:14 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	put_prefix(int value, char flags, int *amount)
-{
-	if (flags & 32)
-	{
-		if (flags & 8)
-		{
-			write(1, "0", 1);
-			*amount += 1;
-		}
-	}
-}
 
 int		ft_printf(const char *str, ...)
 {
@@ -47,8 +35,7 @@ int		ft_printf(const char *str, ...)
 		{
 			if (!value)
 			{
-				write(1, "(null)", 6);
-				amount += 6;
+				put_str( "(null)", &amount);
 				str += 1;
 				continue ;
 			}
@@ -79,123 +66,123 @@ int		ft_printf(const char *str, ...)
 		if (*str == 'u')
 			flags |= 32;
 
-		// if (*str == 'd' || *str == 'i' || flags & 32)
-		// {	
-		// 	if (width && !(flags & 17))                                      <------ NEED DEFINE
-		// 		put_space(len_space(width, &str, &value, flags), flags, &amount);
-		// 	put_sign((int)value, flags, &amount);
-		// 	if (width && flags & 16)
-		// 		put_space(len_space(width, &str, &value, flags), flags, &amount);
-		// 	put_abs((int)value, flags, &amount);
-		// 	put_prefix((int)value, flags, &amount);
-		// 	put_uabs((int)value, flags, &amount);
-		// 	if (width && flags & 1)
-		// 		put_space(len_space(width, &str, &value, flags), flags, &amount);
-		// 	str += 1;
-		// 	continue ;
-		// }
-
 		if (*str == 'd' || *str == 'i' || flags & 32)
-		{		
-			if (!width)
-			{
-				put_sign((int)value, flags, &amount);
-				put_abs((int)value, flags, &amount);
-				put_prefix((int)value, flags, &amount);
-				put_uabs((int)value, flags, &amount);
-				// if (!(flags & 32))
-				// {
-				// 	put_sign((int)value, flags, &amount);
-				// 	// put_abs((int)value, &amount);
-				// 	put_abs((int)value, flags, &amount);
-				// }
-				// if (flags & 32)
-				// {
-				// 	// put_prefix(&amount, flags);
-				// 	// put_uabs((int)value, &amount);
-				// 	put_prefix((int)value, flags, &amount);
-				// 	put_uabs((int)value, flags, &amount);
-				// }
-				str += 1;
-				continue ;
-			}
-
-			if (flags & 1)
-			{
-				// if (!(flags & 32))
-				// {
-				// 	put_sign((int)value, flags, &amount);
-				// 	// put_abs((int)value, &amount);
-				// 	put_abs((int)value, flags, &amount);
-				// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
-				// }
-				// if (flags & 32)
-				// {
-				// 	// put_prefix(&amount, flags);
-				// 	// put_uabs((int)value, &amount);
-				// 	put_prefix((int)value, flags, &amount);
-				// 	put_uabs((int)value, flags, &amount);
-				// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
-				// }
-				put_sign((int)value, flags, &amount);
-				put_abs((int)value, flags, &amount);
-				put_prefix((int)value, flags, &amount);
-				put_uabs((int)value, flags, &amount);
+		{	
+			if (width && !(flags & 17))
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
-				str += 1;
-				continue ;
-			}
-				
-			if (flags & 16)
-			{
-				// if (!(flags & 32))
-				// {
-				// 	put_sign((int)value, flags, &amount);
-				// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
-				// 	// put_abs((int)value, &amount);
-				// 	put_abs((int)value, flags, &amount);
-				// }
-				// if (flags & 32)
-				// {
-				// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
-				// 	// put_prefix(&amount, flags);
-				// 	// put_uabs((int)value, &amount);
-				// 	put_prefix((int)value, flags, &amount);
-				// 	put_uabs((int)value, flags, &amount);
-				// }
-				put_sign((int)value, flags, &amount);
-				put_space(len_space(width, &str, &value, flags), flags, &amount);
-				put_abs((int)value, flags, &amount);
-				put_prefix((int)value, flags, &amount);
-				put_uabs((int)value, flags, &amount);
-				str += 1;
-				continue ;
-			}
-			
-			// if (!(flags & 32))
-			// {
-			// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
-			// 	put_sign((int)value, flags, &amount);
-			// 	// put_abs((int)value, &amount);
-			// 	put_abs((int)value, flags, &amount);
-			// }
-			// if (flags & 32)
-			// {
-			// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
-			// 	// put_prefix(&amount, flags);
-			// 	// put_uabs((int)value, &amount);
-			// 	put_prefix((int)value, flags, &amount);
-			// 	put_uabs((int)value, flags, &amount);
-				
-			// }
-			put_space(len_space(width, &str, &value, flags), flags, &amount);
 			put_sign((int)value, flags, &amount);
+			if (width && flags & 16 && !(flags & 1))
+				put_space(len_space(width, &str, &value, flags), flags, &amount);
 			put_abs((int)value, flags, &amount);
 			put_prefix((int)value, flags, &amount);
 			put_uabs((int)value, flags, &amount);
+			if (width && flags & 1)
+				put_space(len_space(width, &str, &value, flags), flags, &amount);
 			str += 1;
 			continue ;
-		}	
+		}
+
+		// if (*str == 'd' || *str == 'i' || flags & 32)
+		// {		
+		// 	if (!width)
+		// 	{
+		// 		put_sign((int)value, flags, &amount);
+		// 		put_abs((int)value, flags, &amount);
+		// 		put_prefix((int)value, flags, &amount);
+		// 		put_uabs((int)value, flags, &amount);
+		// 		// if (!(flags & 32))
+		// 		// {
+		// 		// 	put_sign((int)value, flags, &amount);
+		// 		// 	// put_abs((int)value, &amount);
+		// 		// 	put_abs((int)value, flags, &amount);
+		// 		// }
+		// 		// if (flags & 32)
+		// 		// {
+		// 		// 	// put_prefix(&amount, flags);
+		// 		// 	// put_uabs((int)value, &amount);
+		// 		// 	put_prefix((int)value, flags, &amount);
+		// 		// 	put_uabs((int)value, flags, &amount);
+		// 		// }
+		// 		str += 1;
+		// 		continue ;
+		// 	}
+
+		// 	if (flags & 1)
+		// 	{
+		// 		// if (!(flags & 32))
+		// 		// {
+		// 		// 	put_sign((int)value, flags, &amount);
+		// 		// 	// put_abs((int)value, &amount);
+		// 		// 	put_abs((int)value, flags, &amount);
+		// 		// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 		// }
+		// 		// if (flags & 32)
+		// 		// {
+		// 		// 	// put_prefix(&amount, flags);
+		// 		// 	// put_uabs((int)value, &amount);
+		// 		// 	put_prefix((int)value, flags, &amount);
+		// 		// 	put_uabs((int)value, flags, &amount);
+		// 		// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 		// }
+		// 		put_sign((int)value, flags, &amount);
+		// 		put_abs((int)value, flags, &amount);
+		// 		put_prefix((int)value, flags, &amount);
+		// 		put_uabs((int)value, flags, &amount);
+		// 		put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 		str += 1;
+		// 		continue ;
+		// 	}
+				
+		// 	if (flags & 16)
+		// 	{
+		// 		// if (!(flags & 32))
+		// 		// {
+		// 		// 	put_sign((int)value, flags, &amount);
+		// 		// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 		// 	// put_abs((int)value, &amount);
+		// 		// 	put_abs((int)value, flags, &amount);
+		// 		// }
+		// 		// if (flags & 32)
+		// 		// {
+		// 		// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 		// 	// put_prefix(&amount, flags);
+		// 		// 	// put_uabs((int)value, &amount);
+		// 		// 	put_prefix((int)value, flags, &amount);
+		// 		// 	put_uabs((int)value, flags, &amount);
+		// 		// }
+		// 		put_sign((int)value, flags, &amount);
+		// 		put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 		put_abs((int)value, flags, &amount);
+		// 		put_prefix((int)value, flags, &amount);
+		// 		put_uabs((int)value, flags, &amount);
+		// 		str += 1;
+		// 		continue ;
+		// 	}
+			
+		// 	// if (!(flags & 32))
+		// 	// {
+		// 	// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 	// 	put_sign((int)value, flags, &amount);
+		// 	// 	// put_abs((int)value, &amount);
+		// 	// 	put_abs((int)value, flags, &amount);
+		// 	// }
+		// 	// if (flags & 32)
+		// 	// {
+		// 	// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 	// 	// put_prefix(&amount, flags);
+		// 	// 	// put_uabs((int)value, &amount);
+		// 	// 	put_prefix((int)value, flags, &amount);
+		// 	// 	put_uabs((int)value, flags, &amount);
+				
+		// 	// }
+		// 	put_space(len_space(width, &str, &value, flags), flags, &amount);
+		// 	put_sign((int)value, flags, &amount);
+		// 	put_abs((int)value, flags, &amount);
+		// 	put_prefix((int)value, flags, &amount);
+		// 	put_uabs((int)value, flags, &amount);
+		// 	str += 1;
+		// 	continue ;
+		// }	
 		
 		if (*str == 'c')
 		{

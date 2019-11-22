@@ -5,6 +5,7 @@ SRC = 	ft_printf.c\
 		find_flags.c\
 		def_lengths.c\
 		conversion.c\
+		put_numbers.c\
 		put_symbols.c
 OBJ = $(SRC:.c=.o)
 

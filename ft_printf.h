@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/21 19:03:28 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/22 12:38:59 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 /*
 ** ft_printf.c
 */
-// void	put_prefix(int *amount, char flags);
-void	put_prefix(int value, char flags, int *amount);
 
 /*
 ** def_params.c
@@ -52,20 +50,22 @@ int		len_space(int width, const char **str, void *value, char flags);
 ** conversion.c
 */
 int		binto_oct(int value);
-// void	*binto_oct(int value);
 int		def_bitborder(int value);
 int		two_inpower(int power);
 
 /*
-** put_symbols.c  <--- 7 functions
+** put_numbers.c
+*/
+void	put_sign(int value, char flags, int *amount);
+void	put_abs(int value, char flags, int *amount);
+void	put_prefix(int value, char flags, int *amount);
+void	put_uabs(unsigned int value, char flags, int *amount);
+
+/*
+** put_symbols.c
 */
 void	put_char(char symbol, const char **str, int *amount);
 int		put_freesmb(const char **str, int *amount);
-// void	put_abs(int n, int *amount);
-void	put_abs(int value, char flags, int *amount);
-// void	put_uabs(unsigned int n, int *amount);
-void	put_uabs(unsigned int value, char flags, int *amount);
-void	put_sign(int value, char flags, int *amount);
 void	put_space(int len_space, char flags, int *amount);
 void	put_str(char const *str, int *amount);
 

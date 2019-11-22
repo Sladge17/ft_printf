@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/21 19:03:46 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/22 12:43:07 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,86 +32,6 @@ int		put_freesmb(const char **str, int *amount)
 	return (1);
 }
 
-void	put_abs(int value, char flags, int *amount)
-{
-	if (!(flags & 32))
-	{
-		if (value == -2147483648)
-		{
-			// write(1, "2", 1);
-			// *amount += 1;
-			put_char('2', NULL, &(*amount));
-			put_abs(147483648, flags, &(*amount));
-			return ;
-		}
-		if (value < 0)
-		{
-			put_abs((-1) * value, flags, &(*amount));
-			return ;
-		}
-		if (value < 10)
-		{
-			// value = value + 48;
-			// write(1, &value, 1);
-			// *amount += 1;
-			put_char(value + 48, NULL, &(*amount));
-			return ;
-		}
-		put_abs(value / 10, flags, &(*amount));
-		// value = (value % 10) + 48;
-		// write(1, &value, 1);
-		// *amount += 1;
-		put_char((value % 10) + 48, NULL, &(*amount));
-	}
-}
-
-void	put_uabs(unsigned int value, char flags, int *amount)
-{
-	if (flags & 32)
-	{
-		if (value < 10)
-		{
-			value = value + 48;
-			write(1, &value, 1);
-			*amount += 1;
-			return ;
-		}
-		put_uabs(value / 10, flags, &(*amount));
-		// value = (value % 10) + 48;
-		// write(1, &value, 1);
-		// *amount += 1;
-		put_char((value % 10) + 48, NULL, &(*amount));
-	}
-}
-
-void	put_sign(int value, char flags, int *amount)
-{
-	if (!(flags & 32))
-	{
-		if (value < 0)
-		{
-			// write(1, "-", 1);
-			// *amount += 1;
-			put_char('-', NULL, &(*amount));
-			return ;
-		}
-		if (flags & 2)
-		{
-			// write(1, "+", 1);
-			// *amount += 1;
-			put_char('+', NULL, &(*amount));
-			return ;
-		}
-		if (flags & 4)
-		{
-			// write(1, " ", 1);
-			// *amount += 1;
-			put_char(' ', NULL, &(*amount));
-			return ;
-		}
-	}
-}
-
 void	put_space(int len_space, char flags, int *amount)
 {
 	char	space;
@@ -123,8 +43,6 @@ void	put_space(int len_space, char flags, int *amount)
 	i = 0;
 	while (i < len_space)
 	{
-		// write(1, &space, 1);
-		// *amount += 1;
 		put_char(space, NULL, &(*amount));
 		i += 1;
 	}
@@ -136,8 +54,6 @@ void	put_str(char const *str, int *amount)
 		return ;
 	while (*str != '\0')
 	{
-		// write(1, s, 1);
-		// *amount += 1;
 		put_char(*str, NULL, &(*amount));
 		str += 1;
 	}
