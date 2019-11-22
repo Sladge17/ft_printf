@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/22 12:43:07 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/22 14:04:53 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	put_space(int len_space, char flags, int *amount)
 	}
 }
 
-void	put_str(char const *str, int *amount)
+void	put_str(char const *string, int *amount)
 {
-	if (!str)
+	if (!string)
 		return ;
-	while (*str != '\0')
+	while (*string != '\0')
 	{
-		put_char(*str, NULL, &(*amount));
-		str += 1;
+		put_char(*string, NULL, &(*amount));
+		string += 1;
 	}
 }

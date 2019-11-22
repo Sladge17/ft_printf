@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/22 12:51:20 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/22 19:22:04 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ int		ft_printf(const char *str, ...)
 		if(!put_freesmb(&str, &amount))
 			break ;
 			
-		flags = check_flags(&str);
+
+		flags = 0;
+		check_flags(&flags, &str);
 		width = def_width(&str);
+		check_flags(&flags, &str);
 		value = va_arg(args, void *);
 		
 		if (*str == 'o')
@@ -70,6 +73,7 @@ int		ft_printf(const char *str, ...)
 				{
 					put_str(value, &amount);
 					put_space(len_space(width, &str, value, flags), flags, &amount);
+					str += 1;
 					continue ;
 				}
 				put_space(len_space(width, &str, value, flags), flags, &amount);
@@ -112,7 +116,8 @@ int		ft_printf(const char *str, ...)
 			put_char(*str, &str, &amount);
 			continue ;
 		}
-		put_char(*str, &str, &amount);
+		if (*str != '\0')
+			put_char(*str, &str, &amount);
 	}
 	va_end(args);
 	return (amount);

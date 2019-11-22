@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/22 12:38:59 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/22 17:06:22 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 /*
 ** def_params.c
 */
-char	check_flags(const char **str);
+void	check_flags(char *flags, const char **str);
 int		def_width(const char **str);
 
 /*
@@ -68,6 +68,5 @@ void	put_char(char symbol, const char **str, int *amount);
 int		put_freesmb(const char **str, int *amount);
 void	put_space(int len_space, char flags, int *amount);
 void	put_str(char const *str, int *amount);
-
 
 #endif

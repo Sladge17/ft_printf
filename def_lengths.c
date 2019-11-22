@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/21 17:24:33 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/22 12:58:13 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		len_unumb(unsigned int value)
 char	len_sign(int value, char flags)
 {
 	// if (flags & 32)
-	// 	return (0); 
+	// 	return (0);
 	if (value < 0)
 		return (1);
 	if (flags & 2 || flags & 4)
