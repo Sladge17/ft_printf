@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/22 19:31:03 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/23 19:15:23 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,21 @@ int		ft_printf(const char *str, ...)
 		
 		if (*str == 'o')
 		{
-			value =binto_oct((int)value);
+			value = binto_oct((int)value);
 			flags |= 32;
+		}
+
+		if (*str == 'x' || *str == 'X')
+		{
+			if ((int)value < 0)
+				value = binto_uhex((unsigned int)value, *str);
+			else
+				value = binto_hex((int)value, *str);
+			if (*str == 'x')
+				flags |= 64;
+			else
+				flags |= 128;
+			
 		}
 		
 		if (*str == 'u')
@@ -51,7 +64,8 @@ int		ft_printf(const char *str, ...)
 			if (width && flags & 16 && !(flags & 1))
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
 			put_abs((int)value, flags, &amount);
-			put_prefix((int)value, flags, &amount);
+			// put_prefix((int)value, flags, &amount);
+			put_prefix(flags, &amount);
 			put_uabs((int)value, flags, &amount);
 			if (width && flags & 1)
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
@@ -59,7 +73,7 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		}	
 		
-		if (*str == 's')
+		if (*str == 's' || flags & 64 || flags & 128)
 		{
 			if (!value)
 			{
@@ -71,16 +85,19 @@ int		ft_printf(const char *str, ...)
 			{
 				if (flags & 1)
 				{
+					put_prefix(flags, &amount);
 					put_str(value, &amount);
 					put_space(len_space(width, &str, value, flags), flags, &amount);
 					str += 1;
 					continue ;
 				}
 				put_space(len_space(width, &str, value, flags), flags, &amount);
+				put_prefix(flags, &amount);
 				put_str(value, &amount);
 				str += 1;
 				continue ;
 			}
+			put_prefix(flags, &amount);
 			put_str(value, &amount);
 			str += 1;
 			continue ;

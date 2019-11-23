@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/21 14:02:49 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/23 19:08:02 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int		binto_oct(int value)
 	int		factor;
 
 	bitmask = 1;
-	bitmask <<= def_bitborder(value);
+	bitmask <<= def_bitborder(value, 3);
 	oct = 0;
 	while (bitmask)
 	{
 		factor = 0;
 		i = 0;
-		while (i < 3)  // <-- need change for hex
+		while (i < 3)
 		{
 			if (value & bitmask)
 				factor += two_inpower(2 - i);
@@ -38,7 +38,93 @@ int		binto_oct(int value)
 	return (oct);
 }
 
-int		def_bitborder(int value)
+char	*binto_hex(int value, char index)
+{
+	char	*hex;
+	int		bitmask;
+	int		i;
+	int		factor;
+	int		len;
+
+	bitmask = 1;
+	bitmask <<= def_bitborder(value, 4);
+	len = 0;
+	while (bitmask)
+	{
+		len += 1;
+		bitmask >>= 4;
+	}
+	hex = (char *)malloc(sizeof(char) * (len + 1));
+	hex[len] = '\0';
+	bitmask = 1;
+	bitmask <<= ((4 * len) - 1);
+	len = 0;
+	while (bitmask)
+	{
+		factor = 0;
+		i = 0;
+		while (i < 4)
+		{
+			if (value & bitmask)
+				factor += two_inpower(3 - i);
+			bitmask >>= 1;
+			i += 1;
+		}
+		if (factor < 10)
+		{
+			hex[len] = factor + 48;
+			len += 1;
+			continue ;
+		}
+		hex[len] = factor + index - 33;
+	}
+	return (hex);
+}
+
+char	*binto_uhex(unsigned int value, char index)
+{
+	char	*hex;
+	unsigned int	bitmask;
+	int		i;
+	int		factor;
+	int		len;
+
+	bitmask = 1;
+	bitmask <<= def_bitborder(value, 4);
+	len = 0;
+	while (bitmask)
+	{
+		len += 1;
+		bitmask >>= 4;
+	}
+	hex = (char *)malloc(sizeof(char) * (len + 1));
+	hex[len] = '\0';
+	bitmask = 1;
+	bitmask <<= ((4 * len) - 1);
+	len = 0;
+	while (bitmask)
+	{
+		factor = 0;
+		i = 0;
+		while (i < 4)
+		{
+			if (value & bitmask)
+				factor += two_inpower(3 - i);
+			bitmask >>= 1;
+			i += 1;
+		}
+		if (factor < 10)
+		{
+			hex[len] = factor + 48;
+			len += 1;
+			continue ;
+		}
+		hex[len] = factor + index - 33;
+	}
+	return (hex);
+}
+
+int		def_bitborder(int value, char bit_count)
 {
 	int		bitborder;
 	int		bitmask;
@@ -53,7 +139,7 @@ int		def_bitborder(int value)
 		i += 1;
 		bitmask <<= 1;
 	}
-	while ((bitborder + 1) % 3)  // <-- need change for hex
+	while ((bitborder + 1) % bit_count)
 		bitborder += 1;
 	return (bitborder);
 }
