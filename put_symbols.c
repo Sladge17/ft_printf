@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/22 14:04:53 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/25 18:20:23 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,33 @@ int		put_freesmb(const char **str, int *amount)
 		put_char(**str, &(*str), &(*amount));
 	}
 	*str += 1;
+	return (1);
+}
+
+int		check_lastfreesmb(const char **str, int *amount)
+{
+	int		i;
+
+	if (**str != ' ')
+		return (0);
+	i = 1;
+	if (*(*str + i) == '\0')
+		return (0);
+	while (*(*str + i) == ' ')
+		i += 1;
+	if (*(*str + i) == 'h' || *(*str + i) == 'l' || *(*str + i) == 'L')
+	{
+		*str += i + 1;
+		return (0);
+	}
+	if (*(*str + i) == '-' || *(*str + i) == '+'|| *(*str + i) == '#' 
+		|| *(*str + i) == '0' || *(*str + i) == 'c' 
+		|| *(*str + i) == 'd' || *(*str + i) == 'i' 
+		|| *(*str + i) == 'u' || *(*str + i) == 'o'
+		|| *(*str + i) == 'x' || *(*str + i) == 'X')
+		return (0);
+	*str += i;
+	put_char(**str, &(*str), &(*amount));
 	return (1);
 }
 

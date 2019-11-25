@@ -6,11 +6,42 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/23 19:32:26 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/25 18:20:17 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+// int		check_lastfreesmb(const char **str, int *amount)
+// {
+// 	int		i;
+
+// 	if (**str != ' ')
+// 		return (0);
+// 	*str += 1;
+// 	i = 1;
+// 	if (**str == '\0')
+// 		return (0);
+// 	while (**str == ' ')
+// 	{
+// 		*str += 1;
+// 		i += 1;
+// 	}
+// 	if (**str == 'h' || **str == 'l' || **str == 'L')
+// 	{
+// 		*str += 1;
+// 		return (0);
+// 	}
+// 	if (**str == '-' || **str == '+'|| **str == '#' || **str == '0' 
+// 		|| **str == 'd' || **str == 'i' || **str == 'u' || **str == 'o'
+// 		|| **str == 'x' || **str == 'X' || **str == 'c')
+// 	{
+// 		*str -= i;
+// 		return (0);
+// 	}
+// 	put_char(**str, &(*str), &(*amount));
+// 	return (1);
+// }
 
 int		ft_printf(const char *str, ...)
 {
@@ -26,7 +57,8 @@ int		ft_printf(const char *str, ...)
 	{
 		if(!put_freesmb(&str, &amount))
 			break ;
-			
+		if (check_lastfreesmb(&str, &amount))
+			continue ;
 
 		flags = 0;
 		check_flags(&flags, &str);
@@ -63,7 +95,6 @@ int		ft_printf(const char *str, ...)
 			if (width && flags & 16 && !(flags & 1))
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
 			put_abs((int)value, flags, &amount);
-			// put_prefix((int)value, flags, &amount);
 			put_prefix(flags, &amount);
 			put_uabs((int)value, flags, &amount);
 			if (width && flags & 1)
