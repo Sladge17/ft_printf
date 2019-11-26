@@ -6,42 +6,11 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/25 18:20:17 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/26 15:47:08 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-// int		check_lastfreesmb(const char **str, int *amount)
-// {
-// 	int		i;
-
-// 	if (**str != ' ')
-// 		return (0);
-// 	*str += 1;
-// 	i = 1;
-// 	if (**str == '\0')
-// 		return (0);
-// 	while (**str == ' ')
-// 	{
-// 		*str += 1;
-// 		i += 1;
-// 	}
-// 	if (**str == 'h' || **str == 'l' || **str == 'L')
-// 	{
-// 		*str += 1;
-// 		return (0);
-// 	}
-// 	if (**str == '-' || **str == '+'|| **str == '#' || **str == '0' 
-// 		|| **str == 'd' || **str == 'i' || **str == 'u' || **str == 'o'
-// 		|| **str == 'x' || **str == 'X' || **str == 'c')
-// 	{
-// 		*str -= i;
-// 		return (0);
-// 	}
-// 	put_char(**str, &(*str), &(*amount));
-// 	return (1);
-// }
 
 int		ft_printf(const char *str, ...)
 {
@@ -55,7 +24,7 @@ int		ft_printf(const char *str, ...)
 	va_start(args, str);
 	while (*str)
 	{
-		if(!put_freesmb(&str, &amount))
+		if (!put_freesmb(&str, &amount))
 			break ;
 		if (check_lastfreesmb(&str, &amount))
 			continue ;
@@ -74,10 +43,7 @@ int		ft_printf(const char *str, ...)
 
 		if (*str == 'x' || *str == 'X')
 		{
-			if ((int)value < 0)
-				value = binto_uhex((unsigned int)value, *str);
-			else
-				value = binto_hex((int)value, *str);
+			value = binto_hex((int)value, *str);
 			if (*str == 'x')
 				flags |= 64;
 			else

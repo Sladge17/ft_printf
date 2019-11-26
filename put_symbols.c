@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/25 18:20:23 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/26 13:57:25 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	put_char(char symbol, const char **str, int *amount)
 	*amount += 1;
 }
 
-int		put_freesmb(const char **str, int *amount)
+char	put_freesmb(const char **str, int *amount)
 {
 	while (**str != '%')
 	{
@@ -32,7 +32,7 @@ int		put_freesmb(const char **str, int *amount)
 	return (1);
 }
 
-int		check_lastfreesmb(const char **str, int *amount)
+char	check_lastfreesmb(const char **str, int *amount)
 {
 	int		i;
 
