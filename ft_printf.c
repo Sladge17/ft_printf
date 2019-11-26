@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/26 15:47:08 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/26 17:28:16 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int		ft_printf(const char *str, ...)
 
 		if (*str == 'x' || *str == 'X')
 		{
-			value = binto_hex((int)value, *str);
+			// value = binto_hex((int)value, *str);
+			binto_hex(&value, *str);
 			if (*str == 'x')
 				flags |= 64;
 			else
