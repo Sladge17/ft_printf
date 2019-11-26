@@ -6,11 +6,33 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/26 17:28:16 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/26 19:26:26 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	put_prefixtest(char *value, char flags, int *amount)
+{
+	if (flags & 8)
+	{
+		if (flags & 32 && *value != '0')
+		{
+			put_char('0', NULL, &(*amount));
+			return ;
+		}
+		if (flags & 64 && *value != '0')
+		{
+			put_str("0x", &(*amount));
+			return ;
+		}
+		if (flags & 128 && *value != '0')
+		{
+			put_str("0X", &(*amount));
+			return ;
+		}
+	}
+}
 
 int		ft_printf(const char *str, ...)
 {
@@ -82,19 +104,22 @@ int		ft_printf(const char *str, ...)
 			{
 				if (flags & 1)
 				{
-					put_prefix(flags, &amount);
+					// put_prefix(flags, &amount);
+					put_prefixtest(value, flags, &amount);
 					put_str(value, &amount);
 					put_space(len_space(width, &str, value, flags), flags, &amount);
 					str += 1;
 					continue ;
 				}
 				put_space(len_space(width, &str, value, flags), flags, &amount);
-				put_prefix(flags, &amount);
+				// put_prefix(flags, &amount);
+				put_prefixtest(value, flags, &amount);
 				put_str(value, &amount);
 				str += 1;
 				continue ;
 			}
-			put_prefix(flags, &amount);
+			// put_prefix(flags, &amount);
+			put_prefixtest(value, flags, &amount);
 			put_str(value, &amount);
 			str += 1;
 			continue ;
