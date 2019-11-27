@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 15:47:49 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 16:42:05 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int		ft_printf(const char *str, ...)
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
 			str += 1;
 			continue ;
-		}	
-		
+		}
+
 		if (*str == 's' || *str == 'o' || *str == 'x' || *str == 'X')
 		{
 			if (!value)
@@ -80,24 +80,12 @@ int		ft_printf(const char *str, ...)
 				str += 1;
 				continue ;
 			}
-			if (width)
-			{
-				if (flags & 1)
-				{
-					put_prefix(value, flags, &amount);
-					put_str(value, &amount);
-					put_space(len_space(width, &str, value, flags), flags, &amount);
-					str += 1;
-					continue ;
-				}
+			if (width && !(flags & 1))
 				put_space(len_space(width, &str, value, flags), flags, &amount);
-				put_prefix(value, flags, &amount);
-				put_str(value, &amount);
-				str += 1;
-				continue ;
-			}
 			put_prefix(value, flags, &amount);
 			put_str(value, &amount);
+			if (width && flags & 1)
+				put_space(len_space(width, &str, value, flags), flags, &amount);
 			str += 1;
 			continue ;
 		}
