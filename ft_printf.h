@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 17:59:22 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 19:30:17 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
+int		width;
+
 /*
 ** ft_printf.c
 */
@@ -26,8 +28,7 @@
 ** def_params.c
 */
 void	check_flags(short *flags, const char **str);
-// int		def_width(const char **str);
-int		def_width(short *flags, const char **str);
+void	def_width(short *flags, const char **str);
 
 /*
 ** find_flags.c
@@ -45,7 +46,7 @@ int		len_numb(int value, char len_sign);
 int		len_unumb(unsigned int value);
 char	len_sign(int value, short flags);
 int		len_str(const char *str);
-int		len_space(int width, const char **str, void *value, short flags);
+int		len_space(const char **str, void *value, short flags);
 
 /*
 ** conversion.c

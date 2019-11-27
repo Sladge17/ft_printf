@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 17:46:49 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 19:29:39 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	check_flags(short *flags, const char **str)
 	}
 }
 
-int		def_width(short *flags, const char **str)
+void	def_width(short *flags, const char **str)
 {
-	int		width;
+	extern int	width;
 
 	width = 0;
 	while ('0' <= **str && **str <= '9')
@@ -42,5 +42,4 @@ int		def_width(short *flags, const char **str)
 	}
 	if (width)
 		*flags |= 32;
-	return (width);
 }

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 16:30:41 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 19:29:18 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,11 @@ int		len_str(const char *str)
 	return (len);
 }
 
-int		len_space(int width, const char **str, void *value, short flags)
+int		len_space(const char **str, void *value, short flags)
 {
-	int		len_space;
-	int		len_symbols;
+	extern int	width;
+	int			len_space;
+	int			len_symbols;
 
 	len_symbols = 1;
 	if (**str == 'd' || **str == 'i')
