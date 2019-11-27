@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/26 17:29:01 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 14:23:12 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ void	binto_hex(void **value, char index)
 		bitborder >>= 4;
 	}
 	hex = (char *)malloc(sizeof(char) * (len + 1));
+	if (!hex)
+	{
+		*value = NULL;
+		return ;
+	}
 	hex[len] = '\0';
 	bitborder = 1;
 	bitborder <<= ((4 * len) - 1);

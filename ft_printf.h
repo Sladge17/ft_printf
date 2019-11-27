@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/26 17:18:00 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 14:18:40 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,26 @@
 /*
 ** def_params.c
 */
-void	check_flags(char *flags, const char **str);
+void	check_flags(short *flags, const char **str);
 int		def_width(const char **str);
 
 /*
 ** find_flags.c
 */
-char	find_minus(const char **str, char *flags);
-char	find_plus(const char **str, char *flags);
-char	find_space(const char **str, char *flags);
-char	find_lattice(const char **str, char *flags);
-char	find_zero(const char **str, char *flags);
+char	find_minus(const char **str, short *flags);
+char	find_plus(const char **str, short *flags);
+char	find_space(const char **str, short *flags);
+char	find_lattice(const char **str, short *flags);
+char	find_zero(const char **str, short *flags);
 
 /*
 ** def_lengths.c
 */
 int		len_numb(int value, char len_sign);
 int		len_unumb(unsigned int value);
-char	len_sign(int value, char flags);
+char	len_sign(int value, short flags);
 int		len_str(const char *str);
-int		len_space(int width, const char **str, void *value, char flags);
+int		len_space(int width, const char **str, void *value, short flags);
 
 /*
 ** conversion.c
@@ -58,11 +58,11 @@ int		two_inpower(int power);
 /*
 ** put_numbers.c
 */
-void	put_sign(int value, char flags, int *amount);
-void	put_abs(int value, char flags, int *amount);
-// void	put_prefix(int value, char flags, int *amount);
-void	put_prefix(char flags, int *amount);
-void	put_uabs(unsigned int value, char flags, int *amount);
+void	put_sign(int value, short flags, int *amount);
+void	put_abs(int value, short flags, int *amount);
+// void	put_prefix(int value, short flags, int *amount);
+void	put_prefix(short flags, int *amount);
+void	put_uabs(unsigned int value, short flags, int *amount);
 
 /*
 ** put_symbols.c
@@ -70,7 +70,7 @@ void	put_uabs(unsigned int value, char flags, int *amount);
 void	put_char(char symbol, const char **str, int *amount);
 char	put_freesmb(const char **str, int *amount);
 char	check_lastfreesmb(const char **str, int *amount);
-void	put_space(int len_space, char flags, int *amount);
+void	put_space(int len_space, short flags, int *amount);
 void	put_str(char const *str, int *amount);
 
 #endif

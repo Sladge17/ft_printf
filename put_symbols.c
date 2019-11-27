@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/26 13:57:25 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 14:17:58 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	check_lastfreesmb(const char **str, int *amount)
 	return (1);
 }
 
-void	put_space(int len_space, char flags, int *amount)
+void	put_space(int len_space, short flags, int *amount)
 {
 	char	space;
 	int		i;

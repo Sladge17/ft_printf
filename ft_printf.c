@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/26 19:26:26 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 14:26:18 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	put_prefixtest(char *value, char flags, int *amount)
+void	put_prefixtest(char *value, short flags, int *amount)
 {
 	if (flags & 8)
 	{
@@ -38,7 +38,7 @@ int		ft_printf(const char *str, ...)
 {
 	int		amount;
 	va_list	args;
-	char	flags;
+	short	flags;
 	int		width;
 	void	*value;
 	
@@ -67,6 +67,8 @@ int		ft_printf(const char *str, ...)
 		{
 			// value = binto_hex((int)value, *str);
 			binto_hex(&value, *str);
+			if (!value)
+				break ;
 			if (*str == 'x')
 				flags |= 64;
 			else

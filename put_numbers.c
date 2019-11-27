@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/25 19:48:03 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 14:17:58 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	put_sign(int value, char flags, int *amount)
+void	put_sign(int value, short flags, int *amount)
 {
 	if (!(flags & 32))
 	{
@@ -34,7 +34,7 @@ void	put_sign(int value, char flags, int *amount)
 	}
 }
 
-void	put_abs(int value, char flags, int *amount)
+void	put_abs(int value, short flags, int *amount)
 {
 	if (!(flags & 32))
 	{
@@ -59,7 +59,7 @@ void	put_abs(int value, char flags, int *amount)
 	}
 }
 
-void	put_prefix(char flags, int *amount)
+void	put_prefix(short flags, int *amount)
 {
 	if (flags & 8)
 	{
@@ -81,7 +81,7 @@ void	put_prefix(char flags, int *amount)
 	}
 }
 
-void	put_uabs(unsigned int value, char flags, int *amount)
+void	put_uabs(unsigned int value, short flags, int *amount)
 {
 	if (flags & 32)
 	{

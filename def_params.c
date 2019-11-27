@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/22 17:06:48 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 14:18:40 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	check_flags(char *flags, const char **str)
+void	check_flags(short *flags, const char **str)
 {
 	while (1)
 	{

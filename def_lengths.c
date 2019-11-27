@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/25 19:33:13 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 14:17:58 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		len_unumb(unsigned int value)
 	return (len);
 }
 
-char	len_sign(int value, char flags)
+char	len_sign(int value, short flags)
 {
 	// if (flags & 32)
 	// 	return (0);
@@ -60,7 +60,7 @@ int		len_str(const char *str)
 	return (len);
 }
 
-int		len_space(int width, const char **str, void *value, char flags)
+int		len_space(int width, const char **str, void *value, short flags)
 {
 	int		len_space;
 	int		len_symbols;
