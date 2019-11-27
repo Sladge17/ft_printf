@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 15:51:21 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 17:59:22 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 ** def_params.c
 */
 void	check_flags(short *flags, const char **str);
-int		def_width(const char **str);
+// int		def_width(const char **str);
+int		def_width(short *flags, const char **str);
 
 /*
 ** find_flags.c

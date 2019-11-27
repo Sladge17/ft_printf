@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 14:18:40 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 17:46:49 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	check_flags(short *flags, const char **str)
 	}
 }
 
-int		def_width(const char **str)
+int		def_width(short *flags, const char **str)
 {
 	int		width;
 
@@ -40,5 +40,7 @@ int		def_width(const char **str)
 		width = width * 10 + (**str - '0');
 		*str += 1;
 	}
+	if (width)
+		*flags |= 32;
 	return (width);
 }

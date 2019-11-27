@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 16:42:05 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 17:59:08 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int		ft_printf(const char *str, ...)
 
 		flags = 0;
 		check_flags(&flags, &str);
-		width = def_width(&str);
+		// width = def_width(&str);
+		width = def_width(&flags, &str);
 		check_flags(&flags, &str);
 		value = va_arg(args, void *);
 		
@@ -59,14 +60,14 @@ int		ft_printf(const char *str, ...)
 
 		if (*str == 'd' || *str == 'i' || *str == 'u')
 		{	
-			if (width && !(flags & 17))
+			if (flags & 32 && !(flags & 17))
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
 			put_sign((int)value, flags, &amount);
-			if (width && flags & 16 && !(flags & 1))
+			if (flags & 32 && flags & 16 && !(flags & 1))
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
 			put_abs((int)value, flags, &amount);
 			put_uabs((int)value, flags, &amount);
-			if (width && flags & 1)
+			if (flags & 32 && flags & 1)
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
 			str += 1;
 			continue ;
@@ -80,11 +81,13 @@ int		ft_printf(const char *str, ...)
 				str += 1;
 				continue ;
 			}
-			if (width && !(flags & 1))
+			if (flags & 32 && !(flags & 17))
 				put_space(len_space(width, &str, value, flags), flags, &amount);
 			put_prefix(value, flags, &amount);
+			if (flags & 32 && flags & 16 && !(flags & 1))
+				put_space(len_space(width, &str, value, flags), flags, &amount);
 			put_str(value, &amount);
-			if (width && flags & 1)
+			if (flags & 32 && flags & 1)
 				put_space(len_space(width, &str, value, flags), flags, &amount);
 			str += 1;
 			continue ;
@@ -92,7 +95,7 @@ int		ft_printf(const char *str, ...)
 		
 		if (*str == 'c')
 		{
-			if (width)
+			if (flags & 32)
 			{
 				if (flags & 1)
 				{
@@ -108,7 +111,7 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		}
 			
-		if (width)
+		if (flags & 32)
 		{
 			if (flags & 1)
 			{
