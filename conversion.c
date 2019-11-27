@@ -6,79 +6,54 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 14:23:12 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 15:49:14 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		binto_oct(int value)
+void	binto_oct(void **value, char index)
 {
-	int				oct;
+	char			*oct;
 	unsigned int	bitborder;
 	int				i;
 	int				factor;
+	int				len;
 
-	def_bitborder(&bitborder, value, 3);
-	oct = 0;
+	def_bitborder(&bitborder, (int)(*value), 3);
+	len = 0;
+	while (bitborder)
+	{
+		len += 1;
+		bitborder >>= 3;
+	}
+	oct = (char *)malloc(sizeof(char) * (len + 1));
+	if (!oct)
+	{
+		*value = NULL;
+		return ;
+	}
+	oct[len] = '\0';
+	bitborder = 1;
+	bitborder <<= ((3 * len) - 1);
+	len = 0;
 	while (bitborder)
 	{
 		factor = 0;
 		i = 0;
 		while (i < 3)
 		{
-			if (value & bitborder)
+			if ((int)(*value) & bitborder)
 				factor += two_inpower(2 - i);
 			bitborder >>= 1;
 			i += 1;
 		}
-		oct = oct * 10 + factor;
+		oct[len] = factor + 48;
+		len += 1;
 	}
-	return (oct);
+	*value = oct;
+	free(oct);
 }
-
-// char	*binto_hex(int value, char index)
-// {
-// 	char			*hex;
-// 	unsigned int	bitborder;
-// 	int				i;
-// 	int				factor;
-// 	int				len;
-
-// 	def_bitborder(&bitborder, value, 4);
-// 	len = 0;
-// 	while (bitborder)
-// 	{
-// 		len += 1;
-// 		bitborder >>= 4;
-// 	}
-// 	hex = (char *)malloc(sizeof(char) * (len + 1));
-// 	hex[len] = '\0';
-// 	bitborder = 1;
-// 	bitborder <<= ((4 * len) - 1);
-// 	len = 0;
-// 	while (bitborder)
-// 	{
-// 		factor = 0;
-// 		i = 0;
-// 		while (i < 4)
-// 		{
-// 			if (value & bitborder)
-// 				factor += two_inpower(3 - i);
-// 			bitborder >>= 1;
-// 			i += 1;
-// 		}
-// 		if (factor < 10)
-// 		{
-// 			hex[len] = factor + 48;
-// 			len += 1;
-// 			continue ;
-// 		}
-// 		hex[len] = factor + index - 33;
-// 		len += 1;
-// 	}
-// 	return (hex);
-// }
 
 void	binto_hex(void **value, char index)
 {

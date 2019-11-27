@@ -6,33 +6,11 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 14:26:18 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 15:47:49 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	put_prefixtest(char *value, short flags, int *amount)
-{
-	if (flags & 8)
-	{
-		if (flags & 32 && *value != '0')
-		{
-			put_char('0', NULL, &(*amount));
-			return ;
-		}
-		if (flags & 64 && *value != '0')
-		{
-			put_str("0x", &(*amount));
-			return ;
-		}
-		if (flags & 128 && *value != '0')
-		{
-			put_str("0X", &(*amount));
-			return ;
-		}
-	}
-}
 
 int		ft_printf(const char *str, ...)
 {
@@ -59,26 +37,27 @@ int		ft_printf(const char *str, ...)
 		
 		if (*str == 'o')
 		{
-			value = binto_oct((int)value);
-			flags |= 32;
+			binto_oct(&value, *str);
+			if (!value)
+				break ;
+			flags |= 256;
 		}
 
 		if (*str == 'x' || *str == 'X')
 		{
-			// value = binto_hex((int)value, *str);
 			binto_hex(&value, *str);
 			if (!value)
 				break ;
 			if (*str == 'x')
-				flags |= 64;
+				flags |= 512;
 			else
-				flags |= 128;
+				flags |= 1024;
 		}
 		
 		if (*str == 'u')
-			flags |= 32;
+			flags |= 128;
 
-		if (*str == 'd' || *str == 'i' || flags & 32)
+		if (*str == 'd' || *str == 'i' || *str == 'u')
 		{	
 			if (width && !(flags & 17))
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
@@ -86,7 +65,6 @@ int		ft_printf(const char *str, ...)
 			if (width && flags & 16 && !(flags & 1))
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
 			put_abs((int)value, flags, &amount);
-			put_prefix(flags, &amount);
 			put_uabs((int)value, flags, &amount);
 			if (width && flags & 1)
 				put_space(len_space(width, &str, &value, flags), flags, &amount);
@@ -94,7 +72,7 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		}	
 		
-		if (*str == 's' || flags & 64 || flags & 128)
+		if (*str == 's' || *str == 'o' || *str == 'x' || *str == 'X')
 		{
 			if (!value)
 			{
@@ -106,22 +84,19 @@ int		ft_printf(const char *str, ...)
 			{
 				if (flags & 1)
 				{
-					// put_prefix(flags, &amount);
-					put_prefixtest(value, flags, &amount);
+					put_prefix(value, flags, &amount);
 					put_str(value, &amount);
 					put_space(len_space(width, &str, value, flags), flags, &amount);
 					str += 1;
 					continue ;
 				}
 				put_space(len_space(width, &str, value, flags), flags, &amount);
-				// put_prefix(flags, &amount);
-				put_prefixtest(value, flags, &amount);
+				put_prefix(value, flags, &amount);
 				put_str(value, &amount);
 				str += 1;
 				continue ;
 			}
-			// put_prefix(flags, &amount);
-			put_prefixtest(value, flags, &amount);
+			put_prefix(value, flags, &amount);
 			put_str(value, &amount);
 			str += 1;
 			continue ;

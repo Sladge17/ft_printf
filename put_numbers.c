@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 14:17:58 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 15:49:45 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	put_sign(int value, short flags, int *amount)
 {
-	if (!(flags & 32))
+	if (!(flags & 128))
 	{
 		if (value < 0)
 		{
@@ -36,7 +36,7 @@ void	put_sign(int value, short flags, int *amount)
 
 void	put_abs(int value, short flags, int *amount)
 {
-	if (!(flags & 32))
+	if (!(flags & 128))
 	{
 		if (value == -2147483648)
 		{
@@ -59,21 +59,21 @@ void	put_abs(int value, short flags, int *amount)
 	}
 }
 
-void	put_prefix(short flags, int *amount)
+void	put_prefix(char *value, short flags, int *amount)
 {
-	if (flags & 8)
+	if (flags & 8 && *value != '0')
 	{
-		if (flags & 32)
+		if (flags & 256)
 		{
 			put_char('0', NULL, &(*amount));
 			return ;
 		}
-		if (flags & 64)
+		if (flags & 512)
 		{
 			put_str("0x", &(*amount));
 			return ;
 		}
-		if (flags & 128)
+		if (flags & 1024)
 		{
 			put_str("0X", &(*amount));
 			return ;
@@ -83,7 +83,7 @@ void	put_prefix(short flags, int *amount)
 
 void	put_uabs(unsigned int value, short flags, int *amount)
 {
-	if (flags & 32)
+	if (flags & 128)
 	{
 		if (value < 10)
 		{

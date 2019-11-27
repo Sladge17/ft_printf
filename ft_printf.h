@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 14:18:40 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 15:51:21 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int		len_space(int width, const char **str, void *value, short flags);
 /*
 ** conversion.c
 */
-int		binto_oct(int value);
-// char	*binto_hex(int value, char index);
+void	binto_oct(void **value, char index);
 void	binto_hex(void **value, char index);
 void	def_bitborder(unsigned int *bitborder, int value, char bit_count);
 int		two_inpower(int power);
@@ -60,8 +59,7 @@ int		two_inpower(int power);
 */
 void	put_sign(int value, short flags, int *amount);
 void	put_abs(int value, short flags, int *amount);
-// void	put_prefix(int value, short flags, int *amount);
-void	put_prefix(short flags, int *amount);
+void	put_prefix(char *value, short flags, int *amount);
 void	put_uabs(unsigned int value, short flags, int *amount);
 
 /*
