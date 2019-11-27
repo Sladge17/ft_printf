@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 19:46:44 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/27 19:57:10 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-int		width;
+int		g_width;
 
 /*
 ** ft_printf.c
