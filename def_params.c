@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 19:55:12 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/29 11:36:17 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,35 @@ void	def_width(short *flags, const char **str)
 {
 	extern int	g_width;
 
-	g_width = 0;
-	while ('0' <= **str && **str <= '9')
-	{
-		g_width = g_width * 10 + (**str - '0');
-		*str += 1;
-	}
+	ft_atoi(&g_width, &(*str));
 	if (g_width)
 		*flags |= 32;
+}
+
+void	def_accuracy(short *flags, const char **str)
+{
+	extern int	g_accuracy;
+
+	if (**str != '.')
+		return ;
+	*str += 1;
+	ft_atoi(&g_accuracy, &(*str));
+	// g_accuracy = 0;
+	// while ('0' <= **str && **str <= '9')
+	// {
+	// 	g_accuracy = g_accuracy * 10 + (**str - '0');
+	// 	*str += 1;
+	// }
+	if (g_accuracy)
+		*flags |= 64;
+}
+
+void	ft_atoi(int *param, const char **str)
+{
+	*param = 0;
+	while ('0' <= **str && **str <= '9')
+	{
+		*param = *param * 10 + (**str - '0');
+		*str += 1;
+	}
 }
