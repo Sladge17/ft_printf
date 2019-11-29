@@ -6,12 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 18:51:07 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/29 11:02:33 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
+#include <limits.h>
 
 int		ft_printf(const char *str, ...);
 
@@ -641,11 +642,11 @@ int		main()
 	test += 1;
 	printf("\n");
 	printf("test %d  <----------\n", test);
-	rez = printf("%#07x", 42);
+	rez = printf("%#o", INT_MIN);
 	printf("->%d\n", rez);
 	printf("---\n");
 	fflush(NULL);
-	rez = ft_printf("%#07x", 42);
+	rez = ft_printf("%#o", INT_MIN);
 	printf("->%d\n", rez);
 
 

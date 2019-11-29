@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 15:49:14 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/29 11:05:53 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ void	binto_oct(void **value, char index)
 	int				factor;
 	int				len;
 
+	if ((int)(*value) == 2147483647)
+	{
+		*value = "17777777777";
+		return ;
+	}
+	if ((int)(*value) == -2147483648)
+	{
+		*value = "20000000000";
+		return ;
+	}
 	def_bitborder(&bitborder, (int)(*value), 3);
 	len = 0;
 	while (bitborder)
