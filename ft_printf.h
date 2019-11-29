@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/29 15:11:18 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/29 17:46:47 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,15 @@ char	find_zero(const char **str, short *flags);
 /*
 ** def_lengths.c
 */
-int		len_numb(int value, char len_sign);
+// int		len_numb(int value, char len_sign);
+int		len_numb(int value);
 int		len_unumb(unsigned int value);
-char	len_sign(int value, short flags);
+// char	len_sign(int value, short flags);
+char	len_sign(void *value, short flags);
+// char	len_sign(void *value, short flags);
 int		len_str(const char *str);
-int		len_space(const char **str, void *value, short flags);
+// int		len_space(const char **str, void *value, short flags);
+int		len_symbols(const char **str, void *value, short flags);
 
 /*
 ** conversion.c
@@ -72,7 +76,8 @@ void	put_uabs(unsigned int value, short flags, int *amount);
 void	put_char(char symbol, const char **str, int *amount);
 char	put_freesmb(const char **str, int *amount);
 char	check_lastfreesmb(const char **str, int *amount);
-void	put_space(int len_space, short flags, int *amount);
+// void	put_space(int len_space, short flags, int *amount);
+void	put_space(const char **str, void *value, short flags, int *amount);
 void	put_str(char const *str, int *amount);
 
 #endif
