@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/29 12:31:05 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/30 16:10:21 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	def_width(short *flags, const char **str)
 	extern int	g_width;
 
 	ft_atoi(&g_width, &(*str));
+	// if (g_width & (*flags == 16))
+	// 	*flags ^= 16;
 	if (g_width)
 		*flags |= 32;
 }

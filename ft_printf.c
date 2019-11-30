@@ -6,11 +6,33 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/29 16:55:09 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/30 16:36:27 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+// void	put_zero(const char **str, void *value, short flags, int *amount)
+// {
+// 	extern int	g_width;
+// 	extern int	g_accuracy;
+// 	int			len_zero;
+// 	int			i;
+
+// 	if (g_accuracy && len_symbols(&(*str), &(*value), flags) < g_accuracy)
+// 		len_zero = g_accuracy - len_symbols(&(*str), &(*value), flags);
+// 	else
+// 		len_zero = 0;
+		
+// 	i = 0;
+// 	while (i < len_zero)
+// 	{
+// 		put_char('0', NULL, &(*amount));
+// 		i += 1;
+// 	}
+// }
+
+
 
 int		ft_printf(const char *str, ...)
 {
@@ -34,6 +56,9 @@ int		ft_printf(const char *str, ...)
 		def_width(&flags, &str);
 		check_flags(&flags, &str);
 		def_accuracy(&flags, &str);
+
+		if (flags & 64 && flags & 32 && flags & 16)
+			flags ^= 16;
 		
 		if (*str == 'o')
 		{
@@ -62,8 +87,10 @@ int		ft_printf(const char *str, ...)
 			if (flags & 32 && !(flags & 17))
 				// put_space(len_space(&str, &value, flags), flags, &amount);
 				put_space(&str, &value, flags, &amount);
-			// put_zero();
 			put_sign((int)value, flags, &amount);
+
+			put_zero(&str, &value, flags, &amount);
+			
 			if (flags & 32 && flags & 16 && !(flags & 1))
 				// put_space(len_space(&str, &value, flags), flags, &amount);
 				put_space(&str, &value, flags, &amount);
