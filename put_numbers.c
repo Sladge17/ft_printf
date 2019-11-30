@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/27 15:49:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/30 19:27:55 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	put_sign(int value, short flags, int *amount)
 
 void	put_abs(int value, short flags, int *amount)
 {
+	if (flags & 64 && g_accuracy == 0 && value == 0)
+		return ;
 	if (!(flags & 128))
 	{
 		if (value == -2147483648)

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/30 16:10:21 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/30 19:02:06 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ void	def_accuracy(short *flags, const char **str)
 
 	if (**str != '.')
 		return ;
+	*flags |= 64;
 	*str += 1;
 	ft_atoi(&g_accuracy, &(*str));
-	if (g_accuracy)
-		*flags |= 64;
+	// if (g_accuracy)
+		// *flags |= 64;
 }
 
 void	ft_atoi(int *param, const char **str)

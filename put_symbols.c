@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/30 16:36:17 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/30 19:40:14 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	check_lastfreesmb(const char **str, int *amount)
 
 // void	put_space(int len_space, short flags, int *amount)
 void	put_space(const char **str, void *value, short flags, int *amount)
+// void	put_space(int len_symbols, void *value, short flags, int *amount)
 {
 	extern int	g_width;
 	extern int	g_accuracy;
@@ -70,8 +71,7 @@ void	put_space(const char **str, void *value, short flags, int *amount)
 	int			len_space;
 	int			i;
 
-
-	if (g_accuracy && g_width < g_accuracy)
+	if (g_width <= g_accuracy)
 		return ;
 
 	space = ' ';
@@ -79,13 +79,18 @@ void	put_space(const char **str, void *value, short flags, int *amount)
 		space = '0';
 
 	// len_space = g_width - len_symbols(&(*str), &(*value), flags) - len_sign(*(int *)value, flags);
-	if (g_accuracy && len_symbols(&(*str), &(*value), flags) < g_accuracy)
+	if (len_symbols(&(*str), &(*value), flags) < g_accuracy)
+	// if (len_symbols < g_accuracy)
 		len_space = g_width - g_accuracy;
 	else
 		len_space = g_width - len_symbols(&(*str), &(*value), flags) - len_sign(&(*value), flags);
+		// len_space = g_width - len_symbols - len_sign(&(*value), flags);
 
-	if ((g_accuracy && (flags & 2 || flags & 4)) || (g_accuracy && *(int *)value < 0))
+	if (g_accuracy && (flags & 2 || flags & 4 || *(int *)value < 0))
 		len_space -= 1;
+
+	if (flags & 64 && !g_accuracy && !(*(int *)value))
+		len_space = g_width;
 		
 	i = 0;
 	while (i < len_space)
@@ -97,16 +102,17 @@ void	put_space(const char **str, void *value, short flags, int *amount)
 
 void	put_zero(const char **str, void *value, short flags, int *amount)
 {
-	extern int	g_width;
 	extern int	g_accuracy;
 	int			len_zero;
 	int			i;
 
-	if (g_accuracy && len_symbols(&(*str), &(*value), flags) < g_accuracy)
-		len_zero = g_accuracy - len_symbols(&(*str), &(*value), flags);
-	else
-		len_zero = 0;
-		
+	// if (!(flags & 64))
+	// 	return ;
+	if (g_accuracy == 0 && *(int *)value == 0)
+		return ;
+	if (g_accuracy <= len_symbols(&(*str), &(*value), flags))
+		return ;
+	len_zero = g_accuracy - len_symbols(&(*str), &(*value), flags);
 	i = 0;
 	while (i < len_zero)
 	{

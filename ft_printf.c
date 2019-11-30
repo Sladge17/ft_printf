@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/30 16:41:07 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/30 18:25:45 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_printf(const char *str, ...)
 	va_list	args;
 	short	flags;
 	void	*value;
-	
+
 	amount = 0;
 	va_start(args, str);
 	while (*str)
@@ -65,18 +65,22 @@ int		ft_printf(const char *str, ...)
 			if (flags & 32 && !(flags & 17))
 				// put_space(len_space(&str, &value, flags), flags, &amount);
 				put_space(&str, &value, flags, &amount);
+				// put_space(len_symbols(&str, &value, flags), &value, flags, &amount);
 			put_sign((int)value, flags, &amount);
-
-			put_zero(&str, &value, flags, &amount);
+			
+			if (flags & 64)
+				put_zero(&str, &value, flags, &amount);
 			
 			if (flags & 32 && flags & 16 && !(flags & 1))
 				// put_space(len_space(&str, &value, flags), flags, &amount);
 				put_space(&str, &value, flags, &amount);
+				// put_space(len_symbols(&str, &value, flags), &value, flags, &amount);
 			put_abs((int)value, flags, &amount);
 			put_uabs((int)value, flags, &amount);
 			if (flags & 32 && flags & 1)
 				// put_space(len_space(&str, &value, flags), flags, &amount);
 				put_space(&str, &value, flags, &amount);
+				// put_space(len_symbols(&str, &value, flags), &value, flags, &amount);
 			str += 1;
 			continue ;
 		}
@@ -92,14 +96,17 @@ int		ft_printf(const char *str, ...)
 			if (flags & 32 && !(flags & 17))
 				// put_space(len_space(&str, value, flags), flags, &amount);
 				put_space(&str, value, flags, &amount);
+				// put_space(len_symbols(&str, value, flags), &value, flags, &amount);
 			put_prefix(value, flags, &amount);
 			if (flags & 32 && flags & 16 && !(flags & 1))
 				// put_space(len_space(&str, value, flags), flags, &amount);
 				put_space(&str, value, flags, &amount);
+				// put_space(len_symbols(&str, value, flags), &value, flags, &amount);
 			put_str(value, &amount);
 			if (flags & 32 && flags & 1)
 				// put_space(len_space(&str, value, flags), flags, &amount);
 				put_space(&str, value, flags, &amount);
+				// put_space(len_symbols(&str, value, flags), &value, flags, &amount);
 			str += 1;
 			continue ;
 		}
@@ -113,10 +120,12 @@ int		ft_printf(const char *str, ...)
 					put_char((char)value, &str, &amount);
 					// put_space(len_space(&str, &value, flags), flags, &amount);
 					put_space(&str, &value, flags, &amount);
+					// put_space(len_symbols(&str, &value, flags), &value, flags, &amount);
 					continue ;
 				}
 				// put_space(len_space(&str, &value, flags), flags, &amount);
 				put_space(&str, &value, flags, &amount);
+				// put_space(len_symbols(&str, &value, flags), &value, flags, &amount);
 				put_char((char)value, &str, &amount);
 				continue ;
 			}
@@ -131,10 +140,12 @@ int		ft_printf(const char *str, ...)
 				put_char(*str, &str, &amount);
 				// put_space(len_space(&str, &value, flags), flags, &amount);
 				put_space(&str, &value, flags, &amount);
+				// put_space(len_symbols(&str, &value, flags), &value, flags, &amount);
 				continue ;
 			}
 			// put_space(len_space(&str, &value, flags), flags, &amount);
 			put_space(&str, &value, flags, &amount);
+			// put_space(len_symbols(&str, &value, flags), &value, flags, &amount);
 			put_char(*str, &str, &amount);
 			continue ;
 		}

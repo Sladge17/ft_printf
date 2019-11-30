@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/30 16:36:50 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/11/30 18:26:34 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	put_freesmb(const char **str, int *amount);
 char	check_lastfreesmb(const char **str, int *amount);
 // void	put_space(int len_space, short flags, int *amount);
 void	put_space(const char **str, void *value, short flags, int *amount);
+// void	put_space(int len_symbols, void *value, short flags, int *amount);
 void	put_zero(const char **str, void *value, short flags, int *amount);
 void	put_str(char const *str, int *amount);
 
