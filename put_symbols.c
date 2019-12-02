@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/02 15:09:55 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/02 17:17:39 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	put_space(const char **str, void *value, short *flags, int *amount)
 	if (len_symb < g_accuracy)
 		len_space = g_width - g_accuracy;
 	else
-		len_space = g_width - len_symb - len_sign(&(*value), *flags);
+		len_space = g_width - len_symb - len_sign(&(*value), &(*flags));
 
 	if (g_accuracy && (*flags & 2 || *flags & 4 || *(int *)value < 0))
 		len_space -= 1;
