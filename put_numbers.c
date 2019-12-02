@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/02 15:35:35 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/02 16:12:23 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,22 @@ void	put_sign(void **value, short *flags, int *amount)
 	}
 }
 
-void	put_abs(int value, short flags, int *amount)
+void	put_abs(int value, short *flags, int *amount)
 {
-	if (flags & 64 && g_accuracy == 0 && value == 0)
-		return ;
-	if (flags & 128)
+	extern int	g_accuracy;
+
+	if (*flags & 128 || (*flags & 64 && g_accuracy == 0 && value == 0))
 		return ;
 	if (value == -2147483648)
 	{
-		put_char('2', NULL, &(*amount));
-		put_abs(147483648, flags, &(*amount));
+		write(1, "2", 1);
+		*amount += 1;
+		put_abs(147483648, &(*flags), &(*amount));
 		return ;
 	}
 	if (value < 0)
 	{
-		put_abs((-1) * value, flags, &(*amount));
+		put_abs((-1) * value, &(*flags), &(*amount));
 		return ;
 	}
 	if (value < 10)
@@ -58,7 +59,7 @@ void	put_abs(int value, short flags, int *amount)
 		put_char(value + 48, NULL, &(*amount));
 		return ;
 	}
-	put_abs(value / 10, flags, &(*amount));
+	put_abs(value / 10, &(*flags), &(*amount));
 	put_char((value % 10) + 48, NULL, &(*amount));
 }
 
