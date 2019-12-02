@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/02 17:18:51 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/02 17:46:41 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	def_bitborder(unsigned int *bitborder, int value, char bit_count);
 */
 void	put_sign(void **value, short *flags, int *amount);
 void	put_abs(int value, short *flags, int *amount);
-void	put_prefix(char *value, short flags, int *amount);
+void	put_prefix(void **value, short *flags, int *amount);
 void	put_uabs(unsigned int value, short *flags, int *amount);
 
 /*
