@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/30 18:26:34 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/02 11:52:24 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int		len_symbols(const char **str, void *value, short flags);
 void	binto_oct(void **value, char index);
 void	binto_hex(void **value, char index);
 void	def_bitborder(unsigned int *bitborder, int value, char bit_count);
-int		two_inpower(int power);
 
 /*
 ** put_numbers.c

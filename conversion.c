@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/29 11:05:53 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/02 11:52:10 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	binto_oct(void **value, char index)
 	while (bitborder)
 	{
 		factor = 0;
-		i = 0;
-		while (i < 3)
+		i = 2;
+		while (i > -1)
 		{
 			if ((int)(*value) & bitborder)
-				factor += two_inpower(2 - i);
+				factor += 1 << i;
 			bitborder >>= 1;
-			i += 1;
+			i -= 1;
 		}
 		oct[len] = factor + 48;
 		len += 1;
@@ -93,13 +93,13 @@ void	binto_hex(void **value, char index)
 	while (bitborder)
 	{
 		factor = 0;
-		i = 0;
-		while (i < 4)
+		i = 3;
+		while (i > -1)
 		{
 			if ((int)(*value) & bitborder)
-				factor += two_inpower(3 - i);
+				factor += 1 << i;
 			bitborder >>= 1;
-			i += 1;
+			i -= 1;
 		}
 		if (factor < 10)
 		{
@@ -133,13 +133,4 @@ void	def_bitborder(unsigned int *bitborder, int value, char bit_count)
 		bitshift += 1;
 	*bitborder = 1;
 	*bitborder <<= bitshift;
-}
-
-int		two_inpower(int power)
-{
-	if (power == 0)
-		return (1);
-	if (power == 1)
-		return (2);
-	return (two_inpower(power - 1) * 2);
 }
