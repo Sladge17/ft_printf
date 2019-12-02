@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/29 17:46:34 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/02 15:07:27 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		len_str(const char *str)
 }
 
 // int		len_space(const char **str, void *value, short flags)
-int		len_symbols(const char **str, void *value, short flags)
+int		len_symbols(const char **str, void *value, short *flags)
 {
 	// extern int	g_width; //DELL
 	// int			len_space; // DELL
@@ -81,9 +81,9 @@ int		len_symbols(const char **str, void *value, short flags)
 		len_symbols = len_unumb(*(int *)value);
 	if (**str == 's' || **str == 'o' || **str == 'x' || **str == 'X')
 		len_symbols = len_str((char *)value);
-	if (**str == 'o' && flags & 8)
+	if (**str == 'o' && *flags & 8)
 		len_symbols += 1;
-	if (flags & 8 && (**str == 'x' || **str == 'X'))
+	if (*flags & 8 && (**str == 'x' || **str == 'X'))
 		len_symbols += 2;
 	// len_space = g_width - len_symbols;
 	return (len_symbols);
