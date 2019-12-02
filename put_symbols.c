@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/02 17:17:39 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/02 20:44:41 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,23 @@ void	put_space(const char **str, void *value, short *flags, int *amount)
 	}
 }
 
-void	put_zero(const char **str, void *value, short flags, int *amount)
+void	put_zero(const char **str, void *value, short *flags, int *amount)
 {
 	extern int	g_accuracy;
 	int			len_zero;
 	int			i;
 
-	if (!(flags & 64))
+	int			len_symb;
+
+	len_symb = len_symbols(&(*str), &(*value), &(*flags));
+
+	if (!(*flags & 64))
 		return ;
 	if (g_accuracy == 0 && *(int *)value == 0)
 		return ;
-	if (g_accuracy <= len_symbols(&(*str), &(*value), &flags))
+	if (g_accuracy <= len_symb)
 		return ;
-	len_zero = g_accuracy - len_symbols(&(*str), &(*value), &flags);
+	len_zero = g_accuracy - len_symb;
 	i = 0;
 	while (i < len_zero)
 	{
