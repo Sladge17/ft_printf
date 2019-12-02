@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/02 16:12:23 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/02 16:25:23 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,17 @@ void	put_sign(void **value, short *flags, int *amount)
 		return ;
 	if ((int)(*value) < 0)
 	{
-		write(1, "-", 1);
-		*amount += 1;
+		put_char('-', NULL, &(*amount));
 		return ;
 	}
 	if (*flags & 2)
 	{
-		write(1, "+", 1);
-		*amount += 1;
+		put_char('+', NULL, &(*amount));
 		return ;
 	}
 	if (*flags & 4)
 	{
-		write(1, " ", 1);
-		*amount += 1;
+		put_char(' ', NULL, &(*amount));
 		return ;
 	}
 }
@@ -44,8 +41,7 @@ void	put_abs(int value, short *flags, int *amount)
 		return ;
 	if (value == -2147483648)
 	{
-		write(1, "2", 1);
-		*amount += 1;
+		put_char('2', NULL, &(*amount));
 		put_abs(147483648, &(*flags), &(*amount));
 		return ;
 	}
@@ -84,17 +80,15 @@ void	put_prefix(char *value, short flags, int *amount)
 	}
 }
 
-void	put_uabs(unsigned int value, short flags, int *amount)
+void	put_uabs(unsigned int value, short *flags, int *amount)
 {
-	if (!(flags & 128))
+	if (!(*flags & 128))
 		return ;
 	if (value < 10)
 	{
-		value = value + 48;
-		write(1, &value, 1);
-		*amount += 1;
+		put_char(value + 48, NULL, &(*amount));
 		return ;
 	}
-	put_uabs(value / 10, flags, &(*amount));
+	put_uabs(value / 10, &(*flags), &(*amount));
 	put_char((value % 10) + 48, NULL, &(*amount));
 }
