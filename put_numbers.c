@@ -6,29 +6,32 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/30 20:55:16 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/02 15:35:35 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	put_sign(int value, short flags, int *amount)
+void	put_sign(void **value, short *flags, int *amount)
 {
-	if (flags & 128)
+	if (*flags & 128)
 		return ;
-	if (value < 0)
+	if ((int)(*value) < 0)
 	{
-		put_char('-', NULL, &(*amount));
-		return ;
-	}
-	if (flags & 2)
-	{
-		put_char('+', NULL, &(*amount));
+		write(1, "-", 1);
+		*amount += 1;
 		return ;
 	}
-	if (flags & 4)
+	if (*flags & 2)
 	{
-		put_char(' ', NULL, &(*amount));
+		write(1, "+", 1);
+		*amount += 1;
+		return ;
+	}
+	if (*flags & 4)
+	{
+		write(1, " ", 1);
+		*amount += 1;
 		return ;
 	}
 }
