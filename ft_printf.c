@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/02 20:40:28 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/03 15:25:15 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		ft_printf(const char *str, ...)
 		{
 			binto_hex(&value, *str);
 			if (!value)
+			// if (!value && !(flags & 64))
 				break ;
 			if (*str == 'x')
 				flags |= 512;
@@ -78,8 +79,9 @@ int		ft_printf(const char *str, ...)
 		if (*str == 's' || *str == 'o' || *str == 'x' || *str == 'X')
 		{
 			if (!value)
+			// if (!value && !(flags & 64))
 			{
-				put_str( "(null)", &amount);
+				put_str( "(null)", &flags, &amount);
 				str += 1;
 				continue ;
 			}
@@ -88,7 +90,7 @@ int		ft_printf(const char *str, ...)
 			put_prefix(&value, &flags, &amount);
 			if (flags & 32 && flags & 16 && !(flags & 1))
 				put_space(&str, value, &flags, &amount);
-			put_str(value, &amount);
+			put_str(value, &flags, &amount);
 			if (flags & 32 && flags & 1)
 				put_space(&str, value, &flags, &amount);
 			str += 1;

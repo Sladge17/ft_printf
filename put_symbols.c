@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/02 20:44:41 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/03 15:19:42 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,26 @@ void	put_space(const char **str, void *value, short *flags, int *amount)
 	if (*flags & 16 && !(*flags & 1))
 		space = '0';
 
-	if (len_symb < g_accuracy)
+	if (len_symb < g_accuracy || (*flags & 64 && **str == 's'))
 		len_space = g_width - g_accuracy;
 	else
 		len_space = g_width - len_symb - len_sign(&(*value), &(*flags));
 
+	// if (*flags & 64 && **str == 's')
+	// 	len_space = g_width - g_accuracy;
+	
 	if (g_accuracy && (*flags & 2 || *flags & 4 || *(int *)value < 0))
 		len_space -= 1;
 
 	if (*flags & 64 && !g_accuracy && !(*(int *)value))
 		len_space = g_width;
+
+	if (!len_symb && *flags & 32 && *flags & 64)
+	// if (!len_symb && (*flags & 96) == 96)
+		len_space = g_width;
+
+	// if (!(*(int *)value) && *flags & 32 && *flags & 64)
+	// 	len_space = g_width;
 		
 	i = 0;
 	while (i < len_space)
@@ -123,10 +133,24 @@ void	put_zero(const char **str, void *value, short *flags, int *amount)
 }
 
 
-void	put_str(char const *string, int *amount)
+void	put_str(char const *string, short *flags, int *amount)
 {
-	if (!string)
+	extern int	g_accuracy;
+	int			i;
+	
+	if (!string || (*flags & 64 && *string == '0'))
 		return ;
+	if (*flags & 64 && !(*flags & 1792) && *string != '\0')
+	{
+		i = 0;
+		while (i < g_accuracy)
+		{
+			put_char(*string, NULL, &(*amount));
+			string += 1;
+			i += 1;
+		}
+		return ;
+	}
 	while (*string != '\0')
 	{
 		put_char(*string, NULL, &(*amount));

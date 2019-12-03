@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/02 17:19:15 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/03 15:23:40 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int		len_symbols(const char **str, void *value, short *flags)
 	// extern int	g_width; //DELL
 	// int			len_space; // DELL
 	int			len_symbols;
+
+	if ((int)value == 0)
+		return (0);
 
 	len_symbols = 1;
 	if (**str == 'd' || **str == 'i')

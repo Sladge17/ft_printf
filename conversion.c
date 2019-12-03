@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/02 11:52:10 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/03 15:27:35 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ void	binto_hex(void **value, char index)
 	int				i;
 	int				factor;
 	int				len;
+
+	// if (!(int)(*value))
+	// 	return ;
 
 	def_bitborder(&bitborder, (int)(*value), 4);
 	len = 0;
