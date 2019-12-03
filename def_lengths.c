@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/03 15:23:40 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/03 20:35:42 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,16 @@ int		len_unumb(unsigned int value)
 	return (len);
 }
 
-char	len_sign(void *value, short *flags)
+char	len_sign(const char **str, void **value, short *flags)
+// int	len_sign(int value, short *flags)
 {
 	// if (flags & 32)
 	// 	return (0);
 	if (*flags & 128)
 		return (0);
-	if (*(int *)value < 0)
+	if (**str != 's' && !(*flags & 1792) && (int)(*value) < 0)
+	// if (value < 0)
+	// if ((int)(*value) & 1 << 31)
 		return (1);
 	if (*flags & 2 || *flags & 4)
 		return (1);
@@ -65,23 +68,23 @@ int		len_str(const char *str)
 }
 
 // int		len_space(const char **str, void *value, short flags)
-int		len_symbols(const char **str, void *value, short *flags)
+int		len_symbols(const char **str, void **value, short *flags)
 {
 	// extern int	g_width; //DELL
 	// int			len_space; // DELL
 	int			len_symbols;
 
-	if ((int)value == 0)
-		return (0);
+	// if ((int)(*value) == 0 && **str != 'c')
+	// 	return (0);
 
 	len_symbols = 1;
 	if (**str == 'd' || **str == 'i')
 		// len_symbols = len_numb(*(int *)value, len_sign(*(int *)value, flags));
-		len_symbols = len_numb(*(int *)value);
+		len_symbols = len_numb((int)(*value));
 	if (**str == 'u')
-		len_symbols = len_unumb(*(int *)value);
+		len_symbols = len_unumb((int)(*value));
 	if (**str == 's' || **str == 'o' || **str == 'x' || **str == 'X')
-		len_symbols = len_str((char *)value);
+		len_symbols = len_str((char *)(*value));
 	if (**str == 'o' && *flags & 8)
 		len_symbols += 1;
 	if (*flags & 8 && (**str == 'x' || **str == 'X'))

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/03 12:15:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/03 19:28:12 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+
+# include <stdio.h>
 
 int		g_width;
 int		g_accuracy;
@@ -46,9 +48,10 @@ char	find_zero(const char **str, short *flags);
 */
 int		len_numb(int value);
 int		len_unumb(unsigned int value);
-char	len_sign(void *value, short *flags);
+char	len_sign(const char **str, void **value, short *flags);
+// int	len_sign(int value, short *flags);
 int		len_str(const char *str);
-int		len_symbols(const char **str, void *value, short *flags);
+int		len_symbols(const char **str, void **value, short *flags);
 
 /*
 ** conversion.c
@@ -71,8 +74,8 @@ void	put_uabs(unsigned int value, short *flags, int *amount);
 void	put_char(char symbol, const char **str, int *amount);
 char	put_freesmb(const char **str, int *amount);
 char	check_lastfreesmb(const char **str, int *amount);
-void	put_space(const char **str, void *value, short *flags, int *amount);
-void	put_zero(const char **str, void *value, short *flags, int *amount);
+void	put_space(const char **str, void **value, short *flags, int *amount);
+void	put_zero(const char **str, void **value, short *flags, int *amount);
 // void	put_str(char const *str, int *amount);
 void	put_str(char const *string, short *flags, int *amount);
 

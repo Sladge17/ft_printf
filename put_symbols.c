@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/03 16:25:18 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/03 19:47:18 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	check_lastfreesmb(const char **str, int *amount)
 	return (1);
 }
 
-void	put_space(const char **str, void *value, short *flags, int *amount)
+void	put_space(const char **str, void **value, short *flags, int *amount)
 {
 	extern int	g_width;
 	extern int	g_accuracy;
@@ -68,8 +68,12 @@ void	put_space(const char **str, void *value, short *flags, int *amount)
 	int			i;
 
 	int			len_symb;
+	char		len_sig;
 
 	len_symb = len_symbols(&(*str), &(*value), &(*flags));
+
+	len_sig = len_sign(&(*str), &(*value), &(*flags));
+	// len_sig = len_sign((int)(*value), &(*flags));
 
 	if (g_width <= g_accuracy)
 		return ;
@@ -81,15 +85,15 @@ void	put_space(const char **str, void *value, short *flags, int *amount)
 	if (len_symb < g_accuracy || (*flags & 64 && **str == 's'))
 		len_space = g_width - g_accuracy;
 	else
-		len_space = g_width - len_symb - len_sign(&(*value), &(*flags));
+		len_space = g_width - len_symb - (int)len_sig;
 
 	// if (*flags & 64 && **str == 's')
 	// 	len_space = g_width - g_accuracy;
 	
-	if (g_accuracy && (*flags & 2 || *flags & 4 || *(int *)value < 0))
+	if (g_accuracy && (*flags & 2 || *flags & 4 || (**str != 's' && !(*flags & 1792) && (int)(*value) < 0)))
 		len_space -= 1;
 
-	if (*flags & 64 && !g_accuracy && !(*(int *)value))
+	if (*flags & 64 && !g_accuracy && !((int)(*value)))
 		len_space = g_width;
 
 	if (!len_symb && *flags & 32 && *flags & 64)
@@ -107,7 +111,7 @@ void	put_space(const char **str, void *value, short *flags, int *amount)
 	}
 }
 
-void	put_zero(const char **str, void *value, short *flags, int *amount)
+void	put_zero(const char **str, void **value, short *flags, int *amount)
 {
 	extern int	g_accuracy;
 	int			len_zero;
@@ -122,7 +126,7 @@ void	put_zero(const char **str, void *value, short *flags, int *amount)
 
 	if (!(*flags & 64))
 		return ;
-	if (g_accuracy == 0 && *(int *)value == 0)
+	if (g_accuracy == 0 && (int)(*value) == 0)
 		return ;
 	if (g_accuracy <= len_symb)
 		return ;
