@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/03 15:25:15 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/03 16:13:24 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int		ft_printf(const char *str, ...)
 			}
 			if (flags & 32 && !(flags & 17))
 				put_space(&str, value, &flags, &amount);
+			put_zero(&str, value, &flags, &amount);
 			put_prefix(&value, &flags, &amount);
 			if (flags & 32 && flags & 16 && !(flags & 1))
 				put_space(&str, value, &flags, &amount);

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/03 15:19:42 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/03 16:25:18 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ void	put_zero(const char **str, void *value, short *flags, int *amount)
 
 	int			len_symb;
 
+	if (**str == 's')
+		return ;
+	
 	len_symb = len_symbols(&(*str), &(*value), &(*flags));
 
 	if (!(*flags & 64))
