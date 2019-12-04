@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 18:31:42 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 18:35:20 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	check_lastfreesmb(const char **str, int *amount)
 	return (1);
 }
 
-void	put_space(const char **str, void **value, unsigned int *flags, int *amount)
+void	put_space(void **value, unsigned int *flags, int *amount)
 {
 	extern int	g_width;
 	extern int	g_accuracy;
@@ -81,7 +81,7 @@ void	put_space(const char **str, void **value, unsigned int *flags, int *amount)
 	if (*flags & 16 && !(*flags & 1))
 		space = '0';
 
-	if (len_symb < g_accuracy || (*flags & 64 && **str == 's'))
+	if (len_symb < g_accuracy || (*flags & 64 && *flags & 16384))
 		len_space = g_width - g_accuracy;
 	else
 		len_space = g_width - len_symb - (int)len_sig;
@@ -89,7 +89,7 @@ void	put_space(const char **str, void **value, unsigned int *flags, int *amount)
 	// if (*flags & 64 && **str == 's')
 	// 	len_space = g_width - g_accuracy;
 	
-	if (g_accuracy && (*flags & 2 || *flags & 4 || (**str != 's' && !(*flags & 229376) && (int)(*value) < 0)))
+	if (g_accuracy && (*flags & 2 || *flags & 4 || (!(*flags & 16384) && !(*flags & 229376) && (int)(*value) < 0)))
 		len_space -= 1;
 
 	if (*flags & 64 && !g_accuracy && !((int)(*value)))
