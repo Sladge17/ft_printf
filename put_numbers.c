@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 18:45:30 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 18:50:59 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	put_abs(int value, unsigned int *flags, int *amount)
 
 void	put_prefix(void **value, unsigned int *flags, int *amount)
 {
-	if (*flags & 28672 || !(*flags & 8) || (*flags & 8 && *(char *)(*value) == '0'))
+	if (*flags & 28672 || !(*flags & 8)
+		|| (*flags & 8 && *(char *)(*value) == '0'))
 		return ;
 	if (*flags & 32768)
 	{
