@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 12:27:00 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 14:53:00 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	check_flags(unsigned int *flags, const char **str);
 void	def_width(unsigned int *flags, const char **str);
 void	def_accuracy(unsigned int *flags, const char **str);
 void	ft_atoi(int *param, const char **str);
+void	def_type(unsigned int *flags, const char **str);
 
 /*
 ** find_flags.c
@@ -56,7 +57,8 @@ int		len_symbols(const char **str, void **value, unsigned int *flags);
 /*
 ** conversion.c
 */
-void	binto_oct(void **value, char index);
+void	conversion(unsigned int *flags, void **value, const char **str);
+void	binto_oct(void **value);
 void	binto_hex(void **value, char index);
 void	def_bitborder(unsigned int *bitborder, int value, char bit_count);
 

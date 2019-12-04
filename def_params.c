@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 13:27:01 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 14:56:27 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,37 @@ void	ft_atoi(int *param, const char **str)
 		*param = *param * 10 + (**str - '0');
 		*str += 1;
 	}
+}
+
+void	def_type(unsigned int *flags, const char **str)
+{
+		if (**str == 'd' || **str == 'i')
+			*flags |= 4096;
+		if (**str == 'u')
+			*flags |= 8192;
+		if (**str == 's')
+			*flags |= 16384;
+		if (**str == 'o')
+			// binto_oct(&value, *str);
+			// if (!value)
+			// 	break ;
+			*flags |= 32768;
+
+		// if (**str == 'x' || *str == 'X')
+		// {
+		// 	binto_hex(&value, *str);
+		// 	if (!value)
+		// 	// if (!value && !(flags & 64))
+		// 		break ;
+		// 	if (*str == 'x')
+		// 		*flags |= 65536;
+		// 	else
+		// 		*flags |= 131072;
+		// }
+		if (**str == 'x')
+			*flags |= 65536;
+		if (**str == 'X')
+			*flags |= 131072;
+		if (**str == 'c')
+			*flags |= 262144;
 }

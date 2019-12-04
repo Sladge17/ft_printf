@@ -6,13 +6,35 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/03 15:27:35 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 14:52:46 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	binto_oct(void **value, char index)
+void	conversion(unsigned int *flags, void **value, const char **str)
+{
+	if (!(*flags & 229376))
+		return;
+	if (*flags & 32768)
+		{
+			binto_oct(&(*value));
+			return ;
+		}
+	if (*flags & 65536)
+		{
+			binto_hex(&(*value), 'x');
+			return ;
+		}
+		if (*flags & 131072)
+		{
+			binto_hex(&(*value), 'X');
+			return ;
+		}
+	
+}
+
+void	binto_oct(void **value)
 {
 	char			*oct;
 	unsigned int	bitborder;
