@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 17:24:02 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 17:48:25 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	put_str(char const *string, unsigned int *flags, int *amount)
 	extern int	g_accuracy;
 	int			i;
 	
-	if (!string || (*flags & 64 && *string == '0'))
+	if (*flags & 12288 || !string || (*flags & 64 && *string == '0'))
 		return ;
 	if (*flags & 64 && !(*flags & 229376) && *string != '\0')
 	{

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 12:40:56 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 17:46:54 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	put_sign(void **value, unsigned int *flags, int *amount)
 {
-	if (*flags & 8192)
+	// if (*flags & 8192)
+	if (*flags & 253952)
 		return ;
 	if ((int)(*value) < 0)
 	{
@@ -37,7 +38,8 @@ void	put_abs(int value, unsigned int *flags, int *amount)
 {
 	extern int	g_accuracy;
 
-	if (*flags & 8192 || (*flags & 64 && g_accuracy == 0 && value == 0))
+	// if (*flags & 8192 || (*flags & 64 && g_accuracy == 0 && value == 0))
+	if (*flags & 253952 || (*flags & 64 && g_accuracy == 0 && value == 0))
 		return ;
 	if (value == -2147483648)
 	{
@@ -61,7 +63,7 @@ void	put_abs(int value, unsigned int *flags, int *amount)
 
 void	put_prefix(void **value, unsigned int *flags, int *amount)
 {
-	if (!(*flags & 8) || (*flags & 8 && *(char *)(*value) == '0'))
+	if (*flags & 28672 || !(*flags & 8) || (*flags & 8 && *(char *)(*value) == '0'))
 		return ;
 	if (*flags & 32768)
 	{
