@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 17:12:38 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 17:21:12 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ void	put_space(const char **str, void **value, unsigned int *flags, int *amount)
 
 	len_symb = len_symbols(&(*value), &(*flags));
 
-	len_sig = len_sign(&(*str), &(*value), &(*flags));
-	// len_sig = len_sign((int)(*value), &(*flags));
+	len_sig = len_sign(&(*value), &(*flags));
 
 	if (g_width <= g_accuracy)
 		return ;
