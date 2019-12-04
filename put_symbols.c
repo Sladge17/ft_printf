@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 17:48:25 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 18:29:48 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ char	put_freesmb(const char **str, int *amount)
 	{
 		if (**str == '\0')
 			return (0);
-		put_char(**str, &(*str), &(*amount));
+		write(1, &(**str), 1);
+		*str += 1;
+		*amount += 1;
 	}
 	*str += 1;
 	return (1);
@@ -55,7 +57,9 @@ char	check_lastfreesmb(const char **str, int *amount)
 		|| *(*str + i) == 'x' || *(*str + i) == 'X')
 		return (0);
 	*str += i;
-	put_char(**str, &(*str), &(*amount));
+	write(1, &(**str), 1);
+	*str += 1;
+	*amount += 1;
 	return (1);
 }
 
