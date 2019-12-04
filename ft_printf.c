@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 15:11:42 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 15:19:14 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,43 +36,8 @@ int		ft_printf(const char *str, ...)
 		def_accuracy(&flags, &str);
 		if (flags & 64 && flags & 32 && flags & 16 && !(flags & 15))
 			flags ^= 16;
-		
 		def_type(&flags, &str);
-		// if (*str == 'd' || *str == 'i')
-		// 	flags |= 4096;
-		
-		// if (*str == 'u')
-		// 	flags |= 8192;
-
-		// if (*str == 's')
-		// 	flags |= 16384;
-		
-		// if (*str == 'o')
-		// {
-		// 	binto_oct(&value, *str);
-		// 	if (!value)
-		// 		break ;
-		// 	flags |= 32768;
-		// }
-
-		// if (*str == 'x' || *str == 'X')
-		// {
-		// 	binto_hex(&value, *str);
-		// 	if (!value)
-		// 	// if (!value && !(flags & 64))
-		// 		break ;
-		// 	if (*str == 'x')
-		// 		flags |= 65536;
-		// 	else
-		// 		flags |= 131072;
-		// }
-
-		// if (*str == 'c')
-		// 	flags |= 262144;
-
-		// if (*str == 'd' || *str == 'i' || *str == 'u')
-
-		conversion(&flags, &value, &str);
+		conversion(&flags, &value);
 		
 		if (flags & 12288)
 		{	

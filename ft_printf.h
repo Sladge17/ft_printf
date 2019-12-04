@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 14:53:00 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 15:19:52 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		len_symbols(const char **str, void **value, unsigned int *flags);
 /*
 ** conversion.c
 */
-void	conversion(unsigned int *flags, void **value, const char **str);
+void	conversion(unsigned int *flags, void **value);
 void	binto_oct(void **value);
 void	binto_hex(void **value, char index);
 void	def_bitborder(unsigned int *bitborder, int value, char bit_count);
@@ -78,7 +78,6 @@ char	put_freesmb(const char **str, int *amount);
 char	check_lastfreesmb(const char **str, int *amount);
 void	put_space(const char **str, void **value, unsigned int *flags, int *amount);
 void	put_zero(const char **str, void **value, unsigned int *flags, int *amount);
-// void	put_str(char const *str, int *amount);
 void	put_str(char const *string, unsigned int *flags, int *amount);
 
 #endif

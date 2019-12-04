@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 14:52:46 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 15:19:42 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	conversion(unsigned int *flags, void **value, const char **str)
+void	conversion(unsigned int *flags, void **value)
 {
 	if (!(*flags & 229376))
 		return;
