@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 12:30:56 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 12:58:40 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ int		ft_printf(const char *str, ...)
 		if (flags & 64 && flags & 32 && flags & 16 && !(flags & 15))
 			flags ^= 16;
 		
+		if (*str == 'd' || *str == 'i')
+			flags |= 4096;
+		
+		if (*str == 'u')
+			flags |= 8192;
+
+		if (*str == 's')
+			flags |= 16384;
+		
 		if (*str == 'o')
 		{
 			binto_oct(&value, *str);
@@ -56,16 +65,17 @@ int		ft_printf(const char *str, ...)
 			else
 				flags |= 131072;
 		}
-		
-		if (*str == 'u')
-			flags |= 8192;
 
-		if (*str == 'd' || *str == 'i' || *str == 'u')
+		if (*str == 'c')
+			flags |= 262144;
+
+		// if (*str == 'd' || *str == 'i' || *str == 'u')
+		if (flags & 12288)
 		{	
 			if (flags & 32 && !(flags & 17))
 				put_space(&str, &value, &flags, &amount);
 			put_sign(&value, &flags, &amount);
-			put_zero(&str, &value, &flags, &amount);   // NEED CHANGE
+			put_zero(&str, &value, &flags, &amount);
 			if (flags & 32 && flags & 16 && !(flags & 1))
 				put_space(&str, &value, &flags, &amount);
 			put_abs((int)value, &flags, &amount);
@@ -76,7 +86,8 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		}
 
-		if (*str == 's' || *str == 'o' || *str == 'x' || *str == 'X')
+		// if (*str == 's' || *str == 'o' || *str == 'x' || *str == 'X')
+		if (flags & 245760)
 		{
 			if (!value)
 			// if (!value && !(flags & 64))
@@ -98,7 +109,8 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		}
 		
-		if (*str == 'c')
+		// if (*str == 'c')
+		if (flags & 262144)
 		{
 			if (flags & 32)
 			{

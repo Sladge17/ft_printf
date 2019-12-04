@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 12:27:00 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 13:27:01 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	def_width(unsigned int *flags, const char **str)
 	extern int	g_width;
 
 	ft_atoi(&g_width, &(*str));
-	// if (g_width & (*flags == 16))
-	// 	*flags ^= 16;
 	if (g_width)
 		*flags |= 32;
 }
@@ -50,8 +48,6 @@ void	def_accuracy(unsigned int *flags, const char **str)
 	*flags |= 64;
 	*str += 1;
 	ft_atoi(&g_accuracy, &(*str));
-	// if (g_accuracy)
-		// *flags |= 64;
 }
 
 void	ft_atoi(int *param, const char **str)
