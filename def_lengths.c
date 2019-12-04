@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/03 20:35:42 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 12:36:11 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int		len_unumb(unsigned int value)
 	return (len);
 }
 
-char	len_sign(const char **str, void **value, short *flags)
-// int	len_sign(int value, short *flags)
+char	len_sign(const char **str, void **value, unsigned int *flags)
+// int	len_sign(int value, unsigned int *flags)
 {
 	// if (flags & 32)
 	// 	return (0);
-	if (*flags & 128)
+	if (*flags & 8192)
 		return (0);
-	if (**str != 's' && !(*flags & 1792) && (int)(*value) < 0)
+	if (**str != 's' && !(*flags & 229376) && (int)(*value) < 0)
 	// if (value < 0)
 	// if ((int)(*value) & 1 << 31)
 		return (1);
@@ -68,7 +68,7 @@ int		len_str(const char *str)
 }
 
 // int		len_space(const char **str, void *value, short flags)
-int		len_symbols(const char **str, void **value, short *flags)
+int		len_symbols(const char **str, void **value, unsigned int *flags)
 {
 	// extern int	g_width; //DELL
 	// int			len_space; // DELL

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/03 19:28:12 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 12:27:00 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,29 @@ int		g_accuracy;
 /*
 ** def_params.c
 */
-void	check_flags(short *flags, const char **str);
-void	def_width(short *flags, const char **str);
-void	def_accuracy(short *flags, const char **str);
+void	check_flags(unsigned int *flags, const char **str);
+void	def_width(unsigned int *flags, const char **str);
+void	def_accuracy(unsigned int *flags, const char **str);
 void	ft_atoi(int *param, const char **str);
 
 /*
 ** find_flags.c
 */
-char	find_minus(const char **str, short *flags);
-char	find_plus(const char **str, short *flags);
-char	find_space(const char **str, short *flags);
-char	find_lattice(const char **str, short *flags);
-char	find_zero(const char **str, short *flags);
+char	find_minus(const char **str, unsigned int *flags);
+char	find_plus(const char **str, unsigned int *flags);
+char	find_space(const char **str, unsigned int *flags);
+char	find_lattice(const char **str, unsigned int *flags);
+char	find_zero(const char **str, unsigned int *flags);
 
 /*
 ** def_lengths.c
 */
 int		len_numb(int value);
 int		len_unumb(unsigned int value);
-char	len_sign(const char **str, void **value, short *flags);
-// int	len_sign(int value, short *flags);
+char	len_sign(const char **str, void **value, unsigned int *flags);
+// int	len_sign(int value, unsigned int *flags);
 int		len_str(const char *str);
-int		len_symbols(const char **str, void **value, short *flags);
+int		len_symbols(const char **str, void **value, unsigned int *flags);
 
 /*
 ** conversion.c
@@ -63,10 +63,10 @@ void	def_bitborder(unsigned int *bitborder, int value, char bit_count);
 /*
 ** put_numbers.c
 */
-void	put_sign(void **value, short *flags, int *amount);
-void	put_abs(int value, short *flags, int *amount);
-void	put_prefix(void **value, short *flags, int *amount);
-void	put_uabs(unsigned int value, short *flags, int *amount);
+void	put_sign(void **value, unsigned int *flags, int *amount);
+void	put_abs(int value, unsigned int *flags, int *amount);
+void	put_prefix(void **value, unsigned int *flags, int *amount);
+void	put_uabs(unsigned int value, unsigned int *flags, int *amount);
 
 /*
 ** put_symbols.c
@@ -74,9 +74,9 @@ void	put_uabs(unsigned int value, short *flags, int *amount);
 void	put_char(char symbol, const char **str, int *amount);
 char	put_freesmb(const char **str, int *amount);
 char	check_lastfreesmb(const char **str, int *amount);
-void	put_space(const char **str, void **value, short *flags, int *amount);
-void	put_zero(const char **str, void **value, short *flags, int *amount);
+void	put_space(const char **str, void **value, unsigned int *flags, int *amount);
+void	put_zero(const char **str, void **value, unsigned int *flags, int *amount);
 // void	put_str(char const *str, int *amount);
-void	put_str(char const *string, short *flags, int *amount);
+void	put_str(char const *string, unsigned int *flags, int *amount);
 
 #endif

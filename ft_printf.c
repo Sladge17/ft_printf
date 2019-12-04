@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/03 17:05:53 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 12:30:56 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		ft_printf(const char *str, ...)
 {
-	int		amount;
-	va_list	args;
-	short	flags;
-	void	*value;
+	int				amount;
+	va_list			args;
+	unsigned int	flags;
+	void			*value;
 
 	amount = 0;
 	va_start(args, str);
@@ -42,7 +42,7 @@ int		ft_printf(const char *str, ...)
 			binto_oct(&value, *str);
 			if (!value)
 				break ;
-			flags |= 256;
+			flags |= 32768;
 		}
 
 		if (*str == 'x' || *str == 'X')
@@ -52,13 +52,13 @@ int		ft_printf(const char *str, ...)
 			// if (!value && !(flags & 64))
 				break ;
 			if (*str == 'x')
-				flags |= 512;
+				flags |= 65536;
 			else
-				flags |= 1024;
+				flags |= 131072;
 		}
 		
 		if (*str == 'u')
-			flags |= 128;
+			flags |= 8192;
 
 		if (*str == 'd' || *str == 'i' || *str == 'u')
 		{	

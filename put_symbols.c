@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/03 19:47:18 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 12:42:25 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	check_lastfreesmb(const char **str, int *amount)
 	return (1);
 }
 
-void	put_space(const char **str, void **value, short *flags, int *amount)
+void	put_space(const char **str, void **value, unsigned int *flags, int *amount)
 {
 	extern int	g_width;
 	extern int	g_accuracy;
@@ -90,7 +90,7 @@ void	put_space(const char **str, void **value, short *flags, int *amount)
 	// if (*flags & 64 && **str == 's')
 	// 	len_space = g_width - g_accuracy;
 	
-	if (g_accuracy && (*flags & 2 || *flags & 4 || (**str != 's' && !(*flags & 1792) && (int)(*value) < 0)))
+	if (g_accuracy && (*flags & 2 || *flags & 4 || (**str != 's' && !(*flags & 229376) && (int)(*value) < 0)))
 		len_space -= 1;
 
 	if (*flags & 64 && !g_accuracy && !((int)(*value)))
@@ -111,7 +111,7 @@ void	put_space(const char **str, void **value, short *flags, int *amount)
 	}
 }
 
-void	put_zero(const char **str, void **value, short *flags, int *amount)
+void	put_zero(const char **str, void **value, unsigned int *flags, int *amount)
 {
 	extern int	g_accuracy;
 	int			len_zero;
@@ -140,14 +140,14 @@ void	put_zero(const char **str, void **value, short *flags, int *amount)
 }
 
 
-void	put_str(char const *string, short *flags, int *amount)
+void	put_str(char const *string, unsigned int *flags, int *amount)
 {
 	extern int	g_accuracy;
 	int			i;
 	
 	if (!string || (*flags & 64 && *string == '0'))
 		return ;
-	if (*flags & 64 && !(*flags & 1792) && *string != '\0')
+	if (*flags & 64 && !(*flags & 229376) && *string != '\0')
 	{
 		i = 0;
 		while (i < g_accuracy)

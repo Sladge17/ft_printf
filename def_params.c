@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/11/30 19:02:06 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 12:27:00 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	check_flags(short *flags, const char **str)
+void	check_flags(unsigned int *flags, const char **str)
 {
 	while (1)
 	{
@@ -30,7 +30,7 @@ void	check_flags(short *flags, const char **str)
 	}
 }
 
-void	def_width(short *flags, const char **str)
+void	def_width(unsigned int *flags, const char **str)
 {
 	extern int	g_width;
 
@@ -41,7 +41,7 @@ void	def_width(short *flags, const char **str)
 		*flags |= 32;
 }
 
-void	def_accuracy(short *flags, const char **str)
+void	def_accuracy(unsigned int *flags, const char **str)
 {
 	extern int	g_accuracy;
 
