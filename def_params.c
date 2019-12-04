@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 15:12:56 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 16:33:01 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,51 @@ void	ft_atoi(int *param, const char **str)
 	}
 }
 
+void	def_modifier(unsigned int *flags, const char **str)
+{
+	if (**str == 'h')
+	{
+		find_modsymb(&(*flags), &(*str), 256);
+		return ;
+	}
+	if (**str == 'l')
+	{
+		find_modsymb(&(*flags), &(*str), 1024);
+		return ;
+	}
+	if (**str == 'L')
+	{
+		*flags |= 2048;
+		*str += 1;
+	}
+}
+
+void	find_modsymb(unsigned int *flags, const char **str, short code)
+{
+	if (*(*str + 1) == **str)
+	{
+		*flags |= code;
+		*str += 2;
+		return ;
+	}
+	*flags |= code >> 1;
+	*str += 1;
+}
+
 void	def_type(unsigned int *flags, const char **str)
 {
-		if (**str == 'd' || **str == 'i')
-			*flags |= 4096;
-		if (**str == 'u')
-			*flags |= 8192;
-		if (**str == 's')
-			*flags |= 16384;
-		if (**str == 'o')
-			*flags |= 32768;
-		if (**str == 'x')
-			*flags |= 65536;
-		if (**str == 'X')
-			*flags |= 131072;
-		if (**str == 'c')
-			*flags |= 262144;
+	if (**str == 'd' || **str == 'i')
+		*flags |= 4096;
+	if (**str == 'u')
+		*flags |= 8192;
+	if (**str == 's')
+		*flags |= 16384;
+	if (**str == 'o')
+		*flags |= 32768;
+	if (**str == 'x')
+		*flags |= 65536;
+	if (**str == 'X')
+		*flags |= 131072;
+	if (**str == 'c')
+		*flags |= 262144;
 }

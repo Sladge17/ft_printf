@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 15:19:52 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 16:30:53 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	check_flags(unsigned int *flags, const char **str);
 void	def_width(unsigned int *flags, const char **str);
 void	def_accuracy(unsigned int *flags, const char **str);
 void	ft_atoi(int *param, const char **str);
+void	def_modifier(unsigned int *flags, const char **str);
+void	find_modsymb(unsigned int *flags, const char **str, short code);
 void	def_type(unsigned int *flags, const char **str);
 
 /*
