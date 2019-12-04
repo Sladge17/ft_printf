@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 12:36:11 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 17:12:12 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,27 +67,25 @@ int		len_str(const char *str)
 	return (len);
 }
 
-// int		len_space(const char **str, void *value, short flags)
-int		len_symbols(const char **str, void **value, unsigned int *flags)
+int		len_symbols(void **value, unsigned int *flags)
 {
-	// extern int	g_width; //DELL
-	// int			len_space; // DELL
 	int			len_symbols;
 
-	// if ((int)(*value) == 0 && **str != 'c')
-	// 	return (0);
-
 	len_symbols = 1;
-	if (**str == 'd' || **str == 'i')
-		// len_symbols = len_numb(*(int *)value, len_sign(*(int *)value, flags));
+	// if (**str == 'd' || **str == 'i')
+	if (*flags & 4096)
 		len_symbols = len_numb((int)(*value));
-	if (**str == 'u')
+	// if (**str == 'u')
+	if (*flags & 8192)
 		len_symbols = len_unumb((int)(*value));
-	if (**str == 's' || **str == 'o' || **str == 'x' || **str == 'X')
+	// if (**str == 's' || **str == 'o' || **str == 'x' || **str == 'X')
+	if (*flags & 245760)
 		len_symbols = len_str((char *)(*value));
-	if (**str == 'o' && *flags & 8)
+	// if (**str == 'o' && *flags & 8)
+	if ((*flags & 32776) == 32776)
 		len_symbols += 1;
-	if (*flags & 8 && (**str == 'x' || **str == 'X'))
+	// if (*flags & 8 && (**str == 'x' || **str == 'X'))
+	if (*flags & 8 && (*flags & 196608))
 		len_symbols += 2;
 	// len_space = g_width - len_symbols;
 	return (len_symbols);

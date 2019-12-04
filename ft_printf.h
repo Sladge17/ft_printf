@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 16:30:53 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/04 17:12:56 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		len_unumb(unsigned int value);
 char	len_sign(const char **str, void **value, unsigned int *flags);
 // int	len_sign(int value, unsigned int *flags);
 int		len_str(const char *str);
-int		len_symbols(const char **str, void **value, unsigned int *flags);
+int		len_symbols(void **value, unsigned int *flags);
 
 /*
 ** conversion.c
