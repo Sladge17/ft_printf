@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 17:19:52 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/05 12:34:11 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int		len_symbols(void **value, unsigned int *flags)
 	int			len_symbols;
 
 	len_symbols = 1;
+	if (!((int)(*value)))
+		return (len_symbols);
 	if (*flags & 4096)
 		len_symbols = len_numb((int)(*value));
 	if (*flags & 8192)

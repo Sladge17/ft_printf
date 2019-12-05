@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 16:51:31 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/05 13:17:31 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,26 @@ void	conversion(unsigned int *flags, void **value)
 {
 	if (!(*flags & 229376))
 		return;
+	if (*flags & 229376 && !((int)(*value)))
+	{
+		*value = 0;
+		return ;
+	}
 	if (*flags & 32768)
-		{
-			binto_oct(&(*value));
-			return ;
-		}
+	{
+		binto_oct(&(*value));
+		return ;
+	}
 	if (*flags & 65536)
-		{
-			binto_hex(&(*value), 'x');
-			return ;
-		}
-		if (*flags & 131072)
-		{
-			binto_hex(&(*value), 'X');
-			return ;
-		}
-	
+	{
+		binto_hex(&(*value), 'x');
+		return ;
+	}
+	if (*flags & 131072)
+	{
+		binto_hex(&(*value), 'X');
+		return ;
+	}
 }
 
 void	binto_oct(void **value)
