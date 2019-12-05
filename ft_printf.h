@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 18:35:30 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/05 15:49:27 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,16 @@ void	def_bitborder(unsigned int *bitborder, int value, char bit_count);
 ** put_numbers.c
 */
 void	put_sign(void **value, unsigned int *flags, int *amount);
-void	put_abs(int value, unsigned int *flags, int *amount);
+
+// void	put_abs(int value, unsigned int *flags, int *amount);
+
+void	put_abs(void **value, unsigned int *flags, int *amount);
+void	put_abs_int(int value, unsigned int *flags, int *amount);
+void	put_abs_short(short value, unsigned int *flags, int *amount);
+void	put_abs_char(char value, unsigned int *flags, int *amount);
+void	put_abs_lint(long int value, unsigned int *flags, int *amount);
+void	put_abs_llint(long long int value, unsigned int *flags, int *amount);
+
 void	put_prefix(void **value, unsigned int *flags, int *amount);
 void	put_uabs(unsigned int value, unsigned int *flags, int *amount);
 
