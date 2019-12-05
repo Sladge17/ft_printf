@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/05 13:19:24 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/05 13:46:58 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -642,11 +642,11 @@ int		main()
 	test += 1;
 	printf("\n");
 	printf("test %d  <----------\n", test);
-	rez = printf("%#x", 0);
+	rez = printf("@moulitest: %#.o %#.0o", 0, 0);
 	printf("->%d\n", rez);
 	printf("---\n");
 	fflush(NULL);
-	rez = ft_printf("%#x", 0);
+	rez = ft_printf("@moulitest: %#.o %#.0o", 0, 0);
 	printf("->%d\n", rez);
 
 
