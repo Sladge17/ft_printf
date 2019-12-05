@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/05 17:02:46 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/05 18:02:42 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ void	put_sign(void **value, unsigned int *flags, int *amount)
 
 void	put_abs(void **value, unsigned int *flags, int *amount)
 {
+	extern int		g_accuracy;
+	
+	if (*flags & 253952 || (*flags & 64 && g_accuracy == 0 && !(*value)))
+		return ;
 	if (!(*flags & 3968))
 	{
 		put_abs_int((int)(*value), &(*flags), &(*amount));
@@ -111,10 +115,6 @@ void	put_abs(void **value, unsigned int *flags, int *amount)
 
 void	put_abs_int(int value, unsigned int *flags, int *amount)
 {
-	extern int	g_accuracy;
-
-	if (*flags & 253952 || (*flags & 64 && g_accuracy == 0 && value == 0))
-		return ;
 	if (value == -2147483648)
 	{
 		put_char('2', NULL, &(*amount));
@@ -137,10 +137,6 @@ void	put_abs_int(int value, unsigned int *flags, int *amount)
 
 void	put_abs_short(short value, unsigned int *flags, int *amount)
 {
-	extern int	g_accuracy;
-
-	if (*flags & 253952 || (*flags & 64 && g_accuracy == 0 && value == 0))
-		return ;
 	if (value == -32768)
 	{
 		put_char('3', NULL, &(*amount));
@@ -163,10 +159,6 @@ void	put_abs_short(short value, unsigned int *flags, int *amount)
 
 void	put_abs_char(char value, unsigned int *flags, int *amount)
 {
-	extern int	g_accuracy;
-
-	if (*flags & 253952 || (*flags & 64 && g_accuracy == 0 && value == 0))
-		return ;
 	if (value == -128)
 	{
 		put_char('1', NULL, &(*amount));
@@ -189,10 +181,6 @@ void	put_abs_char(char value, unsigned int *flags, int *amount)
 
 void	put_abs_lint(long int value, unsigned int *flags, int *amount)
 {
-	extern int	g_accuracy;
-
-	if (*flags & 253952 || (*flags & 64 && g_accuracy == 0 && value == 0))
-		return ;
 	if (value == -2147483648)
 	{
 		put_char('2', NULL, &(*amount));
@@ -215,10 +203,6 @@ void	put_abs_lint(long int value, unsigned int *flags, int *amount)
 
 void	put_abs_llint(long long int value, unsigned int *flags, int *amount)
 {
-	extern int	g_accuracy;
-
-	if (*flags & 253952 || (*flags & 64 && g_accuracy == 0 && value == 0))
-		return ;
 	if (value == -9223372036854775808)
 	{
 		put_char('9', NULL, &(*amount));
