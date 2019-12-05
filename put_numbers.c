@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/05 18:02:42 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/05 18:24:50 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,17 +248,106 @@ void	put_prefix(void **value, unsigned int *flags, int *amount)
 	}
 }
 
-void	put_uabs(unsigned int value, unsigned int *flags, int *amount)
+// void	put_uabs(unsigned int value, unsigned int *flags, int *amount)
+// {
+// 	if (*flags & 20480 || (*flags & 229376 && value)
+// 		|| (*flags & 196608 && *flags & 64 && !value)
+// 		|| (*flags & 32768 && !(*flags & 8) && *flags & 64 && !value))
+// 		return ;
+// 	if (value < 10)
+// 	{
+// 		put_char(value + 48, NULL, &(*amount));
+// 		return ;
+// 	}
+// 	put_uabs(value / 10, &(*flags), &(*amount));
+// 	put_char((value % 10) + 48, NULL, &(*amount));
+// }
+
+void	put_uabs(void **value, unsigned int *flags, int *amount)
 {
-	if (*flags & 20480 || (*flags & 229376 && value)
-		|| (*flags & 196608 && *flags & 64 && !value)
-		|| (*flags & 32768 && !(*flags & 8) && *flags & 64 && !value))
+	if (*flags & 20480 || (*flags & 229376 && *value)
+		|| (*flags & 196608 && *flags & 64 && !(*value))
+		|| (*flags & 32768 && !(*flags & 8) && *flags & 64 && !(*value)))
 		return ;
+	
+	if (!(*flags & 3968))
+	{
+		put_uabs_int((int)(*value), &(*flags), &(*amount));
+		return ;
+	}
+	if (*flags & 128)
+	{
+		put_uabs_short((short)(*value), &(*flags), &(*amount));
+		return ;
+	}
+	if (*flags & 256)
+	{
+		put_uabs_char((char)(*value), &(*flags), &(*amount));
+		return ;
+	}
+	if (*flags & 512)
+	{
+		put_uabs_lint((long int)(*value), &(*flags), &(*amount));
+		return ;
+	}
+	if (*flags & 1024)
+	{
+		put_uabs_llint((long long int)(*value), &(*flags), &(*amount));
+		return ;
+	}
+}
+
+void	put_uabs_int(unsigned int value, unsigned int *flags, int *amount)
+{
 	if (value < 10)
 	{
 		put_char(value + 48, NULL, &(*amount));
 		return ;
 	}
-	put_uabs(value / 10, &(*flags), &(*amount));
+	put_uabs_int(value / 10, &(*flags), &(*amount));
+	put_char((value % 10) + 48, NULL, &(*amount));
+}
+
+void	put_uabs_short(unsigned short value, unsigned int *flags, int *amount)
+{
+	if (value < 10)
+	{
+		put_char(value + 48, NULL, &(*amount));
+		return ;
+	}
+	put_uabs_short(value / 10, &(*flags), &(*amount));
+	put_char((value % 10) + 48, NULL, &(*amount));
+}
+
+void	put_uabs_char(unsigned char value, unsigned int *flags, int *amount)
+{
+	if (value < 10)
+	{
+		put_char(value + 48, NULL, &(*amount));
+		return ;
+	}
+	put_uabs_char(value / 10, &(*flags), &(*amount));
+	put_char((value % 10) + 48, NULL, &(*amount));
+}
+
+void	put_uabs_lint(unsigned long int value, unsigned int *flags, int *amount)
+{
+	if (value < 10)
+	{
+		put_char(value + 48, NULL, &(*amount));
+		return ;
+	}
+	put_uabs_lint(value / 10, &(*flags), &(*amount));
+	put_char((value % 10) + 48, NULL, &(*amount));
+}
+
+void	put_uabs_llint(unsigned long long int value, unsigned int *flags, int *amount)
+{
+	if (value < 10)
+	{
+		put_char(value + 48, NULL, &(*amount));
+		return ;
+	}
+	put_uabs_llint(value / 10, &(*flags), &(*amount));
 	put_char((value % 10) + 48, NULL, &(*amount));
 }
