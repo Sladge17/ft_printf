@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/06 16:20:24 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/06 16:43:33 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	put_sign(void **value, unsigned int *flags, int *amount)
+void	put_sign(void **value, unsigned int *flags, int *amount) //<-- NEED CHECK
 {
 	if (*flags & 253952)
 		return ;
@@ -113,15 +113,15 @@ void	put_abs_int(int value, int *amount)
 	if (value == -2147483648)
 	{
 		put_char('2', NULL, &(*amount));
-		put_abs_llint(147483648, &(*amount));
+		put_uabs_llint(147483648, &(*amount));
 		return ;
 	}
 	if (value < 0)
 	{
-		put_abs_llint((-1) * value, &(*amount));
+		put_uabs_llint((-1) * value, &(*amount));
 		return ;
 	}
-	put_abs_llint(value, &(*amount));
+	put_uabs_llint(value, &(*amount));
 }
 
 void	put_abs_short(short value, int *amount)
@@ -129,15 +129,15 @@ void	put_abs_short(short value, int *amount)
 	if (value == -32768)
 	{
 		put_char('3', NULL, &(*amount));
-		put_abs_llint(2768, &(*amount));
+		put_uabs_llint(2768, &(*amount));
 		return ;
 	}
 	if (value < 0)
 	{
-		put_abs_llint((-1) * value, &(*amount));
+		put_uabs_llint((-1) * value, &(*amount));
 		return ;
 	}
-	put_abs_llint(value, &(*amount));
+	put_uabs_llint(value, &(*amount));
 }
 
 void	put_abs_char(char value, int *amount)
@@ -145,15 +145,15 @@ void	put_abs_char(char value, int *amount)
 	if (value == -128)
 	{
 		put_char('1', NULL, &(*amount));
-		put_abs_llint(28, &(*amount));
+		put_uabs_llint(28, &(*amount));
 		return ;
 	}
 	if (value < 0)
 	{
-		put_abs_llint((-1) * value, &(*amount));
+		put_uabs_llint((-1) * value, &(*amount));
 		return ;
 	}
-	put_abs_llint(value, &(*amount));
+	put_uabs_llint(value, &(*amount));
 }
 
 void	put_abs_lint(long int value, int *amount)
@@ -161,15 +161,15 @@ void	put_abs_lint(long int value, int *amount)
 	if (value == -2147483648)
 	{
 		put_char('2', NULL, &(*amount));
-		put_abs_llint(147483648, &(*amount));
+		put_uabs_llint(147483648, &(*amount));
 		return ;
 	}
 	if (value < 0)
 	{
-		put_abs_llint((-1) * value, &(*amount));
+		put_uabs_llint((-1) * value, &(*amount));
 		return ;
 	}
-	put_abs_llint(value, &(*amount));
+	put_uabs_llint(value, &(*amount));
 }
 
 void	put_abs_llint(long long int value, int *amount)
@@ -177,21 +177,15 @@ void	put_abs_llint(long long int value, int *amount)
 	if (value & 1LL << 63)
 	{
 		put_char('9', NULL, &(*amount));
-		put_abs_llint(223372036854775808, &(*amount));
+		put_uabs_llint(223372036854775808, &(*amount));
 		return ;
 	}
 	if (value < 0)
 	{
-		put_abs_llint((-1) * value, &(*amount));
+		put_uabs_llint((-1) * value, &(*amount));
 		return ;
 	}
-	if (value < 10)
-	{
-		put_char(value + 48, NULL, &(*amount));
-		return ;
-	}
-	put_abs_llint(value / 10, &(*amount));
-	put_char((value % 10) + 48, NULL, &(*amount));
+	put_uabs_llint(value, &(*amount));
 }
 
 void	put_prefix(void **value, unsigned int *flags, int *amount)
@@ -242,65 +236,25 @@ void	put_uabs(void **value, unsigned int *flags, int *amount)
 		return ;
 	if (*flags & 128)
 	{
-		put_uabs_short((short)(*value), &(*amount));
+		put_uabs_llint((unsigned short)(*value), &(*amount));
 		return ;
 	}
 	if (*flags & 256)
 	{
-		put_uabs_char((char)(*value), &(*amount));
+		put_uabs_llint((unsigned char)(*value), &(*amount));
 		return ;
 	}
 	if (*flags & 512)
 	{
-		put_uabs_lint((long int)(*value), &(*amount));
+		put_uabs_llint((unsigned long int)(*value), &(*amount));
 		return ;
 	}
 	if (*flags & 1024)
 	{
-		put_uabs_llint((long long int)(*value), &(*amount));
+		put_uabs_llint((unsigned long long int)(*value), &(*amount));
 		return ;
 	}
-	put_uabs_int((int)(*value), &(*amount));
-}
-
-void	put_uabs_int(unsigned int value, int *amount)
-{
-	if (value < 10)
-	{
-		put_char(value + 48, NULL, &(*amount));
-		return ;
-	}
-	put_uabs_llint(value, &(*amount));
-}
-
-void	put_uabs_short(unsigned short value, int *amount)
-{
-	if (value < 10)
-	{
-		put_char(value + 48, NULL, &(*amount));
-		return ;
-	}
-	put_uabs_llint(value, &(*amount));
-}
-
-void	put_uabs_char(unsigned char value, int *amount)
-{
-	if (value < 10)
-	{
-		put_char(value + 48, NULL, &(*amount));
-		return ;
-	}
-	put_uabs_llint(value, &(*amount));
-}
-
-void	put_uabs_lint(unsigned long int value, int *amount)
-{
-	if (value < 10)
-	{
-		put_char(value + 48, NULL, &(*amount));
-		return ;
-	}
-	put_uabs_llint(value, &(*amount));
+	put_uabs_llint((unsigned int)(*value), &(*amount));
 }
 
 void	put_uabs_llint(unsigned long long int value, int *amount)
