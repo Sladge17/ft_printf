@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/06 18:05:04 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/06 20:56:53 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,38 @@ int		ft_printf(const char *str, ...)
 		def_accuracy(&flags, &str);
 		if ((flags & 112) == 112 && !(flags & 15))
 			flags ^= 16;
+		
+		// while (*str != '-' && *str != '+' && *str != ' ' && *str != '#'
+		// 	&& *str != '0' && *str != 'h' && *str != 'l' && *str != 'L'
+		// 	&& *str != 'j' && *str != 'z' && *str != 'U' && *str != 'd'
+		// 	&& *str != 'i' && *str != 'u' && *str != 's' && *str != 'o'
+		// 	&& *str != 'x' && *str != 'X' && *str != 'c' && *str != '\0'
+		// 	&& *str != '%' && *str != 'Z')
+		// 	str += 1;
+		
+		while (1)
+		{
+			if (*str == '-' || *str == '+' || *str == ' ' || *str == '#'
+				|| *str == '0' || *str == 'h' || *str == 'l' || *str == 'L'
+				|| *str == 'j' || *str == 'z' || *str == 'U' || *str == 'd'
+				|| *str == 'i' || *str == 'u' || *str == 's' || *str == 'o'
+				|| *str == 'x' || *str == 'X' || *str == 'c' || *str == '\0'
+				|| *str == '%' || *str == 'Z')
+				break ;
+			str += 1;
+		}
+		
+		check_flags(&flags, &str);
+		
 		if (!def_fasttype(&flags, &str))
 		{
 			def_modifier(&flags, &str);
 			def_type(&flags, &str);
 		}
+		
+		if (flags & 233472 && (flags & 80) == 80)
+			flags ^= 16;
+		
 		conversion(&flags, &value);
 
 		if (flags & 258048)
