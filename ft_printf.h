@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/06 16:45:38 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/06 19:32:10 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
-
-# include <stdio.h>
 
 int		g_width;
 int		g_accuracy;
@@ -33,8 +31,9 @@ void	check_flags(unsigned int *flags, const char **str);
 void	def_width(unsigned int *flags, const char **str);
 void	def_accuracy(unsigned int *flags, const char **str);
 void	ft_atoi(int *param, const char **str);
+char	def_fasttype(unsigned int *flags, const char **str);
 void	def_modifier(unsigned int *flags, const char **str);
-void	find_modsymb(unsigned int *flags, const char **str, short code);
+void	find_modsymb(unsigned int *flags, const char **str, short flag);
 void	def_type(unsigned int *flags, const char **str);
 
 /*

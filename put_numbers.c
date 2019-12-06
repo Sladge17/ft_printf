@@ -6,37 +6,21 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/06 16:43:33 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/06 17:10:52 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	put_sign(void **value, unsigned int *flags, int *amount) //<-- NEED CHECK
+void	put_sign(void **value, unsigned int *flags, int *amount)
 {
 	if (*flags & 253952)
 		return ;
-	if (!(*flags & 3968) && (int)(*value) < 0)
-	{
-		put_char('-', NULL, &(*amount));
-		return ;
-	}
-	if (*flags & 128 && (short)(*value) < 0)
-	{
-		put_char('-', NULL, &(*amount));
-		return ;
-	}
-	if (*flags & 256 && (char)(*value) < 0)
-	{
-		put_char('-', NULL, &(*amount));
-		return ;
-	}
-	if (*flags & 512 && (long int)(*value) < 0)
-	{
-		put_char('-', NULL, &(*amount));
-		return ;
-	}
-	if (*flags & 1024 && (long long int)(*value) < 0)
+	if ((!(*flags & 3968) && (int)(*value) < 0)
+		|| (*flags & 128 && (short)(*value) < 0)
+		|| (*flags & 256 && (char)(*value) < 0)
+		|| (*flags & 512 && (long int)(*value) < 0)
+		|| (*flags & 1024 && (long long int)(*value) < 0))
 	{
 		put_char('-', NULL, &(*amount));
 		return ;
@@ -53,36 +37,10 @@ void	put_sign(void **value, unsigned int *flags, int *amount) //<-- NEED CHECK
 	}
 }
 
-// void	put_abs(int value, unsigned int *flags, int *amount)
-// {
-// 	extern int	g_accuracy;
-
-// 	if (*flags & 253952 || (*flags & 64 && g_accuracy == 0 && value == 0))
-// 		return ;
-// 	if (value == -2147483648)
-// 	{
-// 		put_char('2', NULL, &(*amount));
-// 		put_abs(147483648, &(*flags), &(*amount));
-// 		return ;
-// 	}
-// 	if (value < 0)
-// 	{
-// 		put_abs((-1) * value, &(*flags), &(*amount));
-// 		return ;
-// 	}
-// 	if (value < 10)
-// 	{
-// 		put_char(value + 48, NULL, &(*amount));
-// 		return ;
-// 	}
-// 	put_abs(value / 10, &(*flags), &(*amount));
-// 	put_char((value % 10) + 48, NULL, &(*amount));
-// }
-
 void	put_abs(void **value, unsigned int *flags, int *amount)
 {
 	extern int		g_accuracy;
-	
+
 	if (*flags & 253952 || (*flags & 64 && g_accuracy == 0 && !(*value)))
 		return ;
 	if (*flags & 128)
@@ -212,21 +170,6 @@ void	put_prefix(void **value, unsigned int *flags, int *amount)
 		return ;
 	}
 }
-
-// void	put_uabs(unsigned int value, unsigned int *flags, int *amount)
-// {
-// 	if (*flags & 20480 || (*flags & 229376 && value)
-// 		|| (*flags & 196608 && *flags & 64 && !value)
-// 		|| (*flags & 32768 && !(*flags & 8) && *flags & 64 && !value))
-// 		return ;
-// 	if (value < 10)
-// 	{
-// 		put_char(value + 48, NULL, &(*amount));
-// 		return ;
-// 	}
-// 	put_uabs(value / 10, &(*flags), &(*amount));
-// 	put_char((value % 10) + 48, NULL, &(*amount));
-// }
 
 void	put_uabs(void **value, unsigned int *flags, int *amount)
 {

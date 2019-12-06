@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 16:33:01 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/06 19:23:55 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,46 @@ void	ft_atoi(int *param, const char **str)
 	}
 }
 
+char	def_fasttype(unsigned int *flags, const char **str)
+{
+	if (**str == 'U')
+	{
+		*flags |= 9216;
+		return (1);
+	}
+	if (**str == 'h' && *(*str + 1) == 'U')
+	{
+		*flags |= 9216;
+		*str += 1;
+		return (1);
+	}
+	return (0);
+}
+
 void	def_modifier(unsigned int *flags, const char **str)
 {
+	if (**str == 'h' && *(*str + 1) == 'h' && *(*str + 2) == 'l')
+	{
+		*flags |= 1024;
+		*str += 3;
+		return ;
+	}
 	if (**str == 'h')
 	{
 		find_modsymb(&(*flags), &(*str), 256);
 		return ;
 	}
-	if (**str == 'l')
+	if (**str == 'l' ||  **str == 'z')
 	{
 		find_modsymb(&(*flags), &(*str), 1024);
+		return ;
+	}
+	if (**str == 'j')
+	{
+		*flags |= 1024;
+		*str += 1;
+		if (**str == 'z' || **str == 'h')
+			*str += 1;
 		return ;
 	}
 	if (**str == 'L')
@@ -79,15 +109,21 @@ void	def_modifier(unsigned int *flags, const char **str)
 	}
 }
 
-void	find_modsymb(unsigned int *flags, const char **str, short code)
+void	find_modsymb(unsigned int *flags, const char **str, short flag)
 {
-	if (*(*str + 1) == **str)
+	if (*(*str + 1) == **str || *(*str + 1) == 'h' || *(*str + 1) == 'j')
 	{
-		*flags |= code;
+		*flags |= flag;
 		*str += 2;
+		if (**str == 'l')
+			*str += 1;
+		if (**str == 'z')
+			*str += 1;
+		if (**str == 'h')
+			*str += 1;
 		return ;
 	}
-	*flags |= code >> 1;
+	*flags |= flag >> 1;
 	*str += 1;
 }
 

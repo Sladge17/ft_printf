@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/05 18:07:30 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/06 18:05:04 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ int		ft_printf(const char *str, ...)
 		def_accuracy(&flags, &str);
 		if ((flags & 112) == 112 && !(flags & 15))
 			flags ^= 16;
-		def_modifier(&flags, &str);
-		def_type(&flags, &str);
+		if (!def_fasttype(&flags, &str))
+		{
+			def_modifier(&flags, &str);
+			def_type(&flags, &str);
+		}
 		conversion(&flags, &value);
 
 		if (flags & 258048)
