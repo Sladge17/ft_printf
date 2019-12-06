@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/06 15:23:14 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/06 15:58:00 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	put_abs(void **value, unsigned int *flags, int *amount)
 	}
 }
 
-
 void	put_abs_int(int value, unsigned int *flags, int *amount)
 {
 	if (value == -2147483648)
@@ -128,15 +127,16 @@ void	put_abs_int(int value, unsigned int *flags, int *amount)
 		put_abs_llint((-1) * value, &(*flags), &(*amount));
 		return ;
 	}
-	if (value < 10)
-	{
-		put_char(value + 48, NULL, &(*amount));
-		return ;
-	}
-	put_abs_int(value / 10, &(*flags), &(*amount));
-	put_char((value % 10) + 48, NULL, &(*amount));
+	// if (value < 10)
+	// {
+	// 	put_char(value + 48, NULL, &(*amount));
+	// 	return ;
+	// }
+	// put_abs_int(value / 10, &(*flags), &(*amount));
+	// put_char((value % 10) + 48, NULL, &(*amount));
 	// put_abs_llint(value / 10, &(*flags), &(*amount));
 	// put_char((value % 10) + 48, NULL, &(*amount));
+	put_abs_llint(value, &(*flags), &(*amount));
 }
 
 void	put_abs_short(short value, unsigned int *flags, int *amount)
@@ -154,13 +154,14 @@ void	put_abs_short(short value, unsigned int *flags, int *amount)
 		put_abs_llint((-1) * value, &(*flags), &(*amount));
 		return ;
 	}
-	if (value < 10)
-	{
-		put_char(value + 48, NULL, &(*amount));
-		return ;
-	}
-	put_abs_llint(value / 10, &(*flags), &(*amount));
-	put_char((value % 10) + 48, NULL, &(*amount));
+	// if (value < 10)
+	// {
+	// 	put_char(value + 48, NULL, &(*amount));
+	// 	return ;
+	// }
+	// put_abs_llint(value / 10, &(*flags), &(*amount));
+	// put_char((value % 10) + 48, NULL, &(*amount));
+	put_abs_llint(value, &(*flags), &(*amount));
 }
 
 void	put_abs_char(char value, unsigned int *flags, int *amount)
@@ -176,8 +177,8 @@ void	put_abs_char(char value, unsigned int *flags, int *amount)
 		put_abs_llint((-1) * value, &(*flags), &(*amount));
 		return ;
 	}
-	put_abs_llint(value / 10, &(*flags), &(*amount));
-	put_char((value % 10) + 48, NULL, &(*amount));
+	put_abs_llint(value, &(*flags), &(*amount));
+	// put_char((value % 10) + 48, NULL, &(*amount));
 	// if (value < 10)
 	// {
 	// 	put_char(value + 48, NULL, &(*amount));
@@ -200,8 +201,8 @@ void	put_abs_lint(long int value, unsigned int *flags, int *amount)
 		put_abs_llint((-1) * value, &(*flags), &(*amount));
 		return ;
 	}
-	put_abs_llint(value / 10, &(*flags), &(*amount));
-	put_char((value % 10) + 48, NULL, &(*amount));
+	put_abs_llint(value, &(*flags), &(*amount));
+	// put_char((value % 10) + 48, NULL, &(*amount));
 	// if (value < 10)
 	// {
 	// 	put_char(value + 48, NULL, &(*amount));
