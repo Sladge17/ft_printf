@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/07 17:08:40 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/07 17:19:45 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	conversion(unsigned int *flags, void **value)
 {
 	if (!(*flags & 229376))
 		return;
-	if (*flags & 229376 && !((long long int)(*value)))
+	if (*flags & 229376 && !(long int)(*value))
 	{
 		*value = 0;
 		return ;
@@ -40,11 +40,11 @@ void	conversion(unsigned int *flags, void **value)
 
 void	binto_oct(void **value, unsigned int *flags)
 {
-	char					*oct;
-	unsigned long long int	bitborder;
-	int						i;
-	int						factor;
-	int						len;
+	char		*oct;
+	long int	bitborder;
+	int			i;
+	int			factor;
+	int			len;
 
 	if ((int)(*value) == 2147483647)
 	{
@@ -80,7 +80,7 @@ void	binto_oct(void **value, unsigned int *flags)
 		i = 2;
 		while (i > -1)
 		{
-			if ((int)(*value) & bitborder)
+			if ((long int)(*value) & bitborder)
 				factor += 1 << i;
 			bitborder >>= 1;
 			i -= 1;
@@ -129,7 +129,7 @@ void	binto_hex(void **value, unsigned int *flags, char index)
 		while (i > -1)
 		{
 			// if ((int)(*value) & bitborder)
-			if ((long long int)(*value) & bitborder)
+			if ((long int)(*value) & bitborder)
 				factor += 1 << i;
 			bitborder >>= 1;
 			i -= 1;
@@ -148,7 +148,7 @@ void	binto_hex(void **value, unsigned int *flags, char index)
 }
 
 
-void	def_bitborder(unsigned long long int *bitborder, void **value, unsigned int *flags)
+void	def_bitborder(long int *bitborder, void **value, unsigned int *flags)
 {
 	char	index;
 	
@@ -161,7 +161,7 @@ void	def_bitborder(unsigned long long int *bitborder, void **value, unsigned int
 	def_bitborder_int(&(*bitborder), (int)(*value), index);
 }
 
-void	def_bitborder_int(unsigned long long int *bitborder, int value, char bit_count)
+void	def_bitborder_int(long int *bitborder, int value, char bit_count)
 {
 	int		bitshift;
 	int		bitmask;
@@ -182,7 +182,7 @@ void	def_bitborder_int(unsigned long long int *bitborder, int value, char bit_co
 	*bitborder <<= bitshift;
 }
 
-void	def_bitborder_lint(unsigned long int *bitborder, long int value, char bit_count)
+void	def_bitborder_lint(long int *bitborder, long int value, char bit_count)
 {
 	int						bitshift;
 	unsigned long long int	bitmask;
