@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/07 16:04:06 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/07 17:07:22 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	def_bitborder(unsigned long long int *bitborder, void **value, unsigned int
 void	def_bitborder_int(unsigned long long int *bitborder, int value, char bit_count);
 
 void	def_bitborder_lint(unsigned long int *bitborder, long int value, char bit_count);
-void	def_bitborder_llint(unsigned long long int *bitborder, long long int value, char bit_count);
 
 /*
 ** put_numbers.c

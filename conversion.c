@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/07 16:07:53 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/07 17:08:40 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,24 +153,9 @@ void	def_bitborder(unsigned long long int *bitborder, void **value, unsigned int
 	char	index;
 	
 	index = *flags & 32768 ? 3 : 4;
-	// if (*flags & 128)
-	// {
-	// 	def_bitborder_short(&bitborder, (short)(*value), index);
-	// 	return ;
-	// }
-	// if (*flags & 256)
-	// {
-	// 	def_bitborder_char(&bitborder, (char)(*value), index);
-	// 	return ;
-	// }
-	if (*flags & 512)
+	if (*flags & 1536)
 	{
-		def_bitborder_llint(&(*bitborder), (long int)(*value), index);
-		return ;
-	}
-	if (*flags & 1024)
-	{
-		def_bitborder_llint(&(*bitborder), (long long int)(*value), index);
+		def_bitborder_lint(&(*bitborder), (long int)(*value), index);
 		return ;
 	}
 	def_bitborder_int(&(*bitborder), (int)(*value), index);
@@ -198,27 +183,6 @@ void	def_bitborder_int(unsigned long long int *bitborder, int value, char bit_co
 }
 
 void	def_bitborder_lint(unsigned long int *bitborder, long int value, char bit_count)
-{
-	int						bitshift;
-	unsigned long long int	bitmask;
-	int						i;
-
-	bitmask = 1;
-	i = 0;
-	while (i < 64)
-	{
-		if (value & bitmask)
-			bitshift = i;
-		i += 1;
-		bitmask <<= 1;
-	}
-	while ((bitshift + 1) % bit_count)
-		bitshift += 1;
-	*bitborder = 1;
-	*bitborder <<= bitshift;
-}
-
-void	def_bitborder_llint(unsigned long long int *bitborder, long long int value, char bit_count)
 {
 	int						bitshift;
 	unsigned long long int	bitmask;
