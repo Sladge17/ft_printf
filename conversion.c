@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/07 17:19:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/07 17:29:23 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	conversion(unsigned int *flags, void **value)
 
 void	binto_oct(void **value, unsigned int *flags)
 {
-	char		*oct;
-	long int	bitborder;
-	int			i;
-	int			factor;
-	int			len;
+	char				*oct;
+	unsigned long int	bitborder;
+	int					i;
+	int					factor;
+	int					len;
 
 	if ((int)(*value) == 2147483647)
 	{
@@ -56,7 +56,6 @@ void	binto_oct(void **value, unsigned int *flags)
 		*value = "20000000000";
 		return ;
 	}
-	// def_bitborder(&bitborder, (int)(*value), 3);
 	def_bitborder(&bitborder, &(*value), &(*flags));
 	len = 0;
 	while (bitborder)
@@ -92,19 +91,14 @@ void	binto_oct(void **value, unsigned int *flags)
 	free(oct);
 }
 
-// void	binto_hex(void **value, char index)
 void	binto_hex(void **value, unsigned int *flags, char index)
 {
-	char					*hex;
-	unsigned long long int	bitborder;
-	int						i;
-	int						factor;
-	int						len;
+	char				*hex;
+	unsigned long int	bitborder;
+	int					i;
+	int					factor;
+	int					len;
 
-	// if (!(int)(*value))
-	// 	return ;
-
-	// def_bitborder(&bitborder, (int)(*value), 4);
 	def_bitborder(&bitborder, &(*value), &(*flags));
 	len = 0;
 	while (bitborder)
@@ -128,7 +122,6 @@ void	binto_hex(void **value, unsigned int *flags, char index)
 		i = 3;
 		while (i > -1)
 		{
-			// if ((int)(*value) & bitborder)
 			if ((long int)(*value) & bitborder)
 				factor += 1 << i;
 			bitborder >>= 1;
