@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/07 18:23:40 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/07 18:30:53 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,16 @@ void	def_bitborder(unsigned long int *bitborder, void **value, unsigned int *fla
 	char	index;
 	
 	index = *flags & 32768 ? 3 : 4;
+	if (*flags & 128)
+	{
+		def_bitborder_short(&(*bitborder), (short)(*value), index);
+		return ;
+	}
+	if (*flags & 256)
+	{
+		def_bitborder_short(&(*bitborder), (char)(*value), index);
+		return ;
+	}
 	if (*flags & 1536)
 	{
 		def_bitborder_lint(&(*bitborder), (long int)(*value), index);
@@ -163,6 +173,48 @@ void	def_bitborder_int(unsigned long int *bitborder, int value, char bit_count)
 	bitmask = 1;
 	i = 0;
 	while (i < 32)
+	{
+		if (value & bitmask)
+			bitshift = i;
+		i += 1;
+		bitmask <<= 1;
+	}
+	while ((bitshift + 1) % bit_count)
+		bitshift += 1;
+	*bitborder = 1;
+	*bitborder <<= bitshift;
+}
+
+void	def_bitborder_short(unsigned long int *bitborder, short value, char bit_count)
+{
+	int			bitshift;
+	short		bitmask;
+	int			i;
+
+	bitmask = 1;
+	i = 0;
+	while (i < 16)
+	{
+		if (value & bitmask)
+			bitshift = i;
+		i += 1;
+		bitmask <<= 1;
+	}
+	while ((bitshift + 1) % bit_count)
+		bitshift += 1;
+	*bitborder = 1;
+	*bitborder <<= bitshift;
+}
+
+void	def_bitborder_char(unsigned long int *bitborder, char value, char bit_count)
+{
+	int			bitshift;
+	char		bitmask;
+	int			i;
+
+	bitmask = 1;
+	i = 0;
+	while (i < 16)
 	{
 		if (value & bitmask)
 			bitshift = i;
