@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/07 17:29:23 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/07 18:23:40 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	binto_hex(void **value, unsigned int *flags, char index)
 }
 
 
-void	def_bitborder(long int *bitborder, void **value, unsigned int *flags)
+void	def_bitborder(unsigned long int *bitborder, void **value, unsigned int *flags)
 {
 	char	index;
 	
@@ -154,7 +154,7 @@ void	def_bitborder(long int *bitborder, void **value, unsigned int *flags)
 	def_bitborder_int(&(*bitborder), (int)(*value), index);
 }
 
-void	def_bitborder_int(long int *bitborder, int value, char bit_count)
+void	def_bitborder_int(unsigned long int *bitborder, int value, char bit_count)
 {
 	int		bitshift;
 	int		bitmask;
@@ -175,11 +175,11 @@ void	def_bitborder_int(long int *bitborder, int value, char bit_count)
 	*bitborder <<= bitshift;
 }
 
-void	def_bitborder_lint(long int *bitborder, long int value, char bit_count)
+void	def_bitborder_lint(unsigned long int *bitborder, long int value, char bit_count)
 {
-	int						bitshift;
-	unsigned long long int	bitmask;
-	int						i;
+	int			bitshift;
+	long int	bitmask;
+	int			i;
 
 	bitmask = 1;
 	i = 0;

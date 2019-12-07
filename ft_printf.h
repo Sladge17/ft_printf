@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/07 17:30:23 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/07 18:23:09 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int		len_symbols(void **value, unsigned int *flags);
 void	conversion(unsigned int *flags, void **value);
 void	binto_oct(void **value, unsigned int *flags);
 void	binto_hex(void **value, unsigned int *flags, char index);
-void	def_bitborder(long int *bitborder, void **value, unsigned int *flags);
-void	def_bitborder_int(long int *bitborder, int value, char bit_count);
-void	def_bitborder_lint(long int *bitborder, long int value, char bit_count);
+void	def_bitborder(unsigned long int *bitborder, void **value, unsigned int *flags);
+void	def_bitborder_int(unsigned long int *bitborder, int value, char bit_count);
+void	def_bitborder_lint(unsigned long int *bitborder, long int value, char bit_count);
 
 /*
 ** put_numbers.c
