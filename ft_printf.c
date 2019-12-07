@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/06 20:56:53 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/07 19:38:10 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int		ft_printf(const char *str, ...)
 		if (!def_fasttype(&flags, &str))
 		{
 			def_modifier(&flags, &str);
+			check_flags(&flags, &str);
 			def_type(&flags, &str);
 		}
 		
