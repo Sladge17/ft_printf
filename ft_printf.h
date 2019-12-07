@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/06 19:32:10 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/07 16:04:06 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	find_zero(const char **str, unsigned int *flags);
 int		len_numb(int value);
 int		len_unumb(unsigned int value);
 char	len_sign(void **value, unsigned int *flags);
-// int	len_sign(int value, unsigned int *flags);
 int		len_str(const char *str);
 int		len_symbols(void **value, unsigned int *flags);
 
@@ -59,9 +58,17 @@ int		len_symbols(void **value, unsigned int *flags);
 ** conversion.c
 */
 void	conversion(unsigned int *flags, void **value);
-void	binto_oct(void **value);
-void	binto_hex(void **value, char index);
-void	def_bitborder(unsigned int *bitborder, int value, char bit_count);
+// void	binto_oct(void **value);
+void	binto_oct(void **value, unsigned int *flags);
+// void	binto_hex(void **value, char index);
+void	binto_hex(void **value, unsigned int *flags, char index);
+// void	def_bitborder(unsigned int *bitborder, int value, char bit_count);
+void	def_bitborder(unsigned long long int *bitborder, void **value, unsigned int *flags);
+
+void	def_bitborder_int(unsigned long long int *bitborder, int value, char bit_count);
+
+void	def_bitborder_lint(unsigned long int *bitborder, long int value, char bit_count);
+void	def_bitborder_llint(unsigned long long int *bitborder, long long int value, char bit_count);
 
 /*
 ** put_numbers.c
