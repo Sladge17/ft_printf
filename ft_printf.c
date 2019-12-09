@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/07 19:38:10 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/09 12:27:30 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ int		ft_printf(const char *str, ...)
 		def_width(&flags, &str);
 		check_flags(&flags, &str);
 		def_accuracy(&flags, &str);
-		if ((flags & 112) == 112 && !(flags & 15))
-			flags ^= 16;
+		
 		
 		// while (*str != '-' && *str != '+' && *str != ' ' && *str != '#'
 		// 	&& *str != '0' && *str != 'h' && *str != 'l' && *str != 'L'
 		// 	&& *str != 'j' && *str != 'z' && *str != 'U' && *str != 'd'
 		// 	&& *str != 'i' && *str != 'u' && *str != 's' && *str != 'o'
-		// 	&& *str != 'x' && *str != 'X' && *str != 'c' && *str != '\0'
+		// 	&& *str != 'x' && *str != 'X' && *str != 'c' && *str == 'p' && *str != '\0'
 		// 	&& *str != '%' && *str != 'Z')
 		// 	str += 1;
 		
@@ -50,8 +49,8 @@ int		ft_printf(const char *str, ...)
 				|| *str == '0' || *str == 'h' || *str == 'l' || *str == 'L'
 				|| *str == 'j' || *str == 'z' || *str == 'U' || *str == 'd'
 				|| *str == 'i' || *str == 'u' || *str == 's' || *str == 'o'
-				|| *str == 'x' || *str == 'X' || *str == 'c' || *str == '\0'
-				|| *str == '%' || *str == 'Z')
+				|| *str == 'x' || *str == 'X' || *str == 'c' || *str == 'p'
+				|| *str == '\0' || *str == '%' || *str == 'Z')
 				break ;
 			str += 1;
 		}
@@ -65,12 +64,14 @@ int		ft_printf(const char *str, ...)
 			def_type(&flags, &str);
 		}
 		
+		if ((flags & 112) == 112 && !(flags & 15))
+			flags ^= 16;
 		if (flags & 233472 && (flags & 80) == 80)
 			flags ^= 16;
 		
 		conversion(&flags, &value);
 
-		if (flags & 258048)
+		if (flags & 782336)
 		{
 			if (flags & 16384 && !value)
 			{

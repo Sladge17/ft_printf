@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/06 17:10:52 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/09 12:55:26 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	put_sign(void **value, unsigned int *flags, int *amount)
 {
-	if (*flags & 253952)
+	if (*flags & 778240)
 		return ;
 	if ((!(*flags & 3968) && (int)(*value) < 0)
 		|| (*flags & 128 && (short)(*value) < 0)
@@ -41,7 +41,7 @@ void	put_abs(void **value, unsigned int *flags, int *amount)
 {
 	extern int		g_accuracy;
 
-	if (*flags & 253952 || (*flags & 64 && g_accuracy == 0 && !(*value)))
+	if (*flags & 778240 || (*flags & 64 && g_accuracy == 0 && !(*value)))
 		return ;
 	if (*flags & 128)
 	{
@@ -148,7 +148,7 @@ void	put_abs_llint(long long int value, int *amount)
 
 void	put_prefix(void **value, unsigned int *flags, int *amount)
 {
-	if (*flags & 28672 || !(*flags & 8) || !*value)
+	if (*flags & 28672 || !(*flags & 524296) || (!*value && !(*flags & 524288)))
 		// || (*flags & 8 && !*value))
 		return ;
 	if (*flags & 32768)
@@ -157,7 +157,7 @@ void	put_prefix(void **value, unsigned int *flags, int *amount)
 		*amount += 1;
 		return ;
 	}
-	if (*flags & 65536)
+	if (*flags & 589824)
 	{
 		write(1, "0x", 2);
 		*amount += 2;
@@ -173,7 +173,12 @@ void	put_prefix(void **value, unsigned int *flags, int *amount)
 
 void	put_uabs(void **value, unsigned int *flags, int *amount)
 {
-	if (*flags & 20480 || (*flags & 229376 && *value)
+	if (*flags & 524288 && !(*value))
+	{
+		put_char('0', NULL, &(*amount));
+		return ;
+	}
+	if (*flags & 544768 || (*flags & 229376 && *value)
 		|| (*flags & 196608 && *flags & 64 && !(*value))
 		|| (*flags & 32768 && !(*flags & 8) && *flags & 64 && !(*value)))
 		return ;

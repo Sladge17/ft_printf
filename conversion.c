@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/07 18:30:53 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/09 12:44:35 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	conversion(unsigned int *flags, void **value)
 {
-	if (!(*flags & 229376))
+	if (!(*flags & 753664))
 		return;
-	if (*flags & 229376 && !(long int)(*value))
+	if (*flags & 753664 && !(long int)(*value))
 	{
 		*value = 0;
 		return ;
@@ -26,7 +26,7 @@ void	conversion(unsigned int *flags, void **value)
 		binto_oct(&(*value), &(*flags));
 		return ;
 	}
-	if (*flags & 65536)
+	if (*flags & 589824)
 	{
 		binto_hex(&(*value), &(*flags), 'x');
 		return ;
@@ -99,12 +99,16 @@ void	binto_hex(void **value, unsigned int *flags, char index)
 	int					factor;
 	int					len;
 
-	def_bitborder(&bitborder, &(*value), &(*flags));
-	len = 0;
-	while (bitborder)
+	len = 12;
+	if (!(*flags & 524288))
 	{
-		len += 1;
-		bitborder >>= 4;
+		def_bitborder(&bitborder, &(*value), &(*flags));
+		len = 0;
+		while (bitborder)
+		{
+			len += 1;
+			bitborder >>= 4;
+		}
 	}
 	hex = (char *)malloc(sizeof(char) * (len + 1));
 	if (!hex)
