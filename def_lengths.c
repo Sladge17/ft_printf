@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/05 12:34:11 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/09 13:13:55 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,11 @@ int		len_unumb(unsigned int value)
 }
 
 char	len_sign(void **value, unsigned int *flags)
-// int	len_sign(int value, unsigned int *flags)
 {
-	// if (flags & 32)
-	// 	return (0);
 	if (*flags & 8192)
 		return (0);
-	// if (**str != 's' && !(*flags & 229376) && (int)(*value) < 0)
 	if (!(*flags & 16384) && !(*flags & 229376) && (int)(*value) < 0)
-	// if (value < 0)
-	// if ((int)(*value) & 1 << 31)
 		return (1);
-	// if (*flags & 2 || *flags & 4)
 	if (*flags & 6)
 		return (1);
 	return (0);

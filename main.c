@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/09 12:48:38 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/09 14:59:25 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -639,16 +639,18 @@ int		main()
 	// rez = ft_printf("%#o\n%#o\n%#o\n", -124, 0, 1258);
 	// printf("->%d\n", rez);
 	
-	int		i;
+	char	*test_simple_mix;
+
+	test_simple_mix = "Hello World";
 	
 	test += 1;
 	printf("\n");
 	printf("test %d  <----------\n", test);
-	rez = printf("%p", 0);
+	rez = printf("%7.7s%7.7s", "hello", "world");
 	printf("->%d\n", rez);
 	printf("---\n");
 	fflush(NULL);
-	rez = ft_printf("%p", 0);
+	rez = ft_printf("%7.7s%7.7s", "hello", "world");
 	printf("->%d\n", rez);
 
 

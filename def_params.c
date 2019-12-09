@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/09 12:06:21 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/09 15:08:36 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,4 +145,6 @@ void	def_type(unsigned int *flags, const char **str)
 		*flags |= 262144;
 	if (**str == 'p')
 		*flags |= 524288;
+	if (**str == 'f')
+		*flags |= 1048576;
 }

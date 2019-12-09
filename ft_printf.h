@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/07 18:31:57 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/09 13:25:25 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,13 @@ void	put_abs(void **value, unsigned int *flags, int *amount);
 void	put_abs_int(int value, int *amount);
 void	put_abs_short(short value, int *amount);
 void	put_abs_char(char value, int *amount);
+// void	put_abs_lint(long int value, int *amount);
+// void	put_abs_llint(long long int value, int *amount);
 void	put_abs_lint(long int value, int *amount);
-void	put_abs_llint(long long int value, int *amount);
 void	put_prefix(void **value, unsigned int *flags, int *amount);
 void	put_uabs(void **value, unsigned int *flags, int *amount);
-void	put_uabs_llint(unsigned long long int value, int *amount);
+// void	put_uabs_llint(unsigned long long int value, int *amount);
+void	put_uabs_lint(unsigned long int value, int *amount);
 
 /*
 ** put_symbols.c
