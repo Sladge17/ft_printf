@@ -6,11 +6,51 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/09 15:14:57 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/10 17:21:54 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+#include "stdio.h"  ///
+
+
+void	read_double(long double value)
+{
+	/* int		i;
+	int 	qw;
+	unsigned long *temp;
+	qw = 1;
+	i = 0;
+	temp = (void *)&value;
+	while (i < 80)
+	{
+		if (*temp & (qw << i))
+			printf("0");
+		else
+			printf("1");
+		i += 1;
+	} */
+	unsigned short exp;
+
+	int		i;
+	void	*ptr;
+
+	i = 0;
+	ptr = &value;
+	exp = *((long *)ptr + 1);
+	while (i < 64)
+	{
+		if (*((unsigned long*)ptr) & ((unsigned long)1 << i))
+			printf("1");
+		else
+			printf("0");
+		i += 1;
+	}
+	puts("");
+	printf("%hd", exp);
+}
+
 
 int		ft_printf(const char *str, ...)
 {
@@ -18,6 +58,7 @@ int		ft_printf(const char *str, ...)
 	va_list			args;
 	unsigned int	flags;
 	void			*value;
+	double			value_d;
 
 	amount = 0;
 	va_start(args, str);
@@ -27,7 +68,7 @@ int		ft_printf(const char *str, ...)
 			break ;
 		if (check_lastfreesmb(&str, &amount))
 			continue ;
-		value = va_arg(args, void *);
+		// value = va_arg(args, void *);
 		flags = 0;
 		check_flags(&flags, &str);
 		def_width(&flags, &str);
@@ -73,8 +114,15 @@ int		ft_printf(const char *str, ...)
 
 		if (flags & 1048576)
 		{
-			
+			value_d = va_arg(args, double);
+			read_double(value_d);
+			break ;
 		}
+		else
+		{
+			value = va_arg(args, void *);
+		}
+		
 		
 		
 		
