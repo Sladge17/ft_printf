@@ -6,51 +6,115 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/10 17:21:54 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/11 20:12:52 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#include "stdio.h"  ///
+#include "stdio.h"  ///  <-- DELL IT
 
 
 void	read_double(long double value)
 {
-	/* int		i;
-	int 	qw;
-	unsigned long *temp;
-	qw = 1;
-	i = 0;
-	temp = (void *)&value;
-	while (i < 80)
-	{
-		if (*temp & (qw << i))
-			printf("0");
-		else
-			printf("1");
-		i += 1;
-	} */
-	unsigned short exp;
+	void			*ptr;
+	unsigned short	exp;
+	int				i;
 
-	int		i;
-	void	*ptr;
-
-	i = 0;
 	ptr = &value;
-	exp = *((long *)ptr + 1);
-	while (i < 64)
+	i = 64;
+	while (i > 0)
 	{
-		if (*((unsigned long*)ptr) & ((unsigned long)1 << i))
+		if (*((unsigned long *)ptr) & (1UL << (i - 1)))
 			printf("1");
 		else
 			printf("0");
-		i += 1;
+		i -= 1;
 	}
-	puts("");
-	printf("%hd", exp);
+	// exp = *((unsigned long *)ptr + 1) << 1;
+	// exp = (exp >> 1) - 16383;
+	exp = *((unsigned long *)ptr + 1);
+	exp = exp & 32768 ? (exp ^ 32768) -16383 : exp - 16383;
+	printf("\n%hu", exp);
+	
 }
 
+// void	read_double(double value)
+// {
+// 	int		i;
+// 	int		j;
+// 	void	*ptr;
+// 	unsigned long	exp;
+// 	unsigned long	mant;
+
+// 	ptr = &value;
+
+// 	i = 64;
+// 	while (i > 0)
+// 	{
+// 		if (i == 63 || i == 52)
+// 			printf("|");
+// 		if (*(unsigned long *)ptr & (1L << (i - 1)))
+// 			printf("1");
+// 		else
+// 			printf("0");
+// 		i -= 1;
+// 	}
+// 	// exp = *(unsigned long *)ptr;
+// 	// exp = exp >> 52;
+// 	// if (exp & 2048)
+// 	// 	exp = exp ^ 2048;
+// 	// exp = exp - 1023;
+// 	// printf("\n%lu\n", exp);
+// 	exp = *(unsigned long *)ptr >> 52;
+// 	exp = exp & 2048 ? (exp ^ 2048) - 1023 : exp - 1023;
+// 	printf("\n%lu\n", exp);
+
+// 	i = 0;
+// 	mant = *(unsigned long *)ptr;
+// 	while (!(mant & 1))
+// 	{
+// 		mant >>= 1;
+// 		i += 1 ;
+// 	}
+// 	printf("\n%lu\n", mant);
+// }
+
+// void	read_double(long double value)
+// {
+// 	int		i;
+// 	int		j;
+// 	void	*ptr;
+// 	unsigned long	exp;
+// 	unsigned long	mant;
+
+// 	ptr = &value;
+
+// 	i = 64;
+// 	while (i > 0)
+// 	{
+// 		// if (i == 63 || i == 52)
+// 		// 	printf("|");
+// 		if (*(unsigned long *)ptr & (1UL << (i - 1)))
+// 			printf("1");
+// 		else
+// 			printf("0");
+// 		i -= 1;
+// 	}
+	
+// 	exp = *(unsigned long *)ptr >> 64;
+// 	exp = exp & 2048 ? (exp ^ 2048) - 1023 : exp - 1023;
+// 	printf("\n%lu\n", exp);
+
+// 	// i = 0;
+// 	// mant = *(unsigned long *)ptr;
+// 	// while (!(mant & 1))
+// 	// {
+// 	// 	mant >>= 1;
+// 	// 	i += 1 ;
+// 	// }
+// 	// printf("\n%lu\n", mant);
+// }
 
 int		ft_printf(const char *str, ...)
 {
@@ -58,7 +122,7 @@ int		ft_printf(const char *str, ...)
 	va_list			args;
 	unsigned int	flags;
 	void			*value;
-	double			value_d;
+	double			value_real;
 
 	amount = 0;
 	va_start(args, str);
@@ -110,24 +174,43 @@ int		ft_printf(const char *str, ...)
 		if (flags & 233472 && (flags & 80) == 80)
 			flags ^= 16;
 		
-		conversion(&flags, &value);
+		
+		// if (flags & 1048576)
+		// {
+		// 	value_real = va_arg(args, double);
+		// 	read_double(value_real);
+		// 	break ;
+		// }
+		// else
+		// {
+		// 	value = va_arg(args, void *);
+		// }
+
+		// if (flags & 1048576)
+		// {
+		// 	value_real = va_arg(args, double);
+		// 	read_double(value_real);
+		// 	break ;
+		// }
+		// else
+		// {
+		// 	value = va_arg(args, void *);
+		// }
 
 		if (flags & 1048576)
 		{
-			value_d = va_arg(args, double);
-			read_double(value_d);
+			value_real = va_arg(args, double);
+			read_double(value_real);
 			break ;
 		}
 		else
 		{
 			value = va_arg(args, void *);
 		}
+
 		
-		
-		
-		
-		
-		
+		conversion(&flags, &value);
+	
 		if (flags & 782336)
 		{
 			if (flags & 16384 && !value)
