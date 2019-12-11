@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/11 20:12:52 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/11 20:48:55 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	read_double(long double value)
 {
 	void			*ptr;
 	unsigned short	exp;
+	unsigned long	mantissa;
 	int				i;
 
 	ptr = &value;
@@ -35,8 +36,13 @@ void	read_double(long double value)
 	// exp = (exp >> 1) - 16383;
 	exp = *((unsigned long *)ptr + 1);
 	exp = exp & 32768 ? (exp ^ 32768) -16383 : exp - 16383;
-	printf("\n%hu", exp);
+	printf("\n%hu\n", exp);
 	
+	mantissa = *(unsigned long *)ptr;
+	printf("%lu\n", mantissa);
+	while (mantissa && !(mantissa & 1UL))
+		mantissa >>= 1;
+	printf("%lu\n", mantissa);
 }
 
 // void	read_double(double value)
