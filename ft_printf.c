@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/12 13:16:50 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/12 18:00:39 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,54 +15,88 @@
 #include "stdio.h"  ///  <-- DELL IT
 
 
+// void	read_double(long double value)
+// {
+// 	void			*ptr;
+// 	short			exp;
+// 	unsigned long	mantissa;
+// 	int				i;
+// 	int				rez;
+
+// 	ptr = &value;
+// 	i = 64;
+// 	while (i > 0)
+// 	{
+// 		if (*((unsigned long *)ptr) & (1UL << (i - 1)))
+// 			printf("1");
+// 		else
+// 			printf("0");
+// 		i -= 1;
+// 	}
+// 	// exp = *((unsigned long *)ptr + 1) << 1;
+// 	// exp = (exp >> 1) - 16383;
+// 	exp = *((unsigned long *)ptr + 1);
+// 	exp = exp & 32768 ? (exp ^ 32768) -16383 : exp - 16383;
+// 	printf("\nexp = %hu\n", exp);
+// 	mantissa = *(unsigned long *)ptr;
+// 	// printf("%lu\n", mantissa);
+	
+// 	i = 63;
+// 	while (mantissa && !(mantissa & 1UL))
+// 	{
+// 		mantissa >>= 1;
+// 		i -= 1;
+// 	}
+// 	// printf("%lu\n", mantissa);
+// 	printf("%d\n", i);
+// 	rez = 0;
+// 	while (exp > 0)
+// 	{
+// 		if (mantissa & 1UL << i)
+// 			rez = rez + (1 << exp);
+// 		exp -= 1;
+// 		i -= 1;
+// 	}
+// 	rez = mantissa & 1UL << i ? rez + 1 : rez;
+// 	exp -= 1;
+// 	i -= 1;
+	
+// 	printf("rez = ");
+// 	if (*((unsigned long *)ptr + 1) & 1UL << 15)
+// 		printf("-");
+// 	printf("%d.\n", rez);
+
+// 	while (!(mantissa & 1UL << i))
+// 	{
+// 		exp -= 1;
+// 		i -= 1;
+// 	}
+// 	printf("exp = %d\n", exp);
+// 	printf("i = %d\n", i);
+
+// 	rez = (int)value;
+// 	printf("%d\n", rez);
+// }
+
 void	read_double(long double value)
 {
-	void			*ptr;
-	unsigned short	exp;
-	unsigned long	mantissa;
-	int				i;
-	int				rez;
-
-	ptr = &value;
-	i = 64;
-	while (i > 0)
-	{
-		if (*((unsigned long *)ptr) & (1UL << (i - 1)))
-			printf("1");
-		else
-			printf("0");
-		i -= 1;
-	}
-	// exp = *((unsigned long *)ptr + 1) << 1;
-	// exp = (exp >> 1) - 16383;
-	exp = *((unsigned long *)ptr + 1);
-	exp = exp & 32768 ? (exp ^ 32768) -16383 : exp - 16383;
-	printf("\nexp = %hu\n", exp);
-	mantissa = *(unsigned long *)ptr;
-	// printf("%lu\n", mantissa);
+	int		rez;
 	
-	i = 64;
-	while (mantissa && !(mantissa & 1UL))
+	if (value < 0)
 	{
-		mantissa >>= 1;
-		i -= 1;
-	}
-	// printf("%lu\n", mantissa);
-	printf("%d\n", i);
-	rez = 0;
-	while (exp > 0)
-	{
-		if (mantissa & 1UL << (i - 1))
-			rez = rez + (1 << exp);
-		exp -= 1;
-		i -= 1;
-	}
-	rez = mantissa & 1UL << (i - 1) ? rez + 1 : rez;
-	
-	printf("rez = ");
-	if (*((unsigned long *)ptr + 1) & 1UL << 15)
 		printf("-");
-	printf("%d.\n", rez);
+		value = -value;
+	}
+	
+	rez = (int)value;
+	printf("%d.", rez);
+
+	value = 10 * (value - rez);
+	while ((rez = (int)(value)))
+	{
+		printf("%d", rez);
+		value = 10 * (value - rez);
+	}
 }
 
 // void	read_double(double value)
