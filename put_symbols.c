@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 19:00:12 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 19:40:39 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ char	check_lastfreesmb(const char **str, int *amount)
 {
 	int		i;
 
-	if (**str != ' ')
+	// if (**str != ' ')
+	if (**str != ' ' || *(*str + 1) == '\0'
+		|| (**str == ' ' && *(*str + 1) != '\0'))
 		return (0);
 	i = 1;
-	if (*(*str + i) == '\0')
-		return (0);
+	// if (*(*str + i) == '\0')
+	// 	return (0);
 	while (*(*str + i) == ' ')
 		i += 1;
 	if (*(*str + i) == 'h' || *(*str + i) == 'l' || *(*str + i) == 'L')
@@ -48,7 +50,7 @@ char	check_lastfreesmb(const char **str, int *amount)
 		*str += i + 1;
 		return (0);
 	}
-	if (*(*str + i) == '-' || *(*str + i) == '+'|| *(*str + i) == '#' 
+	if (*(*str + i) == '-' || *(*str + i) == '+'|| *(*str + i) == '#' || *(*str + i) == '.'
 		|| ('0' <= *(*str + i) && *(*str + i) <= '9') || *(*str + i) == 'c' 
 		|| *(*str + i) == 'd' || *(*str + i) == 'i' 
 		|| *(*str + i) == 'u' || *(*str + i) == 'o'

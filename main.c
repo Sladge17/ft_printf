@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 18:56:40 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 19:33:52 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ int		main()
 	test += 1;
 	printf("\n");
 	printf("test %d  <----------\n", test);
-	rez = printf("%037ld", 22337203685477l);
+	rez = printf("% hhd", (char)45);
 	printf("->%d\n", rez);
 	printf("---\n");
 	fflush(NULL);
-	rez = ft_printf("%037ld", 22337203685477l);
+	rez = ft_printf("% hhd", (char)45);
 	printf("->%d\n", rez);
 
 	return (0);
