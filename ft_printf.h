@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 18:28:29 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 18:43:34 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char	find_zero(const char **str, unsigned int *flags);
 /*
 ** def_lengths.c
 */
-int		len_numb(int value);
+// int		len_numb(int value);
+int		len_numb(void **value, unsigned int *flags);
 // int		len_unumb(unsigned int value);
 int		len_unumb(unsigned long int value);
 char	len_sign(void **value, unsigned int *flags);

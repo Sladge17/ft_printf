@@ -6,26 +6,39 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 18:36:26 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 19:03:53 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-// int		len_numb(int value, char len_sign)
-int		len_numb(int value)
-{
-	int		len;
+// // int		len_numb(int value, char len_sign)
+// int		len_numb(int value)
+// {
+// 	int		len;
 
-	len = 1;
-	value = value < 0 ? (-1) * value : value;
-	while (value > 9)
-	{
-		value /= 10;
-		len += 1;
-	}
-	// return (len + len_sign);
-	return (len);
+// 	len = 1;
+// 	value = value < 0 ? (-1) * value : value;
+// 	while (value > 9)
+// 	{
+// 		value /= 10;
+// 		len += 1;
+// 	}
+// 	// return (len + len_sign);
+// 	return (len);
+// }
+
+int		len_numb(void **value, unsigned int *flags)
+{
+	if (*flags & 128 && (short)(*value) < 0)
+		return (len_unumb(-(short)(*value)));
+	if (*flags & 256 && (char)(*value) < 0)
+		return (len_unumb(-(char)(*value)));
+	if (*flags & 1536 && (long int)(*value) < 0)
+		return (len_unumb(-(long int)(*value)));
+	if (!(*flags & 3968) && (int)(*value) < 0)
+		return (len_unumb(-(int)(*value)));
+	return (len_unumb((long int)(*value)));
 }
 
 int		len_unumb(unsigned long int value)
@@ -48,7 +61,7 @@ char	len_sign(void **value, unsigned int *flags)
 	if ((*flags & 4096) && ((*flags & 128 && (short)(*value) < 0)
 		|| (*flags & 256 && (char)(*value) < 0)
 		|| (*flags & 1536 && (long int)(*value) < 0)
-		|| (int)(*value) < 0))
+		|| (!(*flags & 3968) && (int)(*value) < 0)))
 		return (1);
 		
 	if (*flags & 6)
@@ -74,7 +87,7 @@ int		len_symbols(void **value, unsigned int *flags)
 	if (!((int)(*value)))
 		return (len_symbols);
 	if (*flags & 4096)
-		len_symbols = len_numb((int)(*value));
+		len_symbols = len_numb(&(*value), &(*flags));
 	if (*flags & 8192)
 		len_symbols = len_unumb((long int)(*value));
 

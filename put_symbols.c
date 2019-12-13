@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 18:35:23 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 19:00:12 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,6 @@ void	put_space(void **value, unsigned int *flags, int *amount)
 	
 	len_sig = len_sign(&(*value), &(*flags));
 
-	// if (*flags & 4096)
-	// {
-	// 	if (*flags & 128 && (short)(*value) < 0)
-	// 		*value = -(short)(*value);
-	// 	if (*flags & 256 && (char)(*value) < 0)
-	// 		*value = -(char)(*value);
-	// 	if (*flags & 1536 && (long int)(*value) < 0)
-	// 		*value = -(long int)(*value);
-	// 	if (!(*flags & 3968) && (int)(*value) < 0)
-	// 		// *value = -(int)(*value);
-	// 		*value ^= 1 << 31;
-	// }
 		
 
 	len_symb = len_symbols(&(*value), &(*flags));
