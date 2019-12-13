@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/09 12:00:35 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 18:35:23 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,30 +70,56 @@ void	put_space(void **value, unsigned int *flags, int *amount)
 	int			len_symb;
 	char		len_sig;
 
-	len_symb = len_symbols(&(*value), &(*flags));
-
-	len_sig = len_sign(&(*value), &(*flags));
-
 	if (g_width <= g_accuracy)
 		return ;
+	
+	len_sig = len_sign(&(*value), &(*flags));
+
+	// if (*flags & 4096)
+	// {
+	// 	if (*flags & 128 && (short)(*value) < 0)
+	// 		*value = -(short)(*value);
+	// 	if (*flags & 256 && (char)(*value) < 0)
+	// 		*value = -(char)(*value);
+	// 	if (*flags & 1536 && (long int)(*value) < 0)
+	// 		*value = -(long int)(*value);
+	// 	if (!(*flags & 3968) && (int)(*value) < 0)
+	// 		// *value = -(int)(*value);
+	// 		*value ^= 1 << 31;
+	// }
+		
+
+	len_symb = len_symbols(&(*value), &(*flags));
+
+	
 
 	space = ' ';
 	if (*flags & 16 && !(*flags & 1))
 		space = '0';
 
-	if (len_symb < g_accuracy || (*flags & 64 && *flags & 16384))
-		len_space = g_width - g_accuracy;
-	else
-		len_space = g_width - len_symb - (int)len_sig;
+	if ((*flags & 64 && len_symb < g_accuracy) || (*flags & 64 && !g_accuracy && !((int)(*value))))
+		len_symb = g_accuracy;
+	
+	len_space = g_width - len_symb - len_sig;
+
+	// if (*flags & 64 && len_symb < g_accuracy)
+	// 	len_space = g_width - g_accuracy;
+	
+	// NEED FiX
+	// if (len_symb < g_accuracy || (*flags & 64 && *flags & 16384))
+	// 	len_space = g_width - g_accuracy;
+	// else
+	// 	len_space = g_width - len_symb - len_sig;
 
 	// if (*flags & 64 && **str == 's')
 	// 	len_space = g_width - g_accuracy;
 	
-	if (g_accuracy && (*flags & 2 || *flags & 4 || (!(*flags & 16384) && !(*flags & 229376) && (int)(*value) < 0)))
-		len_space -= 1;
+	// NEED FiX
+	// if (g_accuracy && (*flags & 2 || *flags & 4 || (!(*flags & 16384) && !(*flags & 229376) && (int)(*value) < 0)))
+	// 	len_space -= 1;
 
-	if (*flags & 64 && !g_accuracy && !((int)(*value)))
-		len_space = g_width;
+	// if (*flags & 64 && !g_accuracy && !((int)(*value)))
+	// 	len_space = g_width;
 
 	if (!len_symb && *flags & 32 && *flags & 64)
 	// if (!len_symb && (*flags & 96) == 96)

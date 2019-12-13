@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/09 13:13:55 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 18:36:26 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		len_numb(int value)
 	return (len);
 }
 
-int		len_unumb(unsigned int value)
+int		len_unumb(unsigned long int value)
 {
 	int		len;
 
@@ -45,8 +45,12 @@ char	len_sign(void **value, unsigned int *flags)
 {
 	if (*flags & 8192)
 		return (0);
-	if (!(*flags & 16384) && !(*flags & 229376) && (int)(*value) < 0)
+	if ((*flags & 4096) && ((*flags & 128 && (short)(*value) < 0)
+		|| (*flags & 256 && (char)(*value) < 0)
+		|| (*flags & 1536 && (long int)(*value) < 0)
+		|| (int)(*value) < 0))
 		return (1);
+		
 	if (*flags & 6)
 		return (1);
 	return (0);
@@ -72,7 +76,10 @@ int		len_symbols(void **value, unsigned int *flags)
 	if (*flags & 4096)
 		len_symbols = len_numb((int)(*value));
 	if (*flags & 8192)
-		len_symbols = len_unumb((int)(*value));
+		len_symbols = len_unumb((long int)(*value));
+
+
+	
 	if (*flags & 245760)
 		len_symbols = len_str((char *)(*value));
 	if ((*flags & 32776) == 32776)
