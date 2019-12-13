@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 19:40:39 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 19:55:47 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,10 @@ void	put_space(void **value, unsigned int *flags, int *amount)
 	// if (*flags & 64 && !g_accuracy && !((int)(*value)))
 	// 	len_space = g_width;
 
-	if (!len_symb && *flags & 32 && *flags & 64)
-	// if (!len_symb && (*flags & 96) == 96)
-		len_space = g_width;
+	// NEED FiX
+	// if (!len_symb && *flags & 32 && *flags & 64)
+	// // if (!len_symb && (*flags & 96) == 96)
+	// 	len_space = g_width;
 
 	// if (!(*(int *)value) && *flags & 32 && *flags & 64)
 	// 	len_space = g_width;
