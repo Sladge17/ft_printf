@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 16:11:27 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 21:17:44 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,13 +273,13 @@ int		ft_printf(const char *str, ...)
 	
 		if (flags & 782336)
 		{
-			if (flags & 16384 && !value)
-			{
-				write (1, "(null)", 6);
-				amount += 6;
-				str += 1;
-				continue ;
-			}
+			// if (flags & 16384 && !value)
+			// {
+			// 	write (1, "(null)", 6);
+			// 	amount += 6;
+			// 	str += 1;
+			// 	continue ;
+			// }
 			if (flags & 32 && !(flags & 17))
 				put_space(&value, &flags, &amount);
 			put_sign(&value, &flags, &amount);

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 20:06:52 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 20:21:14 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,17 +216,18 @@ void	put_prefix(void **value, unsigned int *flags, int *amount)
 
 void	put_uabs(void **value, unsigned int *flags, int *amount)
 {
-	if (*flags & 64 && !(g_accuracy))
+	if (*flags & 544768 || (*flags & 64 && !(g_accuracy))
+		|| (*flags & 229376 && *value)
+		|| (*flags & 196608 && *flags & 64 && !(*value))
+		|| (*flags & 32768 && !(*flags & 8) && *flags & 64 && !(*value)))
 		return ;
+	
 	if (*flags & 524288 && !(*value))
 	{
 		put_char('0', NULL, &(*amount));
 		return ;
 	}
-	if (*flags & 544768 || (*flags & 229376 && *value)
-		|| (*flags & 196608 && *flags & 64 && !(*value))
-		|| (*flags & 32768 && !(*flags & 8) && *flags & 64 && !(*value)))
-		return ;
+
 	if (*flags & 128)
 	{
 		// put_uabs_llint((unsigned short)(*value), &(*amount));

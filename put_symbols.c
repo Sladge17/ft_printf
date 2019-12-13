@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 19:55:47 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/13 21:38:45 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ void	put_space(void **value, unsigned int *flags, int *amount)
 	int			len_symb;
 	char		len_sig;
 
-	if (g_width <= g_accuracy)
-		return ;
+	// !!!!
+	// if (g_width <= g_accuracy )
+	// 	return ;
 	
 	len_sig = len_sign(&(*value), &(*flags));
 
@@ -87,7 +88,9 @@ void	put_space(void **value, unsigned int *flags, int *amount)
 	if (*flags & 16 && !(*flags & 1))
 		space = '0';
 
-	if ((*flags & 64 && len_symb < g_accuracy) || (*flags & 64 && !g_accuracy && !((int)(*value))))
+	if ((*flags & 64 && *flags & 12288 && len_symb < g_accuracy)
+		|| (*flags & 64 && !g_accuracy && !((int)(*value)))
+		|| ((*flags & 16480) == 16480 && len_symb > g_accuracy))
 		len_symb = g_accuracy;
 	
 	len_space = g_width - len_symb - len_sig;
@@ -156,17 +159,19 @@ void	put_zero(void **value, unsigned int *flags, int *amount)
 }
 
 
-void	put_str(char const *string, unsigned int *flags, int *amount)
+void	put_str(char *string, unsigned int *flags, int *amount)
 {
 	extern int	g_accuracy;
 	int			i;
 	
-	if (*flags & 12288 || !string)
+	if (*flags & 12288)
 		return ;
+	if (!string)
+		string = "(null)";
 	if (*flags & 64 && !(*flags & 229376) && *string != '\0')
 	{
 		i = 0;
-		while (i < g_accuracy)
+		while (i < g_accuracy && *string != '\0')
 		{
 			put_char(*string, NULL, &(*amount));
 			string += 1;
