@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/19 15:31:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/19 17:28:28 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 // #include "stdio.h"  ///  <-- DELL IT
 
+
+// TEST TEST
 
 // void	read_double(long double value)
 // {
