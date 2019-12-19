@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 20:21:14 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/18 13:19:27 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,32 @@ void	put_abs_lint(long int value, int *amount)
 
 void	put_prefix(void **value, unsigned int *flags, int *amount)
 {
-	if (*flags & 28672 || !(*flags & 524296) || (!*value && !(*flags & 524288)))
+	// if (*flags & 28672 || !(*flags & 524296) || (!(*value) && !(*flags & 524288)))
+	extern int	g_accuracy;
+	
+	// if (!(*flags & 229376)
+	// || (*flags & 229376 && !(*flags & 8) && *value)
+	// || (*flags & 229376 && !(*flags & 8) && !(*value) && !(*flags & 64))
+	// || (*flags & 229376 && *flags & 8 && !(*value) && !(*flags & 64))
+	// || (*flags & 229376 && *flags & 64 && !g_accuracy && *value)
+	// )
+
+	// if (!(*flags & 229376)
+	// || (*flags & 229376 && !(*flags & 8))
+	// || (*flags & 229376 && *flags & 8 && !(*value))
+	// // || (*flags & 229376 && !(*flags & 8) && *value)
+	// )
+
+	if (!(*flags & 753666)
+	|| (*flags & 229376 && !(*flags & 8))
+	// || (*flags & 229376 && *flags & 8 && !(*value))
+	
+	|| (*flags & 196608 && *flags & 8 && !(*value))
+	|| (*flags & 32768 && *flags & 8 && !(*flags & 64) && !(*value))
+	
+	// || (*flags & 229376 && !(*flags & 8) && *value)
+	)
+	
 		// || (*flags & 8 && !*value))
 		return ;
 	if (*flags & 32768)
@@ -216,10 +241,12 @@ void	put_prefix(void **value, unsigned int *flags, int *amount)
 
 void	put_uabs(void **value, unsigned int *flags, int *amount)
 {
-	if (*flags & 544768 || (*flags & 64 && !(g_accuracy))
+	// if (*flags & 544768 || (*flags & 64 && !(g_accuracy))
+	if (*flags & 20480 || (*flags & 64 && !(g_accuracy))
 		|| (*flags & 229376 && *value)
-		|| (*flags & 196608 && *flags & 64 && !(*value))
-		|| (*flags & 32768 && !(*flags & 8) && *flags & 64 && !(*value)))
+		// || (*flags & 196608 && *flags & 64 && !(*value))
+		// || (*flags & 32768 && !(*flags & 8) && *flags & 64 && !(*value))
+		|| (*flags & 524288 && *value))
 		return ;
 	
 	if (*flags & 524288 && !(*value))
@@ -238,7 +265,6 @@ void	put_uabs(void **value, unsigned int *flags, int *amount)
 	{
 		// put_uabs_llint((unsigned char)(*value), &(*amount));
 		put_uabs_lint((unsigned char)(*value), &(*amount));
-		return ;
 		return ;
 	}
 	// if (*flags & 512)

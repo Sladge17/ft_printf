@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 21:17:44 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/19 15:31:45 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#include "stdio.h"  ///  <-- DELL IT
+// #include "stdio.h"  ///  <-- DELL IT
 
 
 // void	read_double(long double value)
@@ -22,42 +22,36 @@
 // 	unsigned long	mantissa;
 // 	int				i;
 // 	int				rez;
-
+	
+// 	rez = (int)value;
+// 	while (value - rez != 0)
+// 	{
+// 		value *= 10;
+// 		rez = (int)value;
+// 		printf("%Lf\n", value);
+// 	}
+	
 // 	ptr = &value;
 // 	i = 64;
-// 	while (i > 0)
-// 	{
-// 		if (*((unsigned long *)ptr) & (1UL << (i - 1)))
-// 			printf("1");
-// 		else
-// 			printf("0");
-// 		i -= 1;
-// 	}
-// 	// exp = *((unsigned long *)ptr + 1) << 1;
-// 	// exp = (exp >> 1) - 16383;
 // 	exp = *((unsigned long *)ptr + 1);
 // 	exp = exp & 32768 ? (exp ^ 32768) -16383 : exp - 16383;
-// 	printf("\nexp = %hu\n", exp);
 // 	mantissa = *(unsigned long *)ptr;
-// 	// printf("%lu\n", mantissa);
 	
-// 	i = 63;
+// 	i = 64;
 // 	while (mantissa && !(mantissa & 1UL))
 // 	{
 // 		mantissa >>= 1;
 // 		i -= 1;
 // 	}
-// 	// printf("%lu\n", mantissa);
-// 	printf("%d\n", i);
 // 	rez = 0;
 // 	while (exp > 0)
 // 	{
-// 		if (mantissa & 1UL << i)
+// 		if (mantissa & 1UL << (i - 1))
 // 			rez = rez + (1 << exp);
 // 		exp -= 1;
 // 		i -= 1;
 // 	}
-// 	rez = mantissa & 1UL << i ? rez + 1 : rez;
+// 	rez = mantissa & 1UL << (i - 1) ? rez + 1 : rez;
 // 	exp -= 1;
 // 	i -= 1;
 	
@@ -78,103 +72,107 @@
 // 	printf("%d\n", rez);
 // }
 
-void	read_double(long double value)
-{
-	int		rez;
+// void	read_double(long double value)
+// {
+// 	int		rez;
 	
-	if (value < 0)
-	{
-		printf("-");
-		value = -value;
-	}
+// 	if (value < 0)
+// 	{
+// 		printf("-");
+// 		value = -value;
+// 	}
 	
-	rez = (int)value;
-	printf("%d.", rez);
+// 	rez = (int)value;
+// 	printf("%d.", rez);
 
-	value = 10 * (value - rez);
-	while ((rez = (int)(value)))
-	{
-		printf("%d", rez);
-		value = 10 * (value - rez);
-	}
-}
+// 	value = 10 * (value - rez);
+// 	while ((rez = (int)(value)))
+// 	{
+// 		printf("%d", rez);
+// 		value = 10 * (value - rez);
+// 	}
+// }
 
 // void	read_double(double value)
 // {
-// 	int		i;
-// 	int		j;
-// 	void	*ptr;
-// 	unsigned long	exp;
-// 	unsigned long	mant;
-
-// 	ptr = &value;
-
-// 	i = 64;
-// 	while (i > 0)
+// 	int		rez;
+	
+// 	if (value < 0)
 // 	{
-// 		if (i == 63 || i == 52)
-// 			printf("|");
-// 		if (*(unsigned long *)ptr & (1L << (i - 1)))
-// 			printf("1");
-// 		else
-// 			printf("0");
-// 		i -= 1;
-// 	}
-// 	// exp = *(unsigned long *)ptr;
-// 	// exp = exp >> 52;
-// 	// if (exp & 2048)
-// 	// 	exp = exp ^ 2048;
-// 	// exp = exp - 1023;
-// 	// printf("\n%lu\n", exp);
-// 	exp = *(unsigned long *)ptr >> 52;
-// 	exp = exp & 2048 ? (exp ^ 2048) - 1023 : exp - 1023;
-// 	printf("\n%lu\n", exp);
-
-// 	i = 0;
-// 	mant = *(unsigned long *)ptr;
-// 	while (!(mant & 1))
-// 	{
-// 		mant >>= 1;
-// 		i += 1 ;
-// 	}
-// 	printf("\n%lu\n", mant);
-// }
-
-// void	read_double(long double value)
-// {
-// 	int		i;
-// 	int		j;
-// 	void	*ptr;
-// 	unsigned long	exp;
-// 	unsigned long	mant;
-
-// 	ptr = &value;
-
-// 	i = 64;
-// 	while (i > 0)
-// 	{
-// 		// if (i == 63 || i == 52)
-// 		// 	printf("|");
-// 		if (*(unsigned long *)ptr & (1UL << (i - 1)))
-// 			printf("1");
-// 		else
-// 			printf("0");
-// 		i -= 1;
+// 		printf("-");
+// 		value = -value;
 // 	}
 	
-// 	exp = *(unsigned long *)ptr >> 64;
-// 	exp = exp & 2048 ? (exp ^ 2048) - 1023 : exp - 1023;
-// 	printf("\n%lu\n", exp);
+// 	rez = (int)value;
+// 	printf("%d.", rez);
 
-// 	// i = 0;
-// 	// mant = *(unsigned long *)ptr;
-// 	// while (!(mant & 1))
-// 	// {
-// 	// 	mant >>= 1;
-// 	// 	i += 1 ;
-// 	// }
-// 	// printf("\n%lu\n", mant);
+// 	value = 10 * (value - rez);
+// 	while ((rez = (int)(value)))
+// 	{
+// 		printf("%d", rez);
+// 		value = 10 * (value - rez);
+// 	}
 // }
+
+void	shift_garbage(const char **str)
+{
+	while (1)
+	{
+		if (**str == '-' || **str == '+' || **str == ' ' || **str == '#'
+			|| **str == '0' || **str == 'h' || **str == 'l' || **str == 'L'
+			|| **str == 'j' || **str == 'z' || **str == 'Z' || **str == 'd'
+			|| **str == 'i' || **str == 'u' || **str == 's' || **str == 'o'
+			|| **str == 'x' || **str == 'X' || **str == 'c' || **str == 'p'
+			|| **str == 'f' || **str == 'U' || **str == '%' || **str == '\0')
+			break ;
+		*str += 1;
+	}
+}
+
+char	parsing(unsigned int *flags, const char **str)
+{
+	*flags = 0;
+	check_flags(&(*flags), &(*str));
+	def_width(&(*flags), &(*str));
+	if (**str == '\0')
+		return (0);
+	check_flags(&(*flags), &(*str));
+	def_accuracy(&(*flags), &(*str));
+	shift_garbage(&(*str));
+	check_flags(&(*flags), &(*str));
+	if (!def_fasttype(&(*flags), &(*str)))
+	{
+		def_modifier(&(*flags), &(*str));
+		check_flags(&(*flags), &(*str));
+		def_type(&(*flags), &(*str));
+	}
+	if (((*flags & 112) == 112 && !(*flags & 15))
+		|| (*flags & 233472 && (*flags & 80) == 80))
+		*flags ^= 16;
+	return (1);
+}
+
+char	exe_numstr(void **value, unsigned int *flags, const char **str, int *amt)
+{
+	if (!(*flags & 782336))
+		return (0);
+	conversion(&(*value), &(*flags));
+	len_arg(&(*value), &(*flags));
+	if (*flags & 32 && !(*flags & 17))
+		put_space(&(*value), &(*flags), &(*amt));
+	put_sign(&(*value), &(*flags), &(*amt));
+	put_prefix(&(*value), &(*flags), &(*amt));
+	put_zero(&(*value), &(*flags), &(*amt));
+	if ((*flags & 48) == 48 && !(*flags & 1))
+		put_space(&(*value), &(*flags), &(*amt));
+	put_abs(&(*value), &(*flags), &(*amt));
+	put_uabs(&(*value), &(*flags), &(*amt));
+	put_str(*value, &(*flags), &(*amt));
+	if ((*flags & 33) == 33)
+		put_space(&(*value), &(*flags), &(*amt));
+	*str += 1;
+	return (1);
+}
 
 int		ft_printf(const char *str, ...)
 {
@@ -192,132 +190,97 @@ int		ft_printf(const char *str, ...)
 			break ;
 		if (check_lastfreesmb(&str, &amount))
 			continue ;
-		// value = va_arg(args, void *);
-		flags = 0;
-		check_flags(&flags, &str);
-		def_width(&flags, &str);
-		check_flags(&flags, &str);
-		def_accuracy(&flags, &str);
-		
-		
-		// while (*str != '-' && *str != '+' && *str != ' ' && *str != '#'
-		// 	&& *str != '0' && *str != 'h' && *str != 'l' && *str != 'L'
-		// 	&& *str != 'j' && *str != 'z' && *str != 'U' && *str != 'd'
-		// 	&& *str != 'i' && *str != 'u' && *str != 's' && *str != 'o'
-		// 	&& *str != 'x' && *str != 'X' && *str != 'c' && *str != 'p' && *str != '\0'
-		// 	&& *str != 'f' && *str != '%' && *str != 'Z')
-		// 	str += 1;
-		
-		while (1)
-		{
-			if (*str == '-' || *str == '+' || *str == ' ' || *str == '#'
-				|| *str == '0' || *str == 'h' || *str == 'l' || *str == 'L'
-				|| *str == 'j' || *str == 'z' || *str == 'U' || *str == 'd'
-				|| *str == 'i' || *str == 'u' || *str == 's' || *str == 'o'
-				|| *str == 'x' || *str == 'X' || *str == 'c' || *str == 'p'
-				|| *str == 'f' || *str == '\0' || *str == '%' || *str == 'Z')
-				break ;
-			str += 1;
-		}
-		
-		check_flags(&flags, &str);
-		
-		if (!def_fasttype(&flags, &str))
-		{
-			def_modifier(&flags, &str);
-			check_flags(&flags, &str);
-			def_type(&flags, &str);
-		}
-		
-		if ((flags & 112) == 112 && !(flags & 15))
-			flags ^= 16;
-		if (flags & 233472 && (flags & 80) == 80)
-			flags ^= 16;
-		
-		
-		// if (flags & 1048576)
-		// {
-		// 	value_real = va_arg(args, double);
-		// 	read_double(value_real);
-		// 	break ;
-		// }
-		// else
-		// {
-		// 	value = va_arg(args, void *);
-		// }
+		if (!parsing(&flags, &str))
+			break ;
 
-		// if (flags & 1048576)
-		// {
-		// 	value_real = va_arg(args, double);
-		// 	read_double(value_real);
-		// 	break ;
-		// }
-		// else
-		// {
-		// 	value = va_arg(args, void *);
-		// }
+		if (*str != '%')
+		{
+			if (flags & 1048576)
+			{
+				value_real = va_arg(args, double);
+				// read_double(value_real);
+				// break ;
+			}
+			else
+				value = va_arg(args, void *);
+		}
 
 		if (flags & 1048576)
 		{
-			value_real = va_arg(args, double);
-			read_double(value_real);
-			break ;
-		}
-		else
-		{
-			value = va_arg(args, void *);
-		}
+			int		rez;
+			void	*pnt;
+			int		len;
+			int 	i;
 
-		
-		conversion(&flags, &value);
+			pnt = &rez;
 	
-		if (flags & 782336)
-		{
-			// if (flags & 16384 && !value)
-			// {
-			// 	write (1, "(null)", 6);
-			// 	amount += 6;
-			// 	str += 1;
-			// 	continue ;
-			// }
-			if (flags & 32 && !(flags & 17))
-				put_space(&value, &flags, &amount);
-			put_sign(&value, &flags, &amount);
-			put_zero(&value, &flags, &amount);
-			put_prefix(&value, &flags, &amount);
-			if (flags & 32 && flags & 16 && !(flags & 1))
-				put_space(&value, &flags, &amount);
-
-
-			// put_abs((int)value, &flags, &amount);
-			put_abs(&value, &flags, &amount);
+			if (value_real < 0)
+			{
+				put_char('-', NULL, &amount);
+				value_real = -value_real;
+			}
 			
-			// put_uabs((int)value, &flags, &amount);
-			put_uabs(&value, &flags, &amount);
-			put_str(value, &flags, &amount);
-			if (flags & 32 && flags & 1)
-				put_space(&value, &flags, &amount);
+			rez = (int)value_real;
+			put_uabs(pnt, &flags, &amount);
+			put_char('.', NULL, &amount);
+			
+
+			value_real = 10 * (value_real - rez);
+			
+			len = 0;
+			i = 0;
+			while (i++ < 20)
+			{
+				put_uabs(pnt, &flags, &amount);
+				value_real = 10 * (value_real - rez);
+				len += 1;
+			}
+			while (len < 6)
+			{
+				put_char('0', NULL, &amount);
+				len += 1;
+			}
 			str += 1;
 			continue ;
 		}
 
-			
+
+
+		
+		// conversion(&value, &flags);
+		// len_arg(&value, &flags);
+		// if (flags & 782336)
+		// {
+		// 	conversion(&value, &flags);
+		// 	len_arg(&value, &flags);
+		// 	if (flags & 32 && !(flags & 17))
+		// 		put_space(&value, &flags, &amount);
+		// 	put_sign(&value, &flags, &amount);
+		// 	put_prefix(&value, &flags, &amount);
+		// 	put_zero(&value, &flags, &amount);
+		// 	if ((flags & 48) == 48 && !(flags & 1))
+		// 		put_space(&value, &flags, &amount);
+		// 	put_abs(&value, &flags, &amount);
+		// 	put_uabs(&value, &flags, &amount);
+		// 	put_str(value, &flags, &amount);
+		// 	if ((flags & 33) == 33)
+		// 		put_space(&value, &flags, &amount);
+		// 	str += 1;
+		// 	continue ;
+		// }
+		if (exe_numstr(&value, &flags, &str, &amount))
+			continue ;
 		if (flags & 32)
 		{
-			if (flags & 1)
-			{
-				if (flags & 262144)
-					put_char((char)value, &str, &amount);
-				else
-					put_char(*str, &str, &amount);
+			len_arg(&value, &flags);
+			if (!(flags & 1))
 				put_space(&value, &flags, &amount);
-				continue ;
-			}
-			put_space(&value, &flags, &amount);
 			if (flags & 262144)
 				put_char((char)value, &str, &amount);
 			else
 				put_char(*str, &str, &amount);
+			if (flags & 1)
+				put_space(&value, &flags, &amount);
 			continue ;
 		}
 		if (flags & 262144)
@@ -325,8 +288,6 @@ int		ft_printf(const char *str, ...)
 			put_char((char)value, &str, &amount);
 			continue ;
 		}
-
-		
 		if (*str != '\0')
 			put_char(*str, &str, &amount);
 	}

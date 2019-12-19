@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 21:38:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/18 16:46:36 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,13 @@ char	check_lastfreesmb(const char **str, int *amount)
 {
 	int		i;
 
-	// if (**str != ' ')
-	if (**str != ' ' || *(*str + 1) == '\0'
-		|| (**str == ' ' && *(*str + 1) != '\0'))
+	if (**str != ' ' || *(*str + 1) == '\0')
 		return (0);
 	i = 1;
-	// if (*(*str + i) == '\0')
-	// 	return (0);
 	while (*(*str + i) == ' ')
 		i += 1;
 	if (*(*str + i) == 'h' || *(*str + i) == 'l' || *(*str + i) == 'L')
-	{
-		*str += i + 1;
 		return (0);
-	}
 	if (*(*str + i) == '-' || *(*str + i) == '+'|| *(*str + i) == '#' || *(*str + i) == '.'
 		|| ('0' <= *(*str + i) && *(*str + i) <= '9') || *(*str + i) == 'c' 
 		|| *(*str + i) == 'd' || *(*str + i) == 'i' 
@@ -64,64 +57,14 @@ char	check_lastfreesmb(const char **str, int *amount)
 void	put_space(void **value, unsigned int *flags, int *amount)
 {
 	extern int	g_width;
-	extern int	g_accuracy;
+	int			len_symbols;
 	char		space;
 	int			len_space;
 	int			i;
 
-	int			len_symb;
-	char		len_sig;
-
-	// !!!!
-	// if (g_width <= g_accuracy )
-	// 	return ;
-	
-	len_sig = len_sign(&(*value), &(*flags));
-
-		
-
-	len_symb = len_symbols(&(*value), &(*flags));
-
-	
-
-	space = ' ';
-	if (*flags & 16 && !(*flags & 1))
-		space = '0';
-
-	if ((*flags & 64 && *flags & 12288 && len_symb < g_accuracy)
-		|| (*flags & 64 && !g_accuracy && !((int)(*value)))
-		|| ((*flags & 16480) == 16480 && len_symb > g_accuracy))
-		len_symb = g_accuracy;
-	
-	len_space = g_width - len_symb - len_sig;
-
-	// if (*flags & 64 && len_symb < g_accuracy)
-	// 	len_space = g_width - g_accuracy;
-	
-	// NEED FiX
-	// if (len_symb < g_accuracy || (*flags & 64 && *flags & 16384))
-	// 	len_space = g_width - g_accuracy;
-	// else
-	// 	len_space = g_width - len_symb - len_sig;
-
-	// if (*flags & 64 && **str == 's')
-	// 	len_space = g_width - g_accuracy;
-	
-	// NEED FiX
-	// if (g_accuracy && (*flags & 2 || *flags & 4 || (!(*flags & 16384) && !(*flags & 229376) && (int)(*value) < 0)))
-	// 	len_space -= 1;
-
-	// if (*flags & 64 && !g_accuracy && !((int)(*value)))
-	// 	len_space = g_width;
-
-	// NEED FiX
-	// if (!len_symb && *flags & 32 && *flags & 64)
-	// // if (!len_symb && (*flags & 96) == 96)
-	// 	len_space = g_width;
-
-	// if (!(*(int *)value) && *flags & 32 && *flags & 64)
-	// 	len_space = g_width;
-		
+	def_lensymbols(&len_symbols, &(*value), &(*flags));
+	space = *flags & 16 && !(*flags & 1) ? '0' : ' ';
+	len_space = g_width - len_symbols - len_sign(&(*value), &(*flags));
 	i = 0;
 	while (i < len_space)
 	{
@@ -130,26 +73,42 @@ void	put_space(void **value, unsigned int *flags, int *amount)
 	}
 }
 
+void	def_lensymbols(int *len_symbols, void **value, unsigned int *flags)
+{
+	extern int	g_accuracy;
+	extern int	g_lenarg;
+
+	*len_symbols = g_lenarg;
+	if ((*flags & 64 && *flags & 12288 && *len_symbols < g_accuracy)
+		|| (*flags & 64 && !g_accuracy && !(*value) && !(*flags & 32768))
+		|| ((*flags & 16480) == 16480 && *len_symbols > g_accuracy)
+		|| (*flags & 64 && *flags & 229376 && *len_symbols < g_accuracy))
+		*len_symbols = g_accuracy;
+	if (((*flags & 32776) == 32776 && *flags & 64
+		&& *len_symbols > g_accuracy && *value)
+		|| ((*flags & 32776) == 32776 && !(*flags & 64) && *value))
+		*len_symbols += 1;
+	if ((*flags & 8 && *flags & 196608 && *value) || *flags & 524288)
+		*len_symbols += 2;
+}
+
 void	put_zero(void **value, unsigned int *flags, int *amount)
 {
 	extern int	g_accuracy;
+	extern int	g_lenarg;
 	int			len_zero;
 	int			i;
+	int			len_symbols;
 
-	int			len_symb;
+	if (*flags & 16384 || !(*flags & 64) || (!g_accuracy && !(*value)))
+		return ;
 
-	if (*flags & 16384)
+	len_symbols = g_lenarg;
+	if ((*flags & 32776) == 32776)
+		len_symbols += 1;
+	if (g_accuracy <= len_symbols)
 		return ;
-	
-	len_symb = len_symbols(&(*value), &(*flags));
-
-	if (!(*flags & 64))
-		return ;
-	if (g_accuracy == 0 && (int)(*value) == 0)
-		return ;
-	if (g_accuracy <= len_symb)
-		return ;
-	len_zero = g_accuracy - len_symb;
+	len_zero = g_accuracy - len_symbols;
 	i = 0;
 	while (i < len_zero)
 	{
@@ -159,29 +118,30 @@ void	put_zero(void **value, unsigned int *flags, int *amount)
 }
 
 
-void	put_str(char *string, unsigned int *flags, int *amount)
+void	put_str(char *value, unsigned int *flags, int *amount)
 {
 	extern int	g_accuracy;
 	int			i;
 	
-	if (*flags & 12288)
+	if (*flags & 12288 || (*flags & 229376 && !value)
+		|| (*flags & 524288 && !value))
 		return ;
-	if (!string)
-		string = "(null)";
-	if (*flags & 64 && !(*flags & 229376) && *string != '\0')
+	if (!value)
+		value = "(null)";
+	if (*flags & 64 && !(*flags & 753664) && *value != '\0')
 	{
 		i = 0;
-		while (i < g_accuracy && *string != '\0')
+		while (i < g_accuracy && *value != '\0')
 		{
-			put_char(*string, NULL, &(*amount));
-			string += 1;
+			put_char(*value, NULL, &(*amount));
+			value += 1;
 			i += 1;
 		}
 		return ;
 	}
-	while (*string != '\0')
+	while (*value != '\0')
 	{
-		put_char(*string, NULL, &(*amount));
-		string += 1;
+		put_char(*value, NULL, &(*amount));
+		value += 1;
 	}
 }

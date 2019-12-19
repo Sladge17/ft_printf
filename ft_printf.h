@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 21:15:05 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/17 20:31:08 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@
 
 int		g_width;
 int		g_accuracy;
+int		g_lenarg;
 
 /*
 ** ft_printf.c
 */
+void	shift_garbage(const char **str);
+char	parsing(unsigned int *flags, const char **str);
+char	exe_numstr(void **value, unsigned int *flags, const char **str, int *amt);
 
 /*
 ** def_params.c
@@ -54,12 +58,14 @@ int		len_numb(void **value, unsigned int *flags);
 int		len_unumb(unsigned long int value);
 char	len_sign(void **value, unsigned int *flags);
 int		len_str(const char *str);
-int		len_symbols(void **value, unsigned int *flags);
+// int		len_symbols(void **value, unsigned int *flags);
+void	len_arg(void **value, unsigned int *flags);
 
 /*
 ** conversion.c
 */
-void	conversion(unsigned int *flags, void **value);
+// void	conversion(unsigned int *flags, void **value);
+void	conversion(void **value, unsigned int *flags);
 void	binto_oct(void **value, unsigned int *flags);
 void	binto_hex(void **value, unsigned int *flags, char index);
 void	def_bitborder(unsigned long int *bitborder, void **value, unsigned int *flags);
@@ -91,7 +97,8 @@ void	put_char(char symbol, const char **str, int *amount);
 char	put_freesmb(const char **str, int *amount);
 char	check_lastfreesmb(const char **str, int *amount);
 void	put_space(void **value, unsigned int *flags, int *amount);
+void	def_lensymbols(int *len_symbols, void **value, unsigned int *flags);
 void	put_zero(void **value, unsigned int *flags, int *amount);
-void	put_str(char *string, unsigned int *flags, int *amount);
+void	put_str(char *value, unsigned int *flags, int *amount);
 
 #endif

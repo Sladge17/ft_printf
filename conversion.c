@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/09 12:44:35 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/17 18:13:08 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	conversion(unsigned int *flags, void **value)
+void	conversion(void **value, unsigned int *flags)
 {
 	if (!(*flags & 753664))
 		return;
@@ -45,17 +45,14 @@ void	binto_oct(void **value, unsigned int *flags)
 	int					i;
 	int					factor;
 	int					len;
+	unsigned long int	typeborder;
 
-	if ((int)(*value) == 2147483647)
+	if ((unsigned long)(*value) == ~0UL)
 	{
-		*value = "17777777777";
+		*value = "1777777777777777777777";
 		return ;
 	}
-	if ((int)(*value) == -2147483648)
-	{
-		*value = "20000000000";
-		return ;
-	}
+	
 	def_bitborder(&bitborder, &(*value), &(*flags));
 	len = 0;
 	while (bitborder)
@@ -72,6 +69,14 @@ void	binto_oct(void **value, unsigned int *flags)
 	oct[len] = '\0';
 	bitborder = 1;
 	bitborder <<= ((3 * len) - 1);
+	if (*flags & 128)
+		typeborder = 1UL << 15;
+	if (*flags & 256)
+		typeborder = 1UL << 7;
+	if (*flags & 1536)
+		typeborder = 1UL << 63;
+	if (!(*flags & 1920))
+		typeborder = 1UL << 31;
 	len = 0;
 	while (bitborder)
 	{
@@ -79,7 +84,7 @@ void	binto_oct(void **value, unsigned int *flags)
 		i = 2;
 		while (i > -1)
 		{
-			if ((long int)(*value) & bitborder)
+			if ((long int)(*value) & bitborder && bitborder <= typeborder)
 				factor += 1 << i;
 			bitborder >>= 1;
 			i -= 1;
@@ -98,7 +103,9 @@ void	binto_hex(void **value, unsigned int *flags, char index)
 	int					i;
 	int					factor;
 	int					len;
+	char				zeroflag;
 
+	zeroflag = 0;
 	len = 12;
 	if (!(*flags & 524288))
 	{
@@ -110,6 +117,16 @@ void	binto_hex(void **value, unsigned int *flags, char index)
 			bitborder >>= 4;
 		}
 	}
+
+	
+	// def_bitborder(&bitborder, &(*value), &(*flags));
+	// len = 0;
+	// while (bitborder)
+	// {
+	// 	len += 1;
+	// 	bitborder >>= 4;
+	// }	
+	
 	hex = (char *)malloc(sizeof(char) * (len + 1));
 	if (!hex)
 	{
@@ -131,6 +148,19 @@ void	binto_hex(void **value, unsigned int *flags, char index)
 			bitborder >>= 1;
 			i -= 1;
 		}
+
+		if (!zeroflag && *flags & 524288 && !factor)
+		{
+			hex[12 - len] = '\0';
+			len += 1;
+			continue ;
+		}
+		if (!zeroflag)
+		{
+			zeroflag = 1;
+			len = 0;
+		}
+		
 		if (factor < 10)
 		{
 			hex[len] = factor + 48;
@@ -157,7 +187,7 @@ void	def_bitborder(unsigned long int *bitborder, void **value, unsigned int *fla
 	}
 	if (*flags & 256)
 	{
-		def_bitborder_short(&(*bitborder), (char)(*value), index);
+		def_bitborder_char(&(*bitborder), (char)(*value), index);
 		return ;
 	}
 	if (*flags & 1536)
@@ -218,7 +248,7 @@ void	def_bitborder_char(unsigned long int *bitborder, char value, char bit_count
 
 	bitmask = 1;
 	i = 0;
-	while (i < 16)
+	while (i < 8)
 	{
 		if (value & bitmask)
 			bitshift = i;

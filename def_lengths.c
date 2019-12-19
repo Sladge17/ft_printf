@@ -6,27 +6,11 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/13 22:13:07 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/17 18:15:02 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-// // int		len_numb(int value, char len_sign)
-// int		len_numb(int value)
-// {
-// 	int		len;
-
-// 	len = 1;
-// 	value = value < 0 ? (-1) * value : value;
-// 	while (value > 9)
-// 	{
-// 		value /= 10;
-// 		len += 1;
-// 	}
-// 	// return (len + len_sign);
-// 	return (len);
-// }
 
 int		len_numb(void **value, unsigned int *flags)
 {
@@ -55,19 +39,6 @@ int		len_unumb(unsigned long int value)
 }
 
 char	len_sign(void **value, unsigned int *flags)
-// {
-// 	if (*flags & 8192)
-// 		return (0);
-// 	if ((*flags & 4096) && ((*flags & 128 && (short)(*value) < 0)
-// 		|| (*flags & 256 && (char)(*value) < 0)
-// 		|| (*flags & 1536 && (long int)(*value) < 0)
-// 		|| (!(*flags & 3968) && (int)(*value) < 0)))
-// 		return (1);
-		
-// 	if (*flags & 6)
-// 		return (1);
-// 	return (0);
-// }
 {
 	if (!(*flags & 4096))
 		return (0);
@@ -90,27 +61,25 @@ int		len_str(const char *str)
 	return (len);
 }
 
-int		len_symbols(void **value, unsigned int *flags)
+void	len_arg(void **value, unsigned int *flags)
 {
-	int			len_symbols;
+	extern int	g_accuracy;
+	extern int	g_lenarg;
 
-	len_symbols = 1;
+	g_lenarg = 1;
 	if (*flags & 16384 && !(*value))
-		return (6);
-	if (!((int)(*value)))
-		return (len_symbols);
+	{
+		g_lenarg = 6;
+		return ;
+	}
+	if ((*flags & 32864) == 32864 && !(*flags & 8) &&!g_accuracy)
+		g_lenarg = 0;
+	if (!(*value))
+		return ;
 	if (*flags & 4096)
-		len_symbols = len_numb(&(*value), &(*flags));
+		g_lenarg = len_numb(&(*value), &(*flags));
 	if (*flags & 8192)
-		len_symbols = len_unumb((long int)(*value));
-
-
-	
-	if (*flags & 245760)
-		len_symbols = len_str((char *)(*value));
-	if ((*flags & 32776) == 32776)
-		len_symbols += 1;
-	if (*flags & 8 && (*flags & 196608))
-		len_symbols += 2;
-	return (len_symbols);
+		g_lenarg = len_unumb((long int)(*value));
+	if (*flags & 245760 || *flags & 524288)
+		g_lenarg = len_str((char *)(*value));
 }
