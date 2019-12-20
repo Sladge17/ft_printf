@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/19 17:28:28 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/20 13:15:00 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,39 +209,37 @@ int		ft_printf(const char *str, ...)
 
 		if (flags & 1048576)
 		{
-			int		rez;
-			void	*pnt;
-			int		len;
-			int 	i;
+			int				unit;
+			unsigned long	remainder;
+			void			*ptr;
+			int 			i;
 
-			pnt = &rez;
-	
+			ptr = &unit;
+			
 			if (value_real < 0)
 			{
 				put_char('-', NULL, &amount);
 				value_real = -value_real;
 			}
 			
-			rez = (int)value_real;
-			put_uabs(pnt, &flags, &amount);
+			unit = (int)value_real;
+			put_uabs(ptr, &flags, &amount);
 			put_char('.', NULL, &amount);
 			
-
-			value_real = 10 * (value_real - rez);
-			
-			len = 0;
+			remainder = 0;
 			i = 0;
-			while (i++ < 20)
+			while (i < 19)
 			{
-				put_uabs(pnt, &flags, &amount);
-				value_real = 10 * (value_real - rez);
-				len += 1;
+				value_real = 10 * (value_real - unit);
+				unit = (int)value_real;
+				remainder = (10 * remainder) + unit;
+				i += 1;
 			}
-			while (len < 6)
-			{
-				put_char('0', NULL, &amount);
-				len += 1;
-			}
+			ptr = &remainder;
+			flags |= 1024;
+			put_uabs(ptr, &flags, &amount);
+
+			
 			str += 1;
 			continue ;
 		}
