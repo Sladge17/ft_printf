@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/20 13:16:35 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/21 19:13:38 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int		main()
 	// rez = printf("%#7o", 33);
 	// rez = printf("%#3o", 0);
 	// rez = printf("%#5.0o", 0);
-	rez = printf("this %f float", 1.5);
+	rez = printf("%f", 0.0894255);
+	// rez = printf("%f", -7.00036);
 	
 	printf("->%d\n", rez);
 	printf("---\n");
@@ -71,7 +72,8 @@ int		main()
 	// rez = ft_printf("%#7o", 33);
 	// rez = ft_printf("%#3o", 0);
 	// rez = ft_printf("%#5.0o", 0);
-	rez = ft_printf("this %f float", 1.5);
+	rez = ft_printf("%f", 0.0894255);
+	// rez = ft_printf("%f", -7.00036);
 	
 	printf("->%d\n", rez);
 

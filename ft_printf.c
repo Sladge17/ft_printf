@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/20 13:15:00 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/21 19:18:36 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,12 +207,52 @@ int		ft_printf(const char *str, ...)
 				value = va_arg(args, void *);
 		}
 
+		// if (flags & 1048576)
+		// {
+		// 	int				unit;
+		// 	unsigned long	remainder;
+		// 	void			*ptr;
+		// 	int 			i;
+
+		// 	ptr = &unit;
+			
+		// 	if (value_real < 0)
+		// 	{
+		// 		put_char('-', NULL, &amount);
+		// 		value_real = -value_real;
+		// 	}
+			
+		// 	unit = (int)value_real;
+		// 	put_uabs(ptr, &flags, &amount);
+		// 	put_char('.', NULL, &amount);
+			
+		// 	remainder = 0;
+		// 	i = 0;
+		// 	while (i < 19)
+		// 	{
+		// 		value_real = 10 * (value_real - unit);
+		// 		unit = (int)value_real;
+		// 		remainder = (10 * remainder) + unit;
+		// 		i += 1;
+		// 	}
+		// 	ptr = &remainder;
+		// 	flags |= 1024;
+		// 	while (remainder && !(remainder % 10))
+		// 		remainder = remainder / 10;
+		// 	put_uabs(ptr, &flags, &amount);
+		// 	len_arg(ptr, &flags);
+		// 	put_zero(ptr, &flags, &amount);
+		// 	str += 1;
+		// 	continue ;
+		// }
+
 		if (flags & 1048576)
 		{
-			int				unit;
-			unsigned long	remainder;
-			void			*ptr;
-			int 			i;
+			int		unit;
+			char	*remainder;
+			void	*ptr;
+			int 	i;
+			extern int	g_accuracy;
 
 			ptr = &unit;
 			
@@ -226,25 +266,55 @@ int		ft_printf(const char *str, ...)
 			put_uabs(ptr, &flags, &amount);
 			put_char('.', NULL, &amount);
 			
-			remainder = 0;
+			if (!(flags & 64))
+				g_accuracy = 6;
+			remainder = (char *)malloc(sizeof(char) * (g_accuracy + 1));
 			i = 0;
-			while (i < 19)
+			while (i < g_accuracy + 1)
 			{
 				value_real = 10 * (value_real - unit);
 				unit = (int)value_real;
-				remainder = (10 * remainder) + unit;
+				remainder[i] = unit;
 				i += 1;
 			}
-			ptr = &remainder;
-			flags |= 1024;
-			put_uabs(ptr, &flags, &amount);
+
+			i = g_accuracy;
+			if (remainder[i] > 4)
+				remainder[i - 1] += 1;
+			i -= 1;
+			while (remainder[i] > 9)
+			{
+				remainder[i] = 0;
+				remainder[i - 1] += 1;
+				i -= 1;
+			}
+			
+			// while (remainder[i] > 5)
+			// {
+			// 	if (remainder[i] == 10)
+			// 		remainder[i] = 0;
+			// 	remainder[i - 1] += 1;
+			// 	i -= 1;
+			// }
+			
+			// i = 0;
+			// while (i < g_accuracy)
+			// {
+			// 	if (remainder[i] == 10)
+			// 		remainder[i] = 0;
+			// 	i += 1;
+			// }
 
 			
+			i = 0;
+			while (i < g_accuracy)
+			{
+				put_char(remainder[i] + 48, NULL, &amount);
+				i += 1;
+			}
 			str += 1;
 			continue ;
 		}
-
-
 
 		
 		// conversion(&value, &flags);
