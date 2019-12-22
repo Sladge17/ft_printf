@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/21 19:18:36 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/22 14:31:48 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ int		ft_printf(const char *str, ...)
 		if (flags & 1048576)
 		{
 			int		unit;
+			int		unit_rem;
 			char	*remainder;
 			void	*ptr;
 			int 	i;
@@ -263,8 +264,7 @@ int		ft_printf(const char *str, ...)
 			}
 			
 			unit = (int)value_real;
-			put_uabs(ptr, &flags, &amount);
-			put_char('.', NULL, &amount);
+			unit_rem = unit;
 			
 			if (!(flags & 64))
 				g_accuracy = 6;
@@ -272,18 +272,30 @@ int		ft_printf(const char *str, ...)
 			i = 0;
 			while (i < g_accuracy + 1)
 			{
-				value_real = 10 * (value_real - unit);
-				unit = (int)value_real;
-				remainder[i] = unit;
+				value_real = 10 * (value_real - unit_rem);
+				unit_rem = (int)value_real;
+				remainder[i] = unit_rem;
 				i += 1;
 			}
 
+			// if (remainder[g_accuracy + 1] == 9)
+			// 	remainder[g_accuracy] += 1;
+
 			i = g_accuracy;
-			if (remainder[i] > 4)
+
+			if (i == 0 && remainder[i] > 4)
+				unit += 1;
+			
+			if (remainder[i] > 4 && i)
+			{
 				remainder[i - 1] += 1;
-			i -= 1;
+				i -= 1;
+			}
+			
 			while (remainder[i] > 9)
 			{
+				if (i == 0 && remainder[i] > 9)
+					unit += 1;
 				remainder[i] = 0;
 				remainder[i - 1] += 1;
 				i -= 1;
@@ -304,7 +316,10 @@ int		ft_printf(const char *str, ...)
 			// 		remainder[i] = 0;
 			// 	i += 1;
 			// }
-
+			put_sign(ptr, &flags, &amount);
+			put_uabs(ptr, &flags, &amount);
+			if (g_accuracy || flags & 8)
+				put_char('.', NULL, &amount);
 			
 			i = 0;
 			while (i < g_accuracy)
