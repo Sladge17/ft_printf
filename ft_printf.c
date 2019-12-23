@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/22 14:31:48 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/23 12:37:54 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int		ft_printf(const char *str, ...)
 	va_list			args;
 	unsigned int	flags;
 	void			*value;
-	double			value_real;
+	double			value_f;
 
 	amount = 0;
 	va_start(args, str);
@@ -197,12 +197,10 @@ int		ft_printf(const char *str, ...)
 
 		if (*str != '%')
 		{
-			if (flags & 1048576)
-			{
-				value_real = va_arg(args, double);
-				// read_double(value_real);
-				// break ;
-			}
+			if ((flags & 1050624) == 1050624)
+				value_f = va_arg(args, long double);
+			else if (flags & 1048576)
+				value_f = va_arg(args, double);
 			else
 				value = va_arg(args, void *);
 		}
@@ -257,13 +255,13 @@ int		ft_printf(const char *str, ...)
 
 			ptr = &unit;
 			
-			if (value_real < 0)
+			if (value_f < 0)
 			{
 				put_char('-', NULL, &amount);
-				value_real = -value_real;
+				value_f = -value_f;
 			}
 			
-			unit = (int)value_real;
+			unit = (int)value_f;
 			unit_rem = unit;
 			
 			if (!(flags & 64))
@@ -272,8 +270,8 @@ int		ft_printf(const char *str, ...)
 			i = 0;
 			while (i < g_accuracy + 1)
 			{
-				value_real = 10 * (value_real - unit_rem);
-				unit_rem = (int)value_real;
+				value_f = 10 * (value_f - unit_rem);
+				unit_rem = (int)value_f;
 				remainder[i] = unit_rem;
 				i += 1;
 			}
