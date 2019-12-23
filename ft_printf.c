@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/23 19:37:44 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/23 19:53:32 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,8 @@ int		ft_printf(const char *str, ...)
 			
 			
 			remainder = (char *)malloc(sizeof(char) * (g_accuracy + 1));
+			if (!remainder)
+				break ;
 			i = 0;
 			while (i < g_accuracy + 1)
 			{
@@ -291,7 +293,8 @@ int		ft_printf(const char *str, ...)
 			i = g_accuracy;
 			if (i == 0 && remainder[i] > 4)
 				unit += 1;
-			if ((remainder[i] > 4 && i) || (i == 10 && flags & 2048 && remainder[i - 1] == 5))
+			if ((remainder[i] > 4 && i)
+				|| (i == 10 && flags & 2048 && remainder[i - 1] == 5))
 			{
 				remainder[i - 1] += 1;
 				i -= 1;
@@ -314,6 +317,7 @@ int		ft_printf(const char *str, ...)
 				put_char(remainder[i] + 48, NULL, &amount);
 				i += 1;
 			}
+			free(remainder);
 			
 			if ((flags & 33) == 33)
 				put_space_f(&value_f, &flags, &amount);;
