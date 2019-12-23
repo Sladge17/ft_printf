@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/23 17:44:55 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/23 18:46:06 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		len_numb(void **value, unsigned int *flags);
 int		len_unumb(unsigned long int value);
 char	len_sign(void **value, unsigned int *flags);
 
-char	len_sign_f(double *value_f, unsigned int *flags);
+char	len_sign_f(long double *value_f, unsigned int *flags);
 
 int		len_str(const char *str);
 // int		len_symbols(void **value, unsigned int *flags);
@@ -82,7 +82,7 @@ void	def_bitborder_lint(unsigned long int *bitborder, long int value, char bit_c
 */
 void	put_sign(void **value, unsigned int *flags, int *amount);
 
-void	put_sign_f(double *value_f, unsigned int *flags, int *amount);
+void	put_sign_f(long double *value_f, unsigned int *flags, int *amount);
 void	*ft_memcpy(void *dst, const void *src, int count);
 
 void	put_abs(void **value, unsigned int *flags, int *amount);
@@ -105,8 +105,8 @@ char	put_freesmb(const char **str, int *amount);
 char	check_lastfreesmb(const char **str, int *amount);
 void	put_space(void **value, unsigned int *flags, int *amount);
 
-void	put_space_f(double *value_f, unsigned int *flags, int *amount);
-void	def_lensymbols_f(int *len_symbols, double *value_f, unsigned int *flags);
+void	put_space_f(long double *value_f, unsigned int *flags, int *amount);
+void	def_lensymbols_f(int *len_symbols, long double *value_f, unsigned int *flags);
 
 void	def_lensymbols(int *len_symbols, void **value, unsigned int *flags);
 void	put_zero(void **value, unsigned int *flags, int *amount);

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/23 16:16:00 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/23 18:43:53 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	put_space(void **value, unsigned int *flags, int *amount)
 	}
 }
 
-void	put_space_f(double *value_f, unsigned int *flags, int *amount)
+void	put_space_f(long double *value_f, unsigned int *flags, int *amount)
 {
 	extern int	g_width;
 	int			len_symbols;
@@ -95,7 +95,7 @@ void	put_space_f(double *value_f, unsigned int *flags, int *amount)
 	}
 }
 
-void	def_lensymbols_f(int *len_symbols, double *value_f, unsigned int *flags)
+void	def_lensymbols_f(int *len_symbols, long double *value_f, unsigned int *flags)
 {
 	extern int	g_accuracy;
 	int			unit;

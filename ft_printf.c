@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/23 17:21:16 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/23 19:09:23 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int		ft_printf(const char *str, ...)
 	va_list			args;
 	unsigned int	flags;
 	void			*value;
-	double			value_f;
+	long double		value_f;
 
 	amount = 0;
 	va_start(args, str);
@@ -247,13 +247,13 @@ int		ft_printf(const char *str, ...)
 
 		if (flags & 1048576)
 		{
-			int			unit;
-			int			unit_rem;
+			long int	unit;
+			long int	unit_rem;
 			char		*remainder;
 			void		*ptr;
 			int 		i;
 			extern int	g_accuracy;
-			double		value_fcp;
+			long double	value_fcp;
 			
 			
 			if (!(flags & 64))
@@ -271,7 +271,7 @@ int		ft_printf(const char *str, ...)
 			if (value_fcp < 0)
 				value_fcp = -value_fcp;
 			
-			unit = (int)value_fcp;
+			unit = (long int)value_fcp;
 			unit_rem = unit;
 			
 			
@@ -280,7 +280,7 @@ int		ft_printf(const char *str, ...)
 			while (i < g_accuracy + 1)
 			{
 				value_fcp = 10 * (value_fcp - unit_rem);
-				unit_rem = (int)value_fcp;
+				unit_rem = (char)value_fcp;
 				remainder[i] = unit_rem;
 				i += 1;
 			}

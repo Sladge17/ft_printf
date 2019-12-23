@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/23 16:10:12 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/23 18:45:09 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	len_sign(void **value, unsigned int *flags)
 	return (0);
 }
 
-char	len_sign_f(double *value_f, unsigned int *flags)
+char	len_sign_f(long double *value_f, unsigned int *flags)
 {
 	if (*value_f < 0 || *flags & 6)
 		return (1);
