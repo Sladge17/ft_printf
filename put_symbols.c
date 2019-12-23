@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/18 16:46:36 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/23 16:16:00 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,52 @@ void	put_space(void **value, unsigned int *flags, int *amount)
 		put_char(space, NULL, &(*amount));
 		i += 1;
 	}
+}
+
+void	put_space_f(double *value_f, unsigned int *flags, int *amount)
+{
+	extern int	g_width;
+	int			len_symbols;
+	char		space;
+	int			len_space;
+	int			i;
+
+	def_lensymbols_f(&len_symbols, &(*value_f), &(*flags));
+	space = *flags & 16 && !(*flags & 1) ? '0' : ' ';
+	len_space = g_width - len_symbols - len_sign_f(&(*value_f), &(*flags));
+	// if ((*flags & 8 && !g_accuracy) || (*flags & 2 && *value_f > 0))
+	if ((*flags & 8 && !g_accuracy))
+		len_space -= 1;
+	i = 0;
+	while (i < len_space)
+	{
+		put_char(space, NULL, &(*amount));
+		i += 1;
+	}
+}
+
+void	def_lensymbols_f(int *len_symbols, double *value_f, unsigned int *flags)
+{
+	extern int	g_accuracy;
+	int			unit;
+
+	unit = *value_f < 0 ? -(int)(*value_f) : (int)(*value_f);
+	*len_symbols = len_unumb(unit) + g_accuracy;
+	if (g_accuracy)
+		*len_symbols += 1;
+
+	// *len_symbols = g_lenarg;
+	// if ((*flags & 64 && *flags & 12288 && *len_symbols < g_accuracy)
+	// 	|| (*flags & 64 && !g_accuracy && !(*value) && !(*flags & 32768))
+	// 	|| ((*flags & 16480) == 16480 && *len_symbols > g_accuracy)
+	// 	|| (*flags & 64 && *flags & 229376 && *len_symbols < g_accuracy))
+	// 	*len_symbols = g_accuracy;
+	// if (((*flags & 32776) == 32776 && *flags & 64
+	// 	&& *len_symbols > g_accuracy && *value)
+	// 	|| ((*flags & 32776) == 32776 && !(*flags & 64) && *value))
+	// 	*len_symbols += 1;
+	// if ((*flags & 8 && *flags & 196608 && *value) || *flags & 524288)
+	// 	*len_symbols += 2;
 }
 
 void	def_lensymbols(int *len_symbols, void **value, unsigned int *flags)

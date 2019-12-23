@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/22 14:08:16 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/23 17:46:38 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,44 @@ void	put_sign(void **value, unsigned int *flags, int *amount)
 		put_char(' ', NULL, &(*amount));
 		return ;
 	}
+}
+
+void	put_sign_f(double *value_f, unsigned int *flags, int *amount)
+{
+	unsigned long	test;
+	ft_memcpy(&test, &(*value_f), 8);
+	
+	
+	if (*value_f < 0 || (!(*value_f) && test & (1UL << 63)))
+	{
+		put_char('-', NULL, &(*amount));
+		return ;
+	}
+	if (*flags & 2)
+	{
+		put_char('+', NULL, &(*amount));
+		return ;
+	}
+	if (*flags & 4)
+	{
+		put_char(' ', NULL, &(*amount));
+		return ;
+	}
+}
+
+void	*ft_memcpy(void *dst, const void *src, int count)
+{
+	int		i;
+
+	i = 0;
+	while (i < count)
+	{
+		if (!count || dst == src)
+			return ((void *)dst);
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+		i += 1;
+	}
+	return ((void *)dst);
 }
 
 void	put_abs(void **value, unsigned int *flags, int *amount)

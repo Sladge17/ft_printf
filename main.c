@@ -6,13 +6,14 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/22 14:29:05 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/23 16:59:09 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
 #include <limits.h>
+#include <float.h>
 
 int		ft_printf(const char *str, ...);
 
@@ -61,7 +62,7 @@ int		main()
 	// rez = printf("%#7o", 33);
 	// rez = printf("%#3o", 0);
 	// rez = printf("%#5.0o", 0);
-	rez = printf("this %f float", 1.5);
+	rez = printf("%.0Lf", -LDBL_MIN);
 	// rez = printf("%f", -7.00036);
 	
 	printf("->%d\n", rez);
@@ -72,7 +73,7 @@ int		main()
 	// rez = ft_printf("%#7o", 33);
 	// rez = ft_printf("%#3o", 0);
 	// rez = ft_printf("%#5.0o", 0);
-	rez = ft_printf("this %f float", 1.5);
+	rez = ft_printf("%.0Lf", -LDBL_MIN);
 	// rez = ft_printf("%f", -7.00036);
 	
 	printf("->%d\n", rez);
