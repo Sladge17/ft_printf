@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/24 17:57:22 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 19:01:05 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		g_lenarg;
 void	shift_garbage(const char **str);
 char	parsing(unsigned int *flags, const char **str);
 char	exe_numstr(void **value, unsigned int *flags, const char **str, int *amt);
+char	exe_flt(long double *val, unsigned int *flgs, const char **str, int *amt);
 
 /*
 ** def_params.c

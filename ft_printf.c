@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/24 18:25:44 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 19:00:28 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,101 @@ char	exe_numstr(void **value, unsigned int *flags, const char **str, int *amt)
 	return (1);
 }
 
+char	exe_flt(long double *val, unsigned int *flgs, const char **str, int *amt)
+{
+	if (!(*flgs & 1048576))
+		return (0);
+		
+	long int	unit;
+	long int	unit_rem;
+	char		*remainder;
+	void		*ptr;
+	int 		i;
+	extern int	g_accuracy;
+	long double	value_fcp;
+	
+	
+	if (!(*flgs & 64))
+		g_accuracy = 6;
+	
+	if (*flgs & 32 && !(*flgs & 1) && !(*flgs & 16))
+		put_space_f(&(*val), &(*flgs), &(*amt));
+	put_sign_f(&(*val), &(*flgs), &(*amt));
+		
+	if ((*flgs & 48) == 48 && !(*flgs & 1))
+		put_space_f(&(*val), &(*flgs), &(*amt));
+	
+	
+	value_fcp = *val;
+	if (value_fcp < 0)
+		value_fcp = -value_fcp;
+	
+	unit = (long int)value_fcp;
+	unit_rem = unit;
+	
+	
+	remainder = (char *)malloc(sizeof(char) * 21);
+	if (!remainder)
+		return (0);  // NEED FIX
+	i = 0;
+	while (i < 21)
+	{
+		value_fcp = 10 * (value_fcp - unit_rem);
+		unit_rem = (char)value_fcp;
+		remainder[i] = unit_rem;
+		i += 1;
+	}
+
+	
+	i = 19;
+	if (remainder[i] > 4 && i != g_accuracy)
+		remainder[i - 1] += 1;
+
+	
+	i -= 1;
+	while (i > g_accuracy)
+	{
+		if (remainder[i] == 10)
+			remainder[i - 1] += 1;
+		i -= 1;
+	}
+	
+
+	i = g_accuracy;
+	if (i == 0 && remainder[i] > 4)
+		unit += 1;
+	if (remainder[i] > 4 && i)
+	{
+		remainder[i - 1] += 1;
+		i -= 1;
+	}
+	while (remainder[i] > 9)
+	{
+		if (i == 0 && remainder[i] > 9)
+			unit += 1;
+		remainder[i] = 0;
+		remainder[i - 1] += 1;
+		i -= 1;
+	}
+	ptr = &unit;
+	put_uabs(ptr, &(*flgs), &(*amt));
+	if (g_accuracy || *flgs & 8)
+		put_char('.', NULL, &(*amt));
+	i = 0;
+	while (i < g_accuracy)
+	{
+		put_char(remainder[i] + 48, NULL, &(*amt));
+		i += 1;
+	}
+	free(remainder);
+	
+	if ((*flgs & 33) == 33)
+		put_space_f(&(*val), &(*flgs), &(*amt));;
+	
+	*str += 1;
+	return (1);
+}
+
 int		ft_printf(const char *str, ...)
 {
 	int				amount;
@@ -101,98 +196,101 @@ int		ft_printf(const char *str, ...)
 				value = va_arg(args, void *);
 		}
 
-		if (flags & 1048576)
-		{
-			long int	unit;
-			long int	unit_rem;
-			char		*remainder;
-			void		*ptr;
-			int 		i;
-			extern int	g_accuracy;
-			long double	value_fcp;
+		// if (flags & 1048576)
+		// {
+		// 	long int	unit;
+		// 	long int	unit_rem;
+		// 	char		*remainder;
+		// 	void		*ptr;
+		// 	int 		i;
+		// 	extern int	g_accuracy;
+		// 	long double	value_fcp;
 			
 			
-			if (!(flags & 64))
-				g_accuracy = 6;
+		// 	if (!(flags & 64))
+		// 		g_accuracy = 6;
 			
-			if (flags & 32 && !(flags & 1) && !(flags & 16))
-				put_space_f(&value_f, &flags, &amount);
-			put_sign_f(&value_f, &flags, &amount);
+		// 	if (flags & 32 && !(flags & 1) && !(flags & 16))
+		// 		put_space_f(&value_f, &flags, &amount);
+		// 	put_sign_f(&value_f, &flags, &amount);
 				
-			if ((flags & 48) == 48 && !(flags & 1))
-				put_space_f(&value_f, &flags, &amount);
+		// 	if ((flags & 48) == 48 && !(flags & 1))
+		// 		put_space_f(&value_f, &flags, &amount);
 			
 			
-			value_fcp = value_f;
-			if (value_fcp < 0)
-				value_fcp = -value_fcp;
+		// 	value_fcp = value_f;
+		// 	if (value_fcp < 0)
+		// 		value_fcp = -value_fcp;
 			
-			unit = (long int)value_fcp;
-			unit_rem = unit;
+		// 	unit = (long int)value_fcp;
+		// 	unit_rem = unit;
 			
 			
-			remainder = (char *)malloc(sizeof(char) * 21);
-			if (!remainder)
-				break ;
-			i = 0;
-			while (i < 21)
-			{
-				value_fcp = 10 * (value_fcp - unit_rem);
-				unit_rem = (char)value_fcp;
-				remainder[i] = unit_rem;
-				i += 1;
-			}
+		// 	remainder = (char *)malloc(sizeof(char) * 21);
+		// 	if (!remainder)
+		// 		break ;
+		// 	i = 0;
+		// 	while (i < 21)
+		// 	{
+		// 		value_fcp = 10 * (value_fcp - unit_rem);
+		// 		unit_rem = (char)value_fcp;
+		// 		remainder[i] = unit_rem;
+		// 		i += 1;
+		// 	}
 
 			
-			i = 19;
-			if (remainder[i] > 4 && i != g_accuracy)
-				remainder[i - 1] += 1;
+		// 	i = 19;
+		// 	if (remainder[i] > 4 && i != g_accuracy)
+		// 		remainder[i - 1] += 1;
 
 			
-			i -= 1;
-			while (i > g_accuracy)
-			{
-				if (remainder[i] == 10)
-					remainder[i - 1] += 1;
-				i -= 1;
-			}
+		// 	i -= 1;
+		// 	while (i > g_accuracy)
+		// 	{
+		// 		if (remainder[i] == 10)
+		// 			remainder[i - 1] += 1;
+		// 		i -= 1;
+		// 	}
 			
 
-			i = g_accuracy;
-			if (i == 0 && remainder[i] > 4)
-				unit += 1;
-			if (remainder[i] > 4 && i)
-			{
-				remainder[i - 1] += 1;
-				i -= 1;
-			}
-			while (remainder[i] > 9)
-			{
-				if (i == 0 && remainder[i] > 9)
-					unit += 1;
-				remainder[i] = 0;
-				remainder[i - 1] += 1;
-				i -= 1;
-			}
-			ptr = &unit;
-			put_uabs(ptr, &flags, &amount);
-			if (g_accuracy || flags & 8)
-				put_char('.', NULL, &amount);
-			i = 0;
-			while (i < g_accuracy)
-			{
-				put_char(remainder[i] + 48, NULL, &amount);
-				i += 1;
-			}
-			free(remainder);
+		// 	i = g_accuracy;
+		// 	if (i == 0 && remainder[i] > 4)
+		// 		unit += 1;
+		// 	if (remainder[i] > 4 && i)
+		// 	{
+		// 		remainder[i - 1] += 1;
+		// 		i -= 1;
+		// 	}
+		// 	while (remainder[i] > 9)
+		// 	{
+		// 		if (i == 0 && remainder[i] > 9)
+		// 			unit += 1;
+		// 		remainder[i] = 0;
+		// 		remainder[i - 1] += 1;
+		// 		i -= 1;
+		// 	}
+		// 	ptr = &unit;
+		// 	put_uabs(ptr, &flags, &amount);
+		// 	if (g_accuracy || flags & 8)
+		// 		put_char('.', NULL, &amount);
+		// 	i = 0;
+		// 	while (i < g_accuracy)
+		// 	{
+		// 		put_char(remainder[i] + 48, NULL, &amount);
+		// 		i += 1;
+		// 	}
+		// 	free(remainder);
 			
-			if ((flags & 33) == 33)
-				put_space_f(&value_f, &flags, &amount);;
+		// 	if ((flags & 33) == 33)
+		// 		put_space_f(&value_f, &flags, &amount);;
 			
-			str += 1;
+		// 	str += 1;
+		// 	continue ;
+		// }
+
+		if (exe_flt(&value_f, &flags, &str, &amount))
 			continue ;
-		}
-
+		
 		if (exe_numstr(&value, &flags, &str, &amount))
 			continue ;
 		if (flags & 32)
