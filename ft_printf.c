@@ -6,115 +6,11 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/24 17:17:40 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 18:25:44 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-// #include "stdio.h"  ///  <-- DELL IT
-
-
-// TEST TEST
-
-// void	read_double(long double value)
-// {
-// 	void			*ptr;
-// 	short			exp;
-// 	unsigned long	mantissa;
-// 	int				i;
-// 	int				rez;
-	
-// 	rez = (int)value;
-// 	while (value - rez != 0)
-// 	{
-// 		value *= 10;
-// 		rez = (int)value;
-// 		printf("%Lf\n", value);
-// 	}
-	
-// 	ptr = &value;
-// 	i = 64;
-// 	exp = *((unsigned long *)ptr + 1);
-// 	exp = exp & 32768 ? (exp ^ 32768) -16383 : exp - 16383;
-// 	mantissa = *(unsigned long *)ptr;
-	
-// 	i = 64;
-// 	while (mantissa && !(mantissa & 1UL))
-// 	{
-// 		mantissa >>= 1;
-// 		i -= 1;
-// 	}
-// 	rez = 0;
-// 	while (exp > 0)
-// 	{
-// 		if (mantissa & 1UL << (i - 1))
-// 			rez = rez + (1 << exp);
-// 		exp -= 1;
-// 		i -= 1;
-// 	}
-// 	rez = mantissa & 1UL << (i - 1) ? rez + 1 : rez;
-// 	exp -= 1;
-// 	i -= 1;
-	
-// 	printf("rez = ");
-// 	if (*((unsigned long *)ptr + 1) & 1UL << 15)
-// 		printf("-");
-// 	printf("%d.\n", rez);
-
-// 	while (!(mantissa & 1UL << i))
-// 	{
-// 		exp -= 1;
-// 		i -= 1;
-// 	}
-// 	printf("exp = %d\n", exp);
-// 	printf("i = %d\n", i);
-
-// 	rez = (int)value;
-// 	printf("%d\n", rez);
-// }
-
-// void	read_double(long double value)
-// {
-// 	int		rez;
-	
-// 	if (value < 0)
-// 	{
-// 		printf("-");
-// 		value = -value;
-// 	}
-	
-// 	rez = (int)value;
-// 	printf("%d.", rez);
-
-// 	value = 10 * (value - rez);
-// 	while ((rez = (int)(value)))
-// 	{
-// 		printf("%d", rez);
-// 		value = 10 * (value - rez);
-// 	}
-// }
-
-// void	read_double(double value)
-// {
-// 	int		rez;
-	
-// 	if (value < 0)
-// 	{
-// 		printf("-");
-// 		value = -value;
-// 	}
-	
-// 	rez = (int)value;
-// 	printf("%d.", rez);
-
-// 	value = 10 * (value - rez);
-// 	while ((rez = (int)(value)))
-// 	{
-// 		printf("%d", rez);
-// 		value = 10 * (value - rez);
-// 	}
-// }
 
 void	shift_garbage(const char **str)
 {
@@ -161,7 +57,6 @@ char	exe_numstr(void **value, unsigned int *flags, const char **str, int *amt)
 	conversion(&(*value), &(*flags));
 	len_arg(&(*value), &(*flags));
 	if (*flags & 32 && !(*flags & 17))
-	// if (*flags & 32 && !(*flags & 1))
 		put_space(&(*value), &(*flags), &(*amt));
 	put_sign(&(*value), &(*flags), &(*amt));
 	put_prefix(&(*value), &(*flags), &(*amt));
@@ -211,7 +106,6 @@ int		ft_printf(const char *str, ...)
 			long int	unit;
 			long int	unit_rem;
 			char		*remainder;
-			// char		remainder[21];
 			void		*ptr;
 			int 		i;
 			extern int	g_accuracy;
@@ -237,12 +131,10 @@ int		ft_printf(const char *str, ...)
 			unit_rem = unit;
 			
 			
-			// remainder = (char *)malloc(sizeof(char) * (g_accuracy + 1));
 			remainder = (char *)malloc(sizeof(char) * 21);
 			if (!remainder)
 				break ;
 			i = 0;
-			// while (i < g_accuracy + 1)
 			while (i < 21)
 			{
 				value_fcp = 10 * (value_fcp - unit_rem);
@@ -251,20 +143,10 @@ int		ft_printf(const char *str, ...)
 				i += 1;
 			}
 
-			// i = 0;
-			// while (i < 21)
-			// {
-			// 	put_char(remainder[i] + 48, NULL, &amount);
-			// 	i += 1;
-			// }
-			// write(1, "\n", 1);
-
 			
 			i = 19;
 			if (remainder[i] > 4 && i != g_accuracy)
 				remainder[i - 1] += 1;
-			// if (g_accuracy == 20)
-			// 	remainder[i] += 1;
 
 			
 			i -= 1;
@@ -274,22 +156,12 @@ int		ft_printf(const char *str, ...)
 					remainder[i - 1] += 1;
 				i -= 1;
 			}
-
-			// i = 0;
-			// while (i < 20)
-			// {
-			// 	put_char(remainder[i] + 48, NULL, &amount);
-			// 	i += 1;
-			// }
-			// write(1, "\n", 1);
 			
 
 			i = g_accuracy;
 			if (i == 0 && remainder[i] > 4)
 				unit += 1;
-			if ((remainder[i] > 4 && i)
-				// || (i == 10 && flags & 2048 && remainder[i - 1] == 5)
-				)
+			if (remainder[i] > 4 && i)
 			{
 				remainder[i - 1] += 1;
 				i -= 1;
@@ -321,28 +193,6 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		}
 
-		
-		// conversion(&value, &flags);
-		// len_arg(&value, &flags);
-		// if (flags & 782336)
-		// {
-		// 	conversion(&value, &flags);
-		// 	len_arg(&value, &flags);
-		// 	if (flags & 32 && !(flags & 17))
-		// 		put_space(&value, &flags, &amount);
-		// 	put_sign(&value, &flags, &amount);
-		// 	put_prefix(&value, &flags, &amount);
-		// 	put_zero(&value, &flags, &amount);
-		// 	if ((flags & 48) == 48 && !(flags & 1))
-		// 		put_space(&value, &flags, &amount);
-		// 	put_abs(&value, &flags, &amount);
-		// 	put_uabs(&value, &flags, &amount);
-		// 	put_str(value, &flags, &amount);
-		// 	if ((flags & 33) == 33)
-		// 		put_space(&value, &flags, &amount);
-		// 	str += 1;
-		// 	continue ;
-		// }
 		if (exe_numstr(&value, &flags, &str, &amount))
 			continue ;
 		if (flags & 32)
