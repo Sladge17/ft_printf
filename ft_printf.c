@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/23 19:53:32 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 17:17:40 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,50 +206,12 @@ int		ft_printf(const char *str, ...)
 				value = va_arg(args, void *);
 		}
 
-		// if (flags & 1048576)
-		// {
-		// 	int				unit;
-		// 	unsigned long	remainder;
-		// 	void			*ptr;
-		// 	int 			i;
-
-		// 	ptr = &unit;
-			
-		// 	if (value_real < 0)
-		// 	{
-		// 		put_char('-', NULL, &amount);
-		// 		value_real = -value_real;
-		// 	}
-			
-		// 	unit = (int)value_real;
-		// 	put_uabs(ptr, &flags, &amount);
-		// 	put_char('.', NULL, &amount);
-			
-		// 	remainder = 0;
-		// 	i = 0;
-		// 	while (i < 19)
-		// 	{
-		// 		value_real = 10 * (value_real - unit);
-		// 		unit = (int)value_real;
-		// 		remainder = (10 * remainder) + unit;
-		// 		i += 1;
-		// 	}
-		// 	ptr = &remainder;
-		// 	flags |= 1024;
-		// 	while (remainder && !(remainder % 10))
-		// 		remainder = remainder / 10;
-		// 	put_uabs(ptr, &flags, &amount);
-		// 	len_arg(ptr, &flags);
-		// 	put_zero(ptr, &flags, &amount);
-		// 	str += 1;
-		// 	continue ;
-		// }
-
 		if (flags & 1048576)
 		{
 			long int	unit;
 			long int	unit_rem;
 			char		*remainder;
+			// char		remainder[21];
 			void		*ptr;
 			int 		i;
 			extern int	g_accuracy;
@@ -275,11 +237,13 @@ int		ft_printf(const char *str, ...)
 			unit_rem = unit;
 			
 			
-			remainder = (char *)malloc(sizeof(char) * (g_accuracy + 1));
+			// remainder = (char *)malloc(sizeof(char) * (g_accuracy + 1));
+			remainder = (char *)malloc(sizeof(char) * 21);
 			if (!remainder)
 				break ;
 			i = 0;
-			while (i < g_accuracy + 1)
+			// while (i < g_accuracy + 1)
+			while (i < 21)
 			{
 				value_fcp = 10 * (value_fcp - unit_rem);
 				unit_rem = (char)value_fcp;
@@ -287,14 +251,45 @@ int		ft_printf(const char *str, ...)
 				i += 1;
 			}
 
-			// if (remainder[g_accuracy + 1] == 9)
-			// 	remainder[g_accuracy] += 1;
+			// i = 0;
+			// while (i < 21)
+			// {
+			// 	put_char(remainder[i] + 48, NULL, &amount);
+			// 	i += 1;
+			// }
+			// write(1, "\n", 1);
+
+			
+			i = 19;
+			if (remainder[i] > 4 && i != g_accuracy)
+				remainder[i - 1] += 1;
+			// if (g_accuracy == 20)
+			// 	remainder[i] += 1;
+
+			
+			i -= 1;
+			while (i > g_accuracy)
+			{
+				if (remainder[i] == 10)
+					remainder[i - 1] += 1;
+				i -= 1;
+			}
+
+			// i = 0;
+			// while (i < 20)
+			// {
+			// 	put_char(remainder[i] + 48, NULL, &amount);
+			// 	i += 1;
+			// }
+			// write(1, "\n", 1);
+			
 
 			i = g_accuracy;
 			if (i == 0 && remainder[i] > 4)
 				unit += 1;
 			if ((remainder[i] > 4 && i)
-				|| (i == 10 && flags & 2048 && remainder[i - 1] == 5))
+				// || (i == 10 && flags & 2048 && remainder[i - 1] == 5)
+				)
 			{
 				remainder[i - 1] += 1;
 				i -= 1;
