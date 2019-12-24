@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/23 18:46:06 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 17:57:22 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	def_bitborder_lint(unsigned long int *bitborder, long int value, char bit_c
 void	put_sign(void **value, unsigned int *flags, int *amount);
 
 void	put_sign_f(long double *value_f, unsigned int *flags, int *amount);
-void	*ft_memcpy(void *dst, const void *src, int count);
 
 void	put_abs(void **value, unsigned int *flags, int *amount);
 void	put_abs_int(int value, int *amount);
