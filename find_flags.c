@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 19:15:04 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/04 12:27:00 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:05:19 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	find_minus(const char **str, unsigned int *flags)
+char	find_minus(const char **str, int *flags)
 {
 	if (**str == '-')
 	{
@@ -23,7 +23,7 @@ char	find_minus(const char **str, unsigned int *flags)
 	return (0);
 }
 
-char	find_plus(const char **str, unsigned int *flags)
+char	find_plus(const char **str, int *flags)
 {
 	if (**str == '+')
 	{
@@ -34,7 +34,7 @@ char	find_plus(const char **str, unsigned int *flags)
 	return (0);
 }
 
-char	find_space(const char **str, unsigned int *flags)
+char	find_space(const char **str, int *flags)
 {
 	if (**str == ' ')
 	{
@@ -45,7 +45,7 @@ char	find_space(const char **str, unsigned int *flags)
 	return (0);
 }
 
-char	find_lattice(const char **str, unsigned int *flags)
+char	find_lattice(const char **str, int *flags)
 {
 	if (**str == '#')
 	{
@@ -56,7 +56,7 @@ char	find_lattice(const char **str, unsigned int *flags)
 	return (0);
 }
 
-char	find_zero(const char **str, unsigned int *flags)
+char	find_zero(const char **str, int *flags)
 {
 	if (**str == '0')
 	{

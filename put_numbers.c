@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/24 17:56:39 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:05:19 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	put_sign(void **value, unsigned int *flags, int *amount)
+void	put_sign(void **value, int *flags, int *amount)
 {
 	if (*flags & 778240)
 		return ;
@@ -37,7 +37,7 @@ void	put_sign(void **value, unsigned int *flags, int *amount)
 	}
 }
 
-void	put_sign_f(long double *value_f, unsigned int *flags, int *amount)
+void	put_sign_f(long double *value_f, int *flags, int *amount)
 {
 	if (*value_f < 0)
 	{
@@ -56,7 +56,7 @@ void	put_sign_f(long double *value_f, unsigned int *flags, int *amount)
 	}
 }
 
-void	put_abs(void **value, unsigned int *flags, int *amount)
+void	put_abs(void **value, int *flags, int *amount)
 {
 	extern int		g_accuracy;
 
@@ -199,7 +199,7 @@ void	put_abs_lint(long int value, int *amount)
 	put_uabs_lint(value, &(*amount));
 }
 
-void	put_prefix(void **value, unsigned int *flags, int *amount)
+void	put_prefix(void **value, int *flags, int *amount)
 {
 	// if (*flags & 28672 || !(*flags & 524296) || (!(*value) && !(*flags & 524288)))
 	extern int	g_accuracy;
@@ -249,7 +249,7 @@ void	put_prefix(void **value, unsigned int *flags, int *amount)
 	}
 }
 
-void	put_uabs(void **value, unsigned int *flags, int *amount)
+void	put_uabs(void **value, int *flags, int *amount)
 {
 	// if (*flags & 544768 || (*flags & 64 && !(g_accuracy))
 	if (*flags & 20480 || (*flags & 64 && !(g_accuracy) && !(*flags & 1048576))

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/24 19:32:19 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:31:54 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	shift_garbage(const char **str)
 	}
 }
 
-char	parsing(unsigned int *flags, const char **str)
+char	parsing(int *flags, const char **str)
 {
 	*flags = 0;
 	check_flags(&(*flags), &(*str));
@@ -50,7 +50,7 @@ char	parsing(unsigned int *flags, const char **str)
 	return (1);
 }
 
-char	exe_numstr(void **value, unsigned int *flags, const char **str, int *amt)
+char	exe_numstr(void **value, int *flags, const char **str, int *amt)
 {
 	if (!(*flags & 782336))
 		return (0);
@@ -72,9 +72,9 @@ char	exe_numstr(void **value, unsigned int *flags, const char **str, int *amt)
 	return (1);
 }
 
-char	exe_flt(long double *val, unsigned int *flgs, const char **str, int *amt)
+char	exe_flt(long double *val, int *flags, const char **str, int *amt)
 {
-	if (!(*flgs & 1048576))
+	if (!(*flags & 1048576))
 		return (0);
 		
 	long int	unit;
@@ -86,15 +86,15 @@ char	exe_flt(long double *val, unsigned int *flgs, const char **str, int *amt)
 	long double	value_fcp;
 	
 	
-	if (!(*flgs & 64))
+	if (!(*flags & 64))
 		g_accuracy = 6;
 	
-	if (*flgs & 32 && !(*flgs & 1) && !(*flgs & 16))
-		put_space_f(&(*val), &(*flgs), &(*amt));
-	put_sign_f(&(*val), &(*flgs), &(*amt));
+	if (*flags & 32 && !(*flags & 1) && !(*flags & 16))
+		put_space_f(&(*val), &(*flags), &(*amt));
+	put_sign_f(&(*val), &(*flags), &(*amt));
 		
-	if ((*flgs & 48) == 48 && !(*flgs & 1))
-		put_space_f(&(*val), &(*flgs), &(*amt));
+	if ((*flags & 48) == 48 && !(*flags & 1))
+		put_space_f(&(*val), &(*flags), &(*amt));
 	
 	
 	value_fcp = *val;
@@ -149,8 +149,8 @@ char	exe_flt(long double *val, unsigned int *flgs, const char **str, int *amt)
 		i -= 1;
 	}
 	ptr = &unit;
-	put_uabs(ptr, &(*flgs), &(*amt));
-	if (g_accuracy || *flgs & 8)
+	put_uabs(ptr, &(*flags), &(*amt));
+	if (g_accuracy || *flags & 8)
 		put_char('.', NULL, &(*amt));
 	i = 0;
 	while (i < g_accuracy)
@@ -160,14 +160,14 @@ char	exe_flt(long double *val, unsigned int *flgs, const char **str, int *amt)
 	}
 	free(remainder);
 	
-	if ((*flgs & 33) == 33)
-		put_space_f(&(*val), &(*flgs), &(*amt));;
+	if ((*flags & 33) == 33)
+		put_space_f(&(*val), &(*flags), &(*amt));;
 	
 	*str += 1;
 	return (1);
 }
 
-char	exe_wsymb(void **value, unsigned int *flags, const char **str, int *amt)
+char	exe_wsymb(void **value, int *flags, const char **str, int *amt)
 {
 	if (!(*flags & 32))
 		return (0);
@@ -183,11 +183,28 @@ char	exe_wsymb(void **value, unsigned int *flags, const char **str, int *amt)
 	return (1);
 }
 
+void	exe(long double *vf, void **v, int *fl, const char **s, int *amt)
+{
+	if (exe_flt(&(*vf), &(*fl), &(*s), &(*amt)))
+		return ;
+	if (exe_numstr(&(*v), &(*fl), &(*s), &(*amt)))
+		return ;
+	if (exe_wsymb(&(*v), &(*fl), &(*s), &(*amt)))
+		return ;
+	if (*fl & 262144)
+	{
+		put_char((char)(*v), &(*s), &(*amt));
+		return ;
+	}
+	if (**s != '\0')
+		put_char(**s, &(*s), &(*amt));
+}
+
 int		ft_printf(const char *str, ...)
 {
 	int				amount;
 	va_list			args;
-	unsigned int	flags;
+	int				flags;
 	void			*value;
 	long double		value_f;
 
@@ -201,7 +218,6 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		if (!parsing(&flags, &str))
 			break ;
-
 		if (*str != '%')
 		{
 			if ((flags & 1050624) == 1050624)
@@ -211,34 +227,7 @@ int		ft_printf(const char *str, ...)
 			else
 				value = va_arg(args, void *);
 		}
-
-		if (exe_flt(&value_f, &flags, &str, &amount))
-			continue ;
-		if (exe_numstr(&value, &flags, &str, &amount))
-			continue ;
-		if (exe_wsymb(&value, &flags, &str, &amount))
-			continue ;
-		
-		// if (flags & 32)
-		// {
-		// 	len_arg(&value, &flags);
-		// 	if (!(flags & 1))
-		// 		put_space(&value, &flags, &amount);
-		// 	if (flags & 262144)
-		// 		put_char((char)value, &str, &amount);
-		// 	else
-		// 		put_char(*str, &str, &amount);
-		// 	if (flags & 1)
-		// 		put_space(&value, &flags, &amount);
-		// 	continue ;
-		// }
-		if (flags & 262144)
-		{
-			put_char((char)value, &str, &amount);
-			continue ;
-		}
-		if (*str != '\0')
-			put_char(*str, &str, &amount);
+		exe(&value_f, &value, &flags, &str, &amount);
 	}
 	va_end(args);
 	return (amount);

@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/17 18:13:08 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:05:19 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	conversion(void **value, unsigned int *flags)
+void	conversion(void **value, int *flags)
 {
 	if (!(*flags & 753664))
 		return;
@@ -38,7 +38,7 @@ void	conversion(void **value, unsigned int *flags)
 	}
 }
 
-void	binto_oct(void **value, unsigned int *flags)
+void	binto_oct(void **value, int *flags)
 {
 	char				*oct;
 	unsigned long int	bitborder;
@@ -96,7 +96,7 @@ void	binto_oct(void **value, unsigned int *flags)
 	free(oct);
 }
 
-void	binto_hex(void **value, unsigned int *flags, char index)
+void	binto_hex(void **value, int *flags, char index)
 {
 	char				*hex;
 	unsigned long int	bitborder;
@@ -175,7 +175,7 @@ void	binto_hex(void **value, unsigned int *flags, char index)
 }
 
 
-void	def_bitborder(unsigned long int *bitborder, void **value, unsigned int *flags)
+void	def_bitborder(unsigned long int *bitborder, void **value, int *flags)
 {
 	char	index;
 	

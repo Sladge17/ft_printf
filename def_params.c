@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/09 15:08:36 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:05:19 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	check_flags(unsigned int *flags, const char **str)
+void	check_flags(int *flags, const char **str)
 {
 	while (1)
 	{
@@ -30,7 +30,7 @@ void	check_flags(unsigned int *flags, const char **str)
 	}
 }
 
-void	def_width(unsigned int *flags, const char **str)
+void	def_width(int *flags, const char **str)
 {
 	extern int	g_width;
 
@@ -39,7 +39,7 @@ void	def_width(unsigned int *flags, const char **str)
 		*flags |= 32;
 }
 
-void	def_accuracy(unsigned int *flags, const char **str)
+void	def_accuracy(int *flags, const char **str)
 {
 	extern int	g_accuracy;
 
@@ -60,7 +60,7 @@ void	ft_atoi(int *param, const char **str)
 	}
 }
 
-char	def_fasttype(unsigned int *flags, const char **str)
+char	def_fasttype(int *flags, const char **str)
 {
 	if (**str == 'U')
 	{
@@ -76,7 +76,7 @@ char	def_fasttype(unsigned int *flags, const char **str)
 	return (0);
 }
 
-void	def_modifier(unsigned int *flags, const char **str)
+void	def_modifier(int *flags, const char **str)
 {
 	if (**str == 'h' && *(*str + 1) == 'h' && *(*str + 2) == 'l')
 	{
@@ -109,7 +109,7 @@ void	def_modifier(unsigned int *flags, const char **str)
 	}
 }
 
-void	find_modsymb(unsigned int *flags, const char **str, short flag)
+void	find_modsymb(int *flags, const char **str, short flag)
 {
 	if (*(*str + 1) == **str || *(*str + 1) == 'h' || *(*str + 1) == 'j')
 	{
@@ -127,7 +127,7 @@ void	find_modsymb(unsigned int *flags, const char **str, short flag)
 	*str += 1;
 }
 
-void	def_type(unsigned int *flags, const char **str)
+void	def_type(int *flags, const char **str)
 {
 	if (**str == 'd' || **str == 'i')
 		*flags |= 4096;

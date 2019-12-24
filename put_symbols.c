@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/23 18:43:53 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:05:19 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	check_lastfreesmb(const char **str, int *amount)
 	return (1);
 }
 
-void	put_space(void **value, unsigned int *flags, int *amount)
+void	put_space(void **value, int *flags, int *amount)
 {
 	extern int	g_width;
 	int			len_symbols;
@@ -73,7 +73,7 @@ void	put_space(void **value, unsigned int *flags, int *amount)
 	}
 }
 
-void	put_space_f(long double *value_f, unsigned int *flags, int *amount)
+void	put_space_f(long double *value_f, int *flags, int *amount)
 {
 	extern int	g_width;
 	int			len_symbols;
@@ -95,7 +95,7 @@ void	put_space_f(long double *value_f, unsigned int *flags, int *amount)
 	}
 }
 
-void	def_lensymbols_f(int *len_symbols, long double *value_f, unsigned int *flags)
+void	def_lensymbols_f(int *len_symbols, long double *value_f, int *flags)
 {
 	extern int	g_accuracy;
 	int			unit;
@@ -119,7 +119,7 @@ void	def_lensymbols_f(int *len_symbols, long double *value_f, unsigned int *flag
 	// 	*len_symbols += 2;
 }
 
-void	def_lensymbols(int *len_symbols, void **value, unsigned int *flags)
+void	def_lensymbols(int *len_symbols, void **value, int *flags)
 {
 	extern int	g_accuracy;
 	extern int	g_lenarg;
@@ -138,7 +138,7 @@ void	def_lensymbols(int *len_symbols, void **value, unsigned int *flags)
 		*len_symbols += 2;
 }
 
-void	put_zero(void **value, unsigned int *flags, int *amount)
+void	put_zero(void **value, int *flags, int *amount)
 {
 	extern int	g_accuracy;
 	extern int	g_lenarg;
@@ -164,7 +164,7 @@ void	put_zero(void **value, unsigned int *flags, int *amount)
 }
 
 
-void	put_str(char *value, unsigned int *flags, int *amount)
+void	put_str(char *value, int *flags, int *amount)
 {
 	extern int	g_accuracy;
 	int			i;

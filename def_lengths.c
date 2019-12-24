@@ -6,13 +6,13 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/23 18:45:09 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:05:19 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		len_numb(void **value, unsigned int *flags)
+int		len_numb(void **value, int *flags)
 {
 	if (*flags & 128 && (short)(*value) < 0)
 		return (len_unumb(-(short)(*value)));
@@ -38,7 +38,7 @@ int		len_unumb(unsigned long int value)
 	return (len);
 }
 
-char	len_sign(void **value, unsigned int *flags)
+char	len_sign(void **value, int *flags)
 {
 	if (!(*flags & 4096))
 		return (0);
@@ -51,7 +51,7 @@ char	len_sign(void **value, unsigned int *flags)
 	return (0);
 }
 
-char	len_sign_f(long double *value_f, unsigned int *flags)
+char	len_sign_f(long double *value_f, int *flags)
 {
 	if (*value_f < 0 || *flags & 6)
 		return (1);
@@ -78,7 +78,7 @@ int		len_str(const char *str)
 	return (len);
 }
 
-void	len_arg(void **value, unsigned int *flags)
+void	len_arg(void **value, int *flags)
 {
 	extern int	g_accuracy;
 	extern int	g_lenarg;
