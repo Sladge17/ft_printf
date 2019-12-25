@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/24 16:42:39 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/25 13:22:22 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,20 @@ int		main()
 	
 	test += 1;
 	
-	int		a01;
-	int		a02;
-	int		a03;
-	int		a04;
-	int		a05;
-	int		a06;
-	int		a07;
-	int		a08;
-	int		a09;
-	int		a10;
-	int		a11;
-	int		a12;
-	int		free;
+	// int		a01;
+	// int		a02;
+	// int		a03;
+	// int		a04;
+	// int		a05;
+	// int		a06;
+	// int		a07;
+	// int		a08;
+	// int		a09;
+	// int		a10;
+	// int		a11;
+	// int		a12;
+	// int		free;
+	
 	
 	
 	printf("\n");

@@ -20,7 +20,7 @@ $(NAME): $(OBJ) $(TMPO) ### FIX IT <<<<<<<<<<<
 	@gcc -o 00 $(NAME) $(TMPO) #### DELL IT <<<<<<<<<<
 
 %.o: %.c ft_printf.h
-	@gcc -c $< -o $@
+	@gcc -c $< -o $@ $(FLAG)
 
 clean:
 	@rm -f $(OBJ)
