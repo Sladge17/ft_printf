@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 17:24:04 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/25 17:57:34 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ void	shift_garbage(const char **str);
 char	parsing(int *flags, const char **str);
 char	exe_numstr(void **value, int *flags, const char **str, int *amt);
 
-void	def_remainder(char **remainder, long double value_f, long int unit);
-void	fix_float(long int *unit, char **remainder);
-void	put_float(long int *unit, char **remainder, int *flags, int *amt);
 
-char	exe_float(long double *value_f, int *flags, const char **str, int *amt);
+
+
 char	exe_wsymb(void **value, int *flags, const char **str, int *amt);
 void	exe_other(void **value, int *flags, const char **str, int *amt);
 void	intrp(va_list *args, long double *value_f, void **value, int *flags);
@@ -57,6 +55,17 @@ char	find_plus(const char **str, int *flags);
 char	find_space(const char **str, int *flags);
 char	find_lattice(const char **str, int *flags);
 char	find_zero(const char **str, int *flags);
+
+/*
+** execution_f.c
+*/
+char	exe_float(long double *value_f, int *flags, const char **str, int *amt);
+void	put_space_f(long double *value_f, int *flags, int *amt);
+void	def_lensymbols_f(int *len_symbols, long double *value_f);
+void	put_sign_f(long double *value_f, int *flags, int *amt);
+void	def_remainder(char **remainder, long double value_f, long int unit);
+void	fix_float(long int *unit, char **remainder);
+void	put_float(long int *unit, char **remainder, int *flags, int *amt);
 
 /*
 ** def_lengths.c
@@ -91,7 +100,7 @@ void	def_bitborder_lint(unsigned long int *bitborder, long int value, char bit_c
 */
 void	put_sign(void **value, int *flags, int *amt);
 
-void	put_sign_f(long double *value_f, int *flags, int *amt);
+
 
 void	put_abs(void **value, int *flags, int *amt);
 void	put_abs_int(int value, int *amt);
@@ -113,8 +122,8 @@ char	put_freesmb(const char **str, int *amt);
 char	check_lastfreesmb(const char **str, int *amt);
 void	put_space(void **value, int *flags, int *amt);
 
-void	put_space_f(long double *value_f, int *flags, int *amt);
-void	def_lensymbols_f(int *len_symbols, long double *value_f);
+
+
 
 void	def_lensymbols(int *len_symbols, void **value, int *flags);
 void	put_zero(void **value, int *flags, int *amt);

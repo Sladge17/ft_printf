@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 17:24:04 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/25 17:49:04 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,24 @@ void	put_sign(void **value, int *flags, int *amt)
 	}
 }
 
-void	put_sign_f(long double *value_f, int *flags, int *amt)
-{
-	if (*value_f < 0)
-	{
-		put_char('-', NULL, &(*amt));
-		return ;
-	}
-	if (*flags & 2)
-	{
-		put_char('+', NULL, &(*amt));
-		return ;
-	}
-	if (*flags & 4)
-	{
-		put_char(' ', NULL, &(*amt));
-		return ;
-	}
-}
+// void	put_sign_f(long double *value_f, int *flags, int *amt)
+// {
+// 	if (*value_f < 0)
+// 	{
+// 		put_char('-', NULL, &(*amt));
+// 		return ;
+// 	}
+// 	if (*flags & 2)
+// 	{
+// 		put_char('+', NULL, &(*amt));
+// 		return ;
+// 	}
+// 	if (*flags & 4)
+// 	{
+// 		put_char(' ', NULL, &(*amt));
+// 		return ;
+// 	}
+// }
 
 void	put_abs(void **value, int *flags, int *amt)
 {
