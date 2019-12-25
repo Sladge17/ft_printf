@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 17:20:13 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/25 17:24:04 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,24 @@ char	parsing(int *flags, const char **str)
 	return (1);
 }
 
-char	exe_numstr(void **value, int *flags, const char **str, int *amount)
+char	exe_numstr(void **value, int *flags, const char **str, int *amt)
 {
 	if (!(*flags & 782336))
 		return (0);
 	conversion(&(*value), &(*flags));
 	len_arg(&(*value), &(*flags));
 	if (*flags & 32 && !(*flags & 17))
-		put_space(&(*value), &(*flags), &(*amount));
-	put_sign(&(*value), &(*flags), &(*amount));
-	put_prefix(&(*value), &(*flags), &(*amount));
-	put_zero(&(*value), &(*flags), &(*amount));
+		put_space(&(*value), &(*flags), &(*amt));
+	put_sign(&(*value), &(*flags), &(*amt));
+	put_prefix(&(*value), &(*flags), &(*amt));
+	put_zero(&(*value), &(*flags), &(*amt));
 	if ((*flags & 48) == 48 && !(*flags & 1))
-		put_space(&(*value), &(*flags), &(*amount));
-	put_abs(&(*value), &(*flags), &(*amount));
-	put_uabs(&(*value), &(*flags), &(*amount));
-	put_str(*value, &(*flags), &(*amount));
+		put_space(&(*value), &(*flags), &(*amt));
+	put_abs(&(*value), &(*flags), &(*amt));
+	put_uabs(&(*value), &(*flags), &(*amt));
+	put_str(*value, &(*flags), &(*amt));
 	if ((*flags & 33) == 33)
-		put_space(&(*value), &(*flags), &(*amount));
+		put_space(&(*value), &(*flags), &(*amt));
 	*str += 1;
 	return (1);
 }
@@ -125,23 +125,23 @@ void	fix_float(long int *unit, char **remainder)
 	}
 }
 
-void	put_float(long int *unit, char **remainder, int *flags, int *amount)
+void	put_float(long int *unit, char **remainder, int *flags, int *amt)
 {
 	extern int	g_accuracy;
 	int			i;
 
-	put_uabs((void *)unit, &(*flags), &(*amount));
+	put_uabs((void *)unit, &(*flags), &(*amt));
 	if (g_accuracy || *flags & 8)
-		put_char('.', NULL, &(*amount));
+		put_char('.', NULL, &(*amt));
 	i = 0;
 	while (i < g_accuracy)
 	{
-		put_char((*remainder)[i] + 48, NULL, &(*amount));
+		put_char((*remainder)[i] + 48, NULL, &(*amt));
 		i += 1;
 	}
 }
 
-char	exe_float(long double *value_f, int *flags, const char **str, int *amount)
+char	exe_float(long double *value_f, int *flags, const char **str, int *amt)
 {
 	long int	unit;
 	char		*remainder;
@@ -152,53 +152,53 @@ char	exe_float(long double *value_f, int *flags, const char **str, int *amount)
 	if (!(*flags & 64))
 		g_accuracy = 6;
 	if (*flags & 32 && !(*flags & 1) && !(*flags & 16))
-		put_space_f(&(*value_f), &(*flags), &(*amount));
-	put_sign_f(&(*value_f), &(*flags), &(*amount));
+		put_space_f(&(*value_f), &(*flags), &(*amt));
+	put_sign_f(&(*value_f), &(*flags), &(*amt));
 	if ((*flags & 48) == 48 && !(*flags & 1))
-		put_space_f(&(*value_f), &(*flags), &(*amount));
+		put_space_f(&(*value_f), &(*flags), &(*amt));
 	unit = *value_f < 0 ? -(long int)(*value_f) : (long int)(*value_f);
 	remainder = (char *)malloc(sizeof(char) * 21);
 	if (!remainder)
 		exit(0);
 	def_remainder(&remainder, *value_f, unit);
 	fix_float(&unit, &remainder);
-	put_float(&unit, &remainder, &(*flags), &(*amount));
+	put_float(&unit, &remainder, &(*flags), &(*amt));
 	free(remainder);
 	if ((*flags & 33) == 33)
-		put_space_f(&(*value_f), &(*flags), &(*amount));
+		put_space_f(&(*value_f), &(*flags), &(*amt));
 	*str += 1;
 	return (1);
 }
 
-char	exe_wsymb(void **value, int *flags, const char **str, int *amount)
+char	exe_wsymb(void **value, int *flags, const char **str, int *amt)
 {
 	if (!(*flags & 32))
 		return (0);
 	len_arg(&(*value), &(*flags));
 	if (!(*flags & 1))
-		put_space(&(*value), &(*flags), &(*amount));
+		put_space(&(*value), &(*flags), &(*amt));
 	if (*flags & 262144)
-		put_char((char)(*value), &(*str), &(*amount));
+		put_char((char)(*value), &(*str), &(*amt));
 	else
-		put_char(**str, &(*str), &(*amount));
+		put_char(**str, &(*str), &(*amt));
 	if (*flags & 1)
-		put_space(&(*value), &(*flags), &(*amount));
+		put_space(&(*value), &(*flags), &(*amt));
 	return (1);
 }
 
-void	exe_other(void **value, int *flags, const char **str, int *amount)
+void	exe_other(void **value, int *flags, const char **str, int *amt)
 {
-	if (exe_numstr(&(*value), &(*flags), &(*str), &(*amount)))
+	if (exe_numstr(&(*value), &(*flags), &(*str), &(*amt)))
 		return ;
-	if (exe_wsymb(&(*value), &(*flags), &(*str), &(*amount)))
+	if (exe_wsymb(&(*value), &(*flags), &(*str), &(*amt)))
 		return ;
 	if (*flags & 262144)
 	{
-		put_char((char)(*value), &(*str), &(*amount));
+		put_char((char)(*value), &(*str), &(*amt));
 		return ;
 	}
 	if (**str != '\0')
-		put_char(**str, &(*str), &(*amount));
+		put_char(**str, &(*str), &(*amt));
 }
 
 void	intrp(va_list *args, long double *value_f, void **value, int *flags)
@@ -218,28 +218,28 @@ void	intrp(va_list *args, long double *value_f, void **value, int *flags)
 
 int		ft_printf(const char *str, ...)
 {
-	int				amount;
+	int				amt;
 	va_list			args;
 	int				flags;
 	void			*value;
 	long double		value_f;
 
-	amount = 0;
+	amt = 0;
 	va_start(args, str);
 	while (*str)
 	{
-		if (!put_freesmb(&str, &amount))
+		if (!put_freesmb(&str, &amt))
 			break ;
-		if (check_lastfreesmb(&str, &amount))
+		if (check_lastfreesmb(&str, &amt))
 			continue ;
 		if (!parsing(&flags, &str))
 			break ;
 		if (*str != '%')
 			intrp(&args, &value_f, &value, &flags);
-		if (exe_float(&value_f, &flags, &str, &amount))
+		if (exe_float(&value_f, &flags, &str, &amt))
 			continue ;
-		exe_other(&value, &flags, &str, &amount);
+		exe_other(&value, &flags, &str, &amt);
 	}
 	va_end(args);
-	return (amount);
+	return (amt);
 }

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 17:16:26 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/25 17:24:04 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ int		g_lenarg;
 */
 void	shift_garbage(const char **str);
 char	parsing(int *flags, const char **str);
-char	exe_numstr(void **value, int *flags, const char **str, int *amount);
+char	exe_numstr(void **value, int *flags, const char **str, int *amt);
 
 void	def_remainder(char **remainder, long double value_f, long int unit);
 void	fix_float(long int *unit, char **remainder);
-void	put_float(long int *unit, char **remainder, int *flags, int *amount);
+void	put_float(long int *unit, char **remainder, int *flags, int *amt);
 
-char	exe_float(long double *value_f, int *flags, const char **str, int *amount);
-char	exe_wsymb(void **value, int *flags, const char **str, int *amount);
-void	exe_other(void **value, int *flags, const char **str, int *amount);
+char	exe_float(long double *value_f, int *flags, const char **str, int *amt);
+char	exe_wsymb(void **value, int *flags, const char **str, int *amt);
+void	exe_other(void **value, int *flags, const char **str, int *amt);
 void	intrp(va_list *args, long double *value_f, void **value, int *flags);
 
 /*
@@ -89,35 +89,35 @@ void	def_bitborder_lint(unsigned long int *bitborder, long int value, char bit_c
 /*
 ** put_numbers.c
 */
-void	put_sign(void **value, int *flags, int *amount);
+void	put_sign(void **value, int *flags, int *amt);
 
-void	put_sign_f(long double *value_f, int *flags, int *amount);
+void	put_sign_f(long double *value_f, int *flags, int *amt);
 
-void	put_abs(void **value, int *flags, int *amount);
-void	put_abs_int(int value, int *amount);
-void	put_abs_short(short value, int *amount);
-void	put_abs_char(char value, int *amount);
-// void	put_abs_lint(long int value, int *amount);
-// void	put_abs_llint(long long int value, int *amount);
-void	put_abs_lint(long int value, int *amount);
-void	put_prefix(void **value, int *flags, int *amount);
-void	put_uabs(void **value, int *flags, int *amount);
-// void	put_uabs_llint(unsigned long long int value, int *amount);
-void	put_uabs_lint(unsigned long int value, int *amount);
+void	put_abs(void **value, int *flags, int *amt);
+void	put_abs_int(int value, int *amt);
+void	put_abs_short(short value, int *amt);
+void	put_abs_char(char value, int *amt);
+// void	put_abs_lint(long int value, int *amt);
+// void	put_abs_llint(long long int value, int *amt);
+void	put_abs_lint(long int value, int *amt);
+void	put_prefix(void **value, int *flags, int *amt);
+void	put_uabs(void **value, int *flags, int *amt);
+// void	put_uabs_llint(unsigned long long int value, int *amt);
+void	put_uabs_lint(unsigned long int value, int *amt);
 
 /*
 ** put_symbols.c
 */
-void	put_char(char symbol, const char **str, int *amount);
-char	put_freesmb(const char **str, int *amount);
-char	check_lastfreesmb(const char **str, int *amount);
-void	put_space(void **value, int *flags, int *amount);
+void	put_char(char symbol, const char **str, int *amt);
+char	put_freesmb(const char **str, int *amt);
+char	check_lastfreesmb(const char **str, int *amt);
+void	put_space(void **value, int *flags, int *amt);
 
-void	put_space_f(long double *value_f, int *flags, int *amount);
+void	put_space_f(long double *value_f, int *flags, int *amt);
 void	def_lensymbols_f(int *len_symbols, long double *value_f);
 
 void	def_lensymbols(int *len_symbols, void **value, int *flags);
-void	put_zero(void **value, int *flags, int *amount);
-void	put_str(char *value, int *flags, int *amount);
+void	put_zero(void **value, int *flags, int *amt);
+void	put_str(char *value, int *flags, int *amt);
 
 #endif

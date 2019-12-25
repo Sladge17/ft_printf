@@ -6,33 +6,33 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 13:18:47 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/25 17:24:04 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	put_char(char symbol, const char **str, int *amount)
+void	put_char(char symbol, const char **str, int *amt)
 {
 	write(1, &symbol, 1);
 	if (str)
 		*str += 1;
-	*amount += 1;
+	*amt += 1;
 }
 
-char	put_freesmb(const char **str, int *amount)
+char	put_freesmb(const char **str, int *amt)
 {
 	while (**str != '%')
 	{
 		if (**str == '\0')
 			return (0);
-		put_char(**str, &(*str), &(*amount));
+		put_char(**str, &(*str), &(*amt));
 	}
 	*str += 1;
 	return (1);
 }
 
-char	check_lastfreesmb(const char **str, int *amount)
+char	check_lastfreesmb(const char **str, int *amt)
 {
 	int		i;
 
@@ -50,11 +50,11 @@ char	check_lastfreesmb(const char **str, int *amount)
 		|| *(*str + i) == 'x' || *(*str + i) == 'X')
 		return (0);
 	*str += i;
-	put_char(**str, &(*str), &(*amount));
+	put_char(**str, &(*str), &(*amt));
 	return (1);
 }
 
-void	put_space(void **value, int *flags, int *amount)
+void	put_space(void **value, int *flags, int *amt)
 {
 	extern int	g_width;
 	int			len_symbols;
@@ -68,12 +68,12 @@ void	put_space(void **value, int *flags, int *amount)
 	i = 0;
 	while (i < len_space)
 	{
-		put_char(space, NULL, &(*amount));
+		put_char(space, NULL, &(*amt));
 		i += 1;
 	}
 }
 
-void	put_space_f(long double *value_f, int *flags, int *amount)
+void	put_space_f(long double *value_f, int *flags, int *amt)
 {
 	extern int	g_width;
 	int			len_symbols;
@@ -90,7 +90,7 @@ void	put_space_f(long double *value_f, int *flags, int *amount)
 	i = 0;
 	while (i < len_space)
 	{
-		put_char(space, NULL, &(*amount));
+		put_char(space, NULL, &(*amt));
 		i += 1;
 	}
 }
@@ -138,7 +138,7 @@ void	def_lensymbols(int *len_symbols, void **value, int *flags)
 		*len_symbols += 2;
 }
 
-void	put_zero(void **value, int *flags, int *amount)
+void	put_zero(void **value, int *flags, int *amt)
 {
 	extern int	g_accuracy;
 	extern int	g_lenarg;
@@ -158,13 +158,13 @@ void	put_zero(void **value, int *flags, int *amount)
 	i = 0;
 	while (i < len_zero)
 	{
-		put_char('0', NULL, &(*amount));
+		put_char('0', NULL, &(*amt));
 		i += 1;
 	}
 }
 
 
-void	put_str(char *value, int *flags, int *amount)
+void	put_str(char *value, int *flags, int *amt)
 {
 	extern int	g_accuracy;
 	int			i;
@@ -179,7 +179,7 @@ void	put_str(char *value, int *flags, int *amount)
 		i = 0;
 		while (i < g_accuracy && *value != '\0')
 		{
-			put_char(*value, NULL, &(*amount));
+			put_char(*value, NULL, &(*amt));
 			value += 1;
 			i += 1;
 		}
@@ -187,7 +187,7 @@ void	put_str(char *value, int *flags, int *amount)
 	}
 	while (*value != '\0')
 	{
-		put_char(*value, NULL, &(*amount));
+		put_char(*value, NULL, &(*amt));
 		value += 1;
 	}
 }
