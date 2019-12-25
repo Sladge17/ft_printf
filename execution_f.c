@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 17:43:36 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 17:58:26 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/25 18:04:33 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,6 @@ void	def_lensymbols_f(int *len_symbols, long double *value_f)
 	*len_symbols = len_unumb(unit) + g_accuracy;
 	if (g_accuracy)
 		*len_symbols += 1;
-
-	// *len_symbols = g_lenarg;
-	// if ((*flags & 64 && *flags & 12288 && *len_symbols < g_accuracy)
-	// 	|| (*flags & 64 && !g_accuracy && !(*value) && !(*flags & 32768))
-	// 	|| ((*flags & 16480) == 16480 && *len_symbols > g_accuracy)
-	// 	|| (*flags & 64 && *flags & 229376 && *len_symbols < g_accuracy))
-	// 	*len_symbols = g_accuracy;
-	// if (((*flags & 32776) == 32776 && *flags & 64
-	// 	&& *len_symbols > g_accuracy && *value)
-	// 	|| ((*flags & 32776) == 32776 && !(*flags & 64) && *value))
-	// 	*len_symbols += 1;
-	// if ((*flags & 8 && *flags & 196608 && *value) || *flags & 524288)
-	// 	*len_symbols += 2;
 }
 
 void	put_sign_f(long double *value_f, int *flags, int *amt)
