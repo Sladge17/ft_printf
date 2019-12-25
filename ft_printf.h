@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 13:17:53 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/25 13:40:09 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	exe_numstr(void **value, int *flags, const char **str, int *amt);
 char	exe_flt(long double *val, int *flags, const char **str, int *amt);
 char	exe_wsymb(void **value, int *flags, const char **str, int *amt);
 void	exe(long double *vf, void **v, int *flags, const char **s, int *amt);
+void	intrp(va_list *args, long double *vf, void **v, int *fl, const char **s);
 
 /*
 ** def_params.c

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/24 20:31:54 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/25 13:47:13 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,23 @@ void	exe(long double *vf, void **v, int *fl, const char **s, int *amt)
 		put_char(**s, &(*s), &(*amt));
 }
 
+void	intrp(va_list *args, long double *vf, void **v, int *fl, const char **s)
+{
+	if (**s == '%')
+		return ;
+	if ((*fl & 1050624) == 1050624)
+	{
+		*vf = va_arg(*args, long double);
+		return ;
+	}
+	if (*fl & 1048576)
+	{
+		*vf = va_arg(*args, double);
+		return ;
+	}
+	*v = va_arg(*args, void *);
+}
+
 int		ft_printf(const char *str, ...)
 {
 	int				amount;
@@ -218,15 +235,7 @@ int		ft_printf(const char *str, ...)
 			continue ;
 		if (!parsing(&flags, &str))
 			break ;
-		if (*str != '%')
-		{
-			if ((flags & 1050624) == 1050624)
-				value_f = va_arg(args, long double);
-			else if (flags & 1048576)
-				value_f = va_arg(args, double);
-			else
-				value = va_arg(args, void *);
-		}
+		intrp(&args, &value_f, &value, &flags, &str);
 		exe(&value_f, &value, &flags, &str, &amount);
 	}
 	va_end(args);
