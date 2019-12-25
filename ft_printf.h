@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 14:11:46 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/25 17:16:26 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int		g_lenarg;
 void	shift_garbage(const char **str);
 char	parsing(int *flags, const char **str);
 char	exe_numstr(void **value, int *flags, const char **str, int *amount);
+
+void	def_remainder(char **remainder, long double value_f, long int unit);
+void	fix_float(long int *unit, char **remainder);
+void	put_float(long int *unit, char **remainder, int *flags, int *amount);
+
 char	exe_float(long double *value_f, int *flags, const char **str, int *amount);
 char	exe_wsymb(void **value, int *flags, const char **str, int *amount);
 void	exe_other(void **value, int *flags, const char **str, int *amount);
