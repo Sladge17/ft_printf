@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 17:49:04 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/26 19:29:36 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,7 +287,7 @@ void	put_uabs(void **value, int *flags, int *amt)
 	// 	put_uabs_llint((unsigned long long int)(*value), &(*amt));
 	// 	return ;
 	// }
-	if (*flags & 1536)
+	if (*flags & 1536 || *flags & 1048576) //
 	{
 		put_uabs_lint((unsigned long int)(*value), &(*amt));
 		return ;
