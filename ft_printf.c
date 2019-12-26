@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 18:05:07 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/26 18:31:49 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void	shift_garbage(const char **str)
 	}
 }
 
-char	parsing(int *flags, const char **str)
+char	parsing(int *flags, const char **str, va_list *args)
 {
 	*flags = 0;
 	check_flags(&(*flags), &(*str));
-	def_width(&(*flags), &(*str));
+	def_width(&(*flags), &(*str), &(*args));
 	if (**str == '\0')
 		return (0);
 	check_flags(&(*flags), &(*str));
-	def_accuracy(&(*flags), &(*str));
+	def_accuracy(&(*flags), &(*str), &(*args));
 	shift_garbage(&(*str));
 	check_flags(&(*flags), &(*str));
 	if (!def_fasttype(&(*flags), &(*str)))
@@ -134,7 +134,7 @@ int		ft_printf(const char *str, ...)
 			break ;
 		if (check_lastfreesmb(&str, &amt))
 			continue ;
-		if (!parsing(&flags, &str))
+		if (!parsing(&flags, &str, &args))
 			break ;
 		if (*str != '%')
 			intrp(&args, &value_f, &value, &flags);

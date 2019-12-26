@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/24 20:05:19 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/26 18:09:17 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,52 @@ void	check_flags(int *flags, const char **str)
 	}
 }
 
-void	def_width(int *flags, const char **str)
+void	def_width(int *flags, const char **str, va_list *args)
 {
 	extern int	g_width;
 
-	ft_atoi(&g_width, &(*str));
+	g_width = 0;
+	if (**str == '*')
+	{
+		g_width = va_arg(*args, int);
+		if (g_width < 0)
+		{
+			g_width = -g_width;
+			*flags |= 1;
+		}
+		*str += 1;
+	}
+	if ('0' <= **str && **str <= '9')
+		ft_atoi(&g_width, &(*str));
 	if (g_width)
 		*flags |= 32;
 }
 
-void	def_accuracy(int *flags, const char **str)
+void	def_accuracy(int *flags, const char **str, va_list *args)
 {
 	extern int	g_accuracy;
 
 	if (**str != '.')
 		return ;
+	
+	g_accuracy = 0;
+
 	*flags |= 64;
 	*str += 1;
-	ft_atoi(&g_accuracy, &(*str));
+	if (**str == '*')
+	{
+		g_accuracy = va_arg(*args, int);
+		if (g_accuracy < 0)
+		{
+			if (*(*str + 1) == 's')
+				g_accuracy = -g_accuracy;
+			else
+				g_accuracy = 0;
+		}
+		*str += 1;
+	}
+	if ('0' <= **str && **str <= '9')
+		ft_atoi(&g_accuracy, &(*str));
 }
 
 void	ft_atoi(int *param, const char **str)

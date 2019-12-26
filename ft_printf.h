@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 18:13:18 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/26 17:50:16 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int		g_lenarg;
 ** ft_printf.c
 */
 void	shift_garbage(const char **str);
-char	parsing(int *flags, const char **str);
+// char	parsing(int *flags, const char **str);
+
+char	parsing(int *flags, const char **str, va_list *args);
+
 char	exe_numstr(void **value, int *flags, const char **str, int *amt);
 char	exe_wsymb(void **value, int *flags, const char **str, int *amt);
 void	exe_other(void **value, int *flags, const char **str, int *amt);
@@ -35,8 +38,14 @@ void	intrp(va_list *args, long double *value_f, void **value, int *flags);
 ** def_params.c
 */
 void	check_flags(int *flags, const char **str);
-void	def_width(int *flags, const char **str);
-void	def_accuracy(int *flags, const char **str);
+// void	def_width(int *flags, const char **str);
+
+void	def_width(int *flags, const char **str, va_list *args);
+
+// void	def_accuracy(int *flags, const char **str);
+
+void	def_accuracy(int *flags, const char **str, va_list *args);
+
 void	ft_atoi(int *param, const char **str);
 char	def_fasttype(int *flags, const char **str);
 void	def_modifier(int *flags, const char **str);
