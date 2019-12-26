@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/26 18:09:17 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/26 18:56:58 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ void	def_accuracy(int *flags, const char **str, va_list *args)
 	if (**str == '*')
 	{
 		g_accuracy = va_arg(*args, int);
-		if (g_accuracy < 0)
-		{
-			if (*(*str + 1) == 's')
-				g_accuracy = -g_accuracy;
-			else
-				g_accuracy = 0;
-		}
+		// if (g_accuracy < 0)
+		// {
+		// 	if (*(*str + 1) == 's')
+		// 		g_accuracy = -g_accuracy;
+		// 	else
+		// 		g_accuracy = 0;
+		// }
 		*str += 1;
 	}
 	if ('0' <= **str && **str <= '9')

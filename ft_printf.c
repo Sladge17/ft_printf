@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/26 18:31:49 by jthuy            ###   ########.fr       */
+/*   Updated: 2019/12/26 19:09:14 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	shift_garbage(const char **str)
 
 char	parsing(int *flags, const char **str, va_list *args)
 {
+	extern int	g_accuracy;
+	
 	*flags = 0;
 	check_flags(&(*flags), &(*str));
 	def_width(&(*flags), &(*str), &(*args));
@@ -44,9 +46,17 @@ char	parsing(int *flags, const char **str, va_list *args)
 		check_flags(&(*flags), &(*str));
 		def_type(&(*flags), &(*str));
 	}
-	if (((*flags & 112) == 112 && !(*flags & 15) && !(*flags & 1048576))
-		|| (*flags & 233472 && (*flags & 80) == 80))
+	if (((*flags & 112) == 112 && !(*flags & 15) && !(*flags & 1048576) && g_accuracy >= 0)
+		|| (*flags & 233472 && (*flags & 80) == 80 && g_accuracy >= 0))
 		*flags ^= 16;
+	if (g_accuracy < 0)
+	// 	{
+	// 		if (*flags & 16384)
+	// 			g_accuracy = -g_accuracy;
+	// 		else
+	// 			g_accuracy = 0;
+	// 	}
+		g_accuracy = *flags & 16384 ? -g_accuracy : 0;
 	return (1);
 }
 
