@@ -6,43 +6,45 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 17:43:36 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 18:04:33 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/16 16:39:09 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	exe_float(long double *value_f, int *flags, const char **str, int *amt)
+char	exe_float(long double *value_f, const char **str, int *amt)
 {
 	long int	unit;
 	char		*remainder;
+	extern int	g_flags;
 	extern int	g_accuracy;
 
-	if (!(*flags & 1048576))
+	if (!(g_flags & 1048576))
 		return (0);
-	if (!(*flags & 64))
+	if (!(g_flags & 64))
 		g_accuracy = 6;
-	if (*flags & 32 && !(*flags & 1) && !(*flags & 16))
-		put_space_f(&(*value_f), &(*flags), &(*amt));
-	put_sign_f(&(*value_f), &(*flags), &(*amt));
-	if ((*flags & 48) == 48 && !(*flags & 1))
-		put_space_f(&(*value_f), &(*flags), &(*amt));
+	if (g_flags & 32 && !(g_flags & 1) && !(g_flags & 16))
+		put_space_f(&(*value_f), &(*amt));
+	put_sign_f(&(*value_f), &(*amt));
+	if ((g_flags & 48) == 48 && !(g_flags & 1))
+		put_space_f(&(*value_f), &(*amt));
 	unit = *value_f < 0 ? -(long int)(*value_f) : (long int)(*value_f);
 	remainder = (char *)malloc(sizeof(char) * 21);
 	if (!remainder)
 		exit(0);
 	def_remainder(&remainder, *value_f, unit);
 	fix_float(&unit, &remainder);
-	put_float(&unit, &remainder, &(*flags), &(*amt));
+	put_float(&unit, &remainder, &(*amt));
 	free(remainder);
-	if ((*flags & 33) == 33)
-		put_space_f(&(*value_f), &(*flags), &(*amt));
+	if ((g_flags & 33) == 33)
+		put_space_f(&(*value_f), &(*amt));
 	*str += 1;
 	return (1);
 }
 
-void	put_space_f(long double *value_f, int *flags, int *amt)
+void	put_space_f(long double *value_f, int *amt)
 {
+	extern int	g_flags;
 	extern int	g_width;
 	int			len_symbols;
 	char		space;
@@ -50,9 +52,9 @@ void	put_space_f(long double *value_f, int *flags, int *amt)
 	int			i;
 
 	def_lensymbols_f(&len_symbols, &(*value_f));
-	space = *flags & 16 && !(*flags & 1) ? '0' : ' ';
-	len_space = g_width - len_symbols - len_sign_f(&(*value_f), &(*flags));
-	if ((*flags & 8 && !g_accuracy))
+	space = g_flags & 16 && !(g_flags & 1) ? '0' : ' ';
+	len_space = g_width - len_symbols - len_sign_f(&(*value_f));
+	if ((g_flags & 8 && !g_accuracy))
 		len_space -= 1;
 	i = 0;
 	while (i < len_space)
@@ -73,19 +75,21 @@ void	def_lensymbols_f(int *len_symbols, long double *value_f)
 		*len_symbols += 1;
 }
 
-void	put_sign_f(long double *value_f, int *flags, int *amt)
+void	put_sign_f(long double *value_f, int *amt)
 {
+	extern int	g_flags;
+	
 	if (*value_f < 0)
 	{
 		put_char('-', NULL, &(*amt));
 		return ;
 	}
-	if (*flags & 2)
+	if (g_flags & 2)
 	{
 		put_char('+', NULL, &(*amt));
 		return ;
 	}
-	if (*flags & 4)
+	if (g_flags & 4)
 	{
 		put_char(' ', NULL, &(*amt));
 		return ;
@@ -145,13 +149,14 @@ void	fix_float(long int *unit, char **remainder)
 	}
 }
 
-void	put_float(long int *unit, char **remainder, int *flags, int *amt)
+void	put_float(long int *unit, char **remainder, int *amt)
 {
+	extern int	g_flags;
 	extern int	g_accuracy;
 	int			i;
 
-	put_uabs((void *)unit, &(*flags), &(*amt));
-	if (g_accuracy || *flags & 8)
+	put_uabs((void *)unit, &(*amt));
+	if (g_accuracy || g_flags & 8)
 		put_char('.', NULL, &(*amt));
 	i = 0;
 	while (i < g_accuracy)

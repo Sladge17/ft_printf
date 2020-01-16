@@ -6,40 +6,43 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 18:13:18 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/16 17:33:17 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	conversion(void **value, int *flags)
+void	conversion(void **value)
 {
-	if (!(*flags & 753664))
+	extern int	g_flags;
+	
+	if (!(g_flags & 753664))
 		return;
-	if (*flags & 753664 && !(long int)(*value))
+	if (g_flags & 753664 && !(long int)(*value))
 	{
 		*value = 0;
 		return ;
 	}
-	if (*flags & 32768)
+	if (g_flags & 32768)
 	{
-		binto_oct(&(*value), &(*flags));
+		binto_oct(&(*value));
 		return ;
 	}
-	if (*flags & 589824)
+	if (g_flags & 589824)
 	{
-		binto_hex(&(*value), &(*flags), 'x');
+		binto_hex(&(*value), 'x');
 		return ;
 	}
-	if (*flags & 131072)
+	if (g_flags & 131072)
 	{
-		binto_hex(&(*value), &(*flags), 'X');
+		binto_hex(&(*value), 'X');
 		return ;
 	}
 }
 
-void	binto_oct(void **value, int *flags)
+void	binto_oct(void **value)
 {
+	extern int			g_flags;
 	char				*oct;
 	unsigned long int	bitend;
 	int					i;
@@ -53,7 +56,7 @@ void	binto_oct(void **value, int *flags)
 		return ;
 	}
 	
-	def_bitend(&bitend, &(*value), &(*flags));
+	def_bitend(&bitend, &(*value));
 	len = 0;
 	while (bitend)
 	{
@@ -69,13 +72,13 @@ void	binto_oct(void **value, int *flags)
 	oct[len] = '\0';
 	bitend = 1;
 	bitend <<= ((3 * len) - 1);
-	if (*flags & 128)
+	if (g_flags & 128)
 		typeborder = 1UL << 15;
-	if (*flags & 256)
+	if (g_flags & 256)
 		typeborder = 1UL << 7;
-	if (*flags & 1536)
+	if (g_flags & 1536)
 		typeborder = 1UL << 63;
-	if (!(*flags & 1920))
+	if (!(g_flags & 1920))
 		typeborder = 1UL << 31;
 	len = 0;
 	while (bitend)
@@ -96,8 +99,9 @@ void	binto_oct(void **value, int *flags)
 	free(oct);
 }
 
-void	binto_hex(void **value, int *flags, char index)
+void	binto_hex(void **value, char index)
 {
+	extern int			g_flags;
 	char				*hex;
 	unsigned long int	bitend;
 	int					i;
@@ -107,9 +111,9 @@ void	binto_hex(void **value, int *flags, char index)
 
 	zeroflag = 0;
 	len = 12;
-	if (!(*flags & 524288))
+	if (!(g_flags & 524288))
 	{
-		def_bitend(&bitend, &(*value), &(*flags));
+		def_bitend(&bitend, &(*value));
 		len = 0;
 		while (bitend)
 		{
@@ -149,7 +153,7 @@ void	binto_hex(void **value, int *flags, char index)
 			i -= 1;
 		}
 
-		if (!zeroflag && *flags & 524288 && !factor)
+		if (!zeroflag && g_flags & 524288 && !factor)
 		{
 			hex[12 - len] = '\0';
 			len += 1;
@@ -175,22 +179,23 @@ void	binto_hex(void **value, int *flags, char index)
 }
 
 
-void	def_bitend(unsigned long int *bitend, void **value, int *flags)
+void	def_bitend(unsigned long int *bitend, void **value)
 {
+	extern int	g_flags;
 	char	index;
 	
-	index = *flags & 32768 ? 3 : 4;
-	if (*flags & 128)
+	index = g_flags & 32768 ? 3 : 4;
+	if (g_flags & 128)
 	{
 		def_bitend_short(&(*bitend), (short)(*value), index);
 		return ;
 	}
-	if (*flags & 256)
+	if (g_flags & 256)
 	{
 		def_bitend_char(&(*bitend), (char)(*value), index);
 		return ;
 	}
-	if (*flags & 1536)
+	if (g_flags & 1536)
 	{
 		def_bitend_lint(&(*bitend), (long int)(*value), index);
 		return ;

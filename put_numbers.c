@@ -6,31 +6,33 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/26 19:29:36 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/16 17:34:07 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	put_sign(void **value, int *flags, int *amt)
+void	put_sign(void **value, int *amt)
 {
-	if (*flags & 778240)
+	extern int	g_flags;
+	
+	if (g_flags & 778240)
 		return ;
 
-	if (((*flags & 128 && (short)(*value) < 0)
-		|| (*flags & 256 && (char)(*value) < 0)
-		|| (*flags & 1536 && (long int)(*value) < 0))
-		|| (!(*flags & 3968) && (int)(*value) < 0))
+	if (((g_flags & 128 && (short)(*value) < 0)
+		|| (g_flags & 256 && (char)(*value) < 0)
+		|| (g_flags & 1536 && (long int)(*value) < 0))
+		|| (!(g_flags & 3968) && (int)(*value) < 0))
 	{
 		put_char('-', NULL, &(*amt));
 		return ;
 	}
-	if (*flags & 2)
+	if (g_flags & 2)
 	{
 		put_char('+', NULL, &(*amt));
 		return ;
 	}
-	if (*flags & 4)
+	if (g_flags & 4)
 	{
 		put_char(' ', NULL, &(*amt));
 		return ;
@@ -56,23 +58,24 @@ void	put_sign(void **value, int *flags, int *amt)
 // 	}
 // }
 
-void	put_abs(void **value, int *flags, int *amt)
+void	put_abs(void **value, int *amt)
 {
+	extern int		g_flags;
 	extern int		g_accuracy;
 
-	if (*flags & 778240 || (*flags & 64 && g_accuracy == 0 && !(*value)))
+	if (g_flags & 778240 || (g_flags & 64 && g_accuracy == 0 && !(*value)))
 		return ;
-	if (*flags & 128)
+	if (g_flags & 128)
 	{
 		put_abs_short((short)(*value), &(*amt));
 		return ;
 	}
-	if (*flags & 256)
+	if (g_flags & 256)
 	{
 		put_abs_char((char)(*value), &(*amt));
 		return ;
 	}
-	if (*flags & 1536)
+	if (g_flags & 1536)
 	{
 		put_abs_lint((long int)(*value), &(*amt));
 		return ;
@@ -199,9 +202,10 @@ void	put_abs_lint(long int value, int *amt)
 	put_uabs_lint(value, &(*amt));
 }
 
-void	put_prefix(void **value, int *flags, int *amt)
+void	put_prefix(void **value, int *amt)
 {
 	// if (*flags & 28672 || !(*flags & 524296) || (!(*value) && !(*flags & 524288)))
+	extern int	g_flags;
 	extern int	g_accuracy;
 	
 	// if (!(*flags & 229376)
@@ -217,31 +221,31 @@ void	put_prefix(void **value, int *flags, int *amt)
 	// // || (*flags & 229376 && !(*flags & 8) && *value)
 	// )
 
-	if (!(*flags & 753666)
-	|| (*flags & 229376 && !(*flags & 8))
+	if (!(g_flags & 753666)
+	|| (g_flags & 229376 && !(g_flags & 8))
 	// || (*flags & 229376 && *flags & 8 && !(*value))
 	
-	|| (*flags & 196608 && *flags & 8 && !(*value))
-	|| (*flags & 32768 && *flags & 8 && !(*flags & 64) && !(*value))
+	|| (g_flags & 196608 && g_flags & 8 && !(*value))
+	|| (g_flags & 32768 && g_flags & 8 && !(g_flags & 64) && !(*value))
 	
 	// || (*flags & 229376 && !(*flags & 8) && *value)
 	)
 	
 		// || (*flags & 8 && !*value))
 		return ;
-	if (*flags & 32768)
+	if (g_flags & 32768)
 	{
 		write(1, "0", 1);
 		*amt += 1;
 		return ;
 	}
-	if (*flags & 589824)
+	if (g_flags & 589824)
 	{
 		write(1, "0x", 2);
 		*amt += 2;
 		return ;
 	}
-	if (*flags & 131072)
+	if (g_flags & 131072)
 	{
 		write(1, "0X", 2);
 		*amt += 2;
@@ -249,29 +253,31 @@ void	put_prefix(void **value, int *flags, int *amt)
 	}
 }
 
-void	put_uabs(void **value, int *flags, int *amt)
+void	put_uabs(void **value, int *amt)
 {
+	extern int	g_flags;
+	
 	// if (*flags & 544768 || (*flags & 64 && !(g_accuracy))
-	if (*flags & 20480 || (*flags & 64 && !(g_accuracy) && !(*flags & 1048576))
-		|| (*flags & 229376 && *value)
+	if (g_flags & 20480 || (g_flags & 64 && !(g_accuracy) && !(g_flags & 1048576))
+		|| (g_flags & 229376 && *value)
 		// || (*flags & 196608 && *flags & 64 && !(*value))
 		// || (*flags & 32768 && !(*flags & 8) && *flags & 64 && !(*value))
-		|| (*flags & 524288 && *value))
+		|| (g_flags & 524288 && *value))
 		return ;
 	
-	if (*flags & 524288 && !(*value))
+	if (g_flags & 524288 && !(*value))
 	{
 		put_char('0', NULL, &(*amt));
 		return ;
 	}
 
-	if (*flags & 128)
+	if (g_flags & 128)
 	{
 		// put_uabs_llint((unsigned short)(*value), &(*amt));
 		put_uabs_lint((unsigned short)(*value), &(*amt));
 		return ;
 	}
-	if (*flags & 256)
+	if (g_flags & 256)
 	{
 		// put_uabs_llint((unsigned char)(*value), &(*amt));
 		put_uabs_lint((unsigned char)(*value), &(*amt));
@@ -287,7 +293,7 @@ void	put_uabs(void **value, int *flags, int *amt)
 	// 	put_uabs_llint((unsigned long long int)(*value), &(*amt));
 	// 	return ;
 	// }
-	if (*flags & 1536 || *flags & 1048576) //
+	if (g_flags & 1536 || g_flags & 1048576) //
 	{
 		put_uabs_lint((unsigned long int)(*value), &(*amt));
 		return ;

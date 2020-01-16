@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/25 17:55:13 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/16 17:34:45 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,18 @@ char	check_lastfreesmb(const char **str, int *amt)
 	return (1);
 }
 
-void	put_space(void **value, int *flags, int *amt)
+void	put_space(void **value, int *amt)
 {
+	extern int	g_flags;
 	extern int	g_width;
 	int			len_symbols;
 	char		space;
 	int			len_space;
 	int			i;
 
-	def_lensymbols(&len_symbols, &(*value), &(*flags));
-	space = *flags & 16 && !(*flags & 1) ? '0' : ' ';
-	len_space = g_width - len_symbols - len_sign(&(*value), &(*flags));
+	def_lensymbols(&len_symbols, &(*value));
+	space = g_flags & 16 && !(g_flags & 1) ? '0' : ' ';
+	len_space = g_width - len_symbols - len_sign(&(*value));
 	i = 0;
 	while (i < len_space)
 	{
@@ -119,38 +120,40 @@ void	put_space(void **value, int *flags, int *amt)
 // 	// 	*len_symbols += 2;
 // }
 
-void	def_lensymbols(int *len_symbols, void **value, int *flags)
+void	def_lensymbols(int *len_symbols, void **value)
 {
+	extern int	g_flags;
 	extern int	g_accuracy;
 	extern int	g_lenarg;
 
 	*len_symbols = g_lenarg;
-	if ((*flags & 64 && *flags & 12288 && *len_symbols < g_accuracy)
-		|| (*flags & 64 && !g_accuracy && !(*value) && !(*flags & 32768))
-		|| ((*flags & 16480) == 16480 && *len_symbols > g_accuracy)
-		|| (*flags & 64 && *flags & 229376 && *len_symbols < g_accuracy))
+	if ((g_flags & 64 && g_flags & 12288 && *len_symbols < g_accuracy)
+		|| (g_flags & 64 && !g_accuracy && !(*value) && !(g_flags & 32768))
+		|| ((g_flags & 16480) == 16480 && *len_symbols > g_accuracy)
+		|| (g_flags & 64 && g_flags & 229376 && *len_symbols < g_accuracy))
 		*len_symbols = g_accuracy;
-	if (((*flags & 32776) == 32776 && *flags & 64
+	if (((g_flags & 32776) == 32776 && g_flags & 64
 		&& *len_symbols > g_accuracy && *value)
-		|| ((*flags & 32776) == 32776 && !(*flags & 64) && *value))
+		|| ((g_flags & 32776) == 32776 && !(g_flags & 64) && *value))
 		*len_symbols += 1;
-	if ((*flags & 8 && *flags & 196608 && *value) || *flags & 524288)
+	if ((g_flags & 8 && g_flags & 196608 && *value) || g_flags & 524288)
 		*len_symbols += 2;
 }
 
-void	put_zero(void **value, int *flags, int *amt)
+void	put_zero(void **value, int *amt)
 {
+	extern int	g_flags;
 	extern int	g_accuracy;
 	extern int	g_lenarg;
 	int			len_zero;
 	int			i;
 	int			len_symbols;
 
-	if (*flags & 16384 || !(*flags & 64) || (!g_accuracy && !(*value)))
+	if (g_flags & 16384 || !(g_flags & 64) || (!g_accuracy && !(*value)))
 		return ;
 
 	len_symbols = g_lenarg;
-	if ((*flags & 32776) == 32776)
+	if ((g_flags & 32776) == 32776)
 		len_symbols += 1;
 	if (g_accuracy <= len_symbols)
 		return ;
@@ -164,17 +167,18 @@ void	put_zero(void **value, int *flags, int *amt)
 }
 
 
-void	put_str(char *value, int *flags, int *amt)
+void	put_str(char *value, int *amt)
 {
+	extern int	g_flags;
 	extern int	g_accuracy;
 	int			i;
 	
-	if (*flags & 12288 || (*flags & 229376 && !value)
-		|| (*flags & 524288 && !value))
+	if (g_flags & 12288 || (g_flags & 229376 && !value)
+		|| (g_flags & 524288 && !value))
 		return ;
 	if (!value)
 		value = "(null)";
-	if (*flags & 64 && !(*flags & 753664) && *value != '\0')
+	if (g_flags & 64 && !(g_flags & 753664) && *value != '\0')
 	{
 		i = 0;
 		while (i < g_accuracy && *value != '\0')

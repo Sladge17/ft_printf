@@ -6,21 +6,23 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2019/12/24 20:05:19 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/16 17:28:55 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		len_numb(void **value, int *flags)
+int		len_numb(void **value)
 {
-	if (*flags & 128 && (short)(*value) < 0)
+	extern int	g_flags;
+	
+	if (g_flags & 128 && (short)(*value) < 0)
 		return (len_unumb(-(short)(*value)));
-	if (*flags & 256 && (char)(*value) < 0)
+	if (g_flags & 256 && (char)(*value) < 0)
 		return (len_unumb(-(char)(*value)));
-	if (*flags & 1536 && (long int)(*value) < 0)
+	if (g_flags & 1536 && (long int)(*value) < 0)
 		return (len_unumb(-(long int)(*value)));
-	if (!(*flags & 3968) && (int)(*value) < 0)
+	if (!(g_flags & 3968) && (int)(*value) < 0)
 		return (len_unumb(-(int)(*value)));
 	return (len_unumb((long int)(*value)));
 }
@@ -38,22 +40,26 @@ int		len_unumb(unsigned long int value)
 	return (len);
 }
 
-char	len_sign(void **value, int *flags)
+char	len_sign(void **value)
 {
-	if (!(*flags & 4096))
+	extern int	g_flags;
+	
+	if (!(g_flags & 4096))
 		return (0);
-	if ((*flags & 4096) && ((*flags & 128 && (short)(*value) < 0)
-		|| (*flags & 6)
-		|| (*flags & 256 && (char)(*value) < 0)
-		|| (*flags & 1536 && (long int)(*value) < 0)
-		|| (!(*flags & 3968) && (int)(*value) < 0)))
+	if ((g_flags & 4096) && ((g_flags & 128 && (short)(*value) < 0)
+		|| (g_flags & 6)
+		|| (g_flags & 256 && (char)(*value) < 0)
+		|| (g_flags & 1536 && (long int)(*value) < 0)
+		|| (!(g_flags & 3968) && (int)(*value) < 0)))
 		return (1);
 	return (0);
 }
 
-char	len_sign_f(long double *value_f, int *flags)
+char	len_sign_f(long double *value_f)
 {
-	if (*value_f < 0 || *flags & 6)
+	extern int	g_flags;
+	
+	if (*value_f < 0 || g_flags & 6)
 		return (1);
 	return (0);
 	
@@ -78,25 +84,26 @@ int		len_str(const char *str)
 	return (len);
 }
 
-void	len_arg(void **value, int *flags)
+void	len_arg(void **value)
 {
+	extern int	g_flags;
 	extern int	g_accuracy;
 	extern int	g_lenarg;
 
 	g_lenarg = 1;
-	if (*flags & 16384 && !(*value))
+	if (g_flags & 16384 && !(*value))
 	{
 		g_lenarg = 6;
 		return ;
 	}
-	if ((*flags & 32864) == 32864 && !(*flags & 8) &&!g_accuracy)
+	if ((g_flags & 32864) == 32864 && !(g_flags & 8) &&!g_accuracy)
 		g_lenarg = 0;
 	if (!(*value))
 		return ;
-	if (*flags & 4096)
-		g_lenarg = len_numb(&(*value), &(*flags));
-	if (*flags & 8192)
+	if (g_flags & 4096)
+		g_lenarg = len_numb(&(*value));
+	if (g_flags & 8192)
 		g_lenarg = len_unumb((long int)(*value));
-	if (*flags & 245760 || *flags & 524288)
+	if (g_flags & 245760 || g_flags & 524288)
 		g_lenarg = len_str((char *)(*value));
 }
