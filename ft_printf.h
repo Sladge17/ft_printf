@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/16 17:19:26 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 12:17:21 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ void	put_space(void **value, int *amt);
 void	def_lensymbols(int *len_symbols, void **value);
 void	put_zero(void **value, int *amt);
 void	put_str(char *value, int *amt);
+void	putcycle(char symbol, int border, int *amt);
 
 #endif

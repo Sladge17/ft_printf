@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/16 16:13:20 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 11:51:01 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_atoi(int *param, const char **str)
 char	def_fasttype(const char **str)
 {
 	extern int	g_flags;
-	
+
 	if (**str == 'U')
 	{
 		g_flags |= 9216;
@@ -111,7 +111,7 @@ char	def_fasttype(const char **str)
 void	def_modifier(const char **str)
 {
 	extern int	g_flags;
-	
+
 	if (**str == 'h' && *(*str + 1) == 'h' && *(*str + 2) == 'l')
 	{
 		g_flags |= 1024;
@@ -123,7 +123,7 @@ void	def_modifier(const char **str)
 		find_modsymb(&(*str), 256);
 		return ;
 	}
-	if (**str == 'l' ||  **str == 'z')
+	if (**str == 'l' || **str == 'z')
 	{
 		find_modsymb(&(*str), 1024);
 		return ;
@@ -146,7 +146,7 @@ void	def_modifier(const char **str)
 void	find_modsymb(const char **str, short flag)
 {
 	extern int	g_flags;
-	
+
 	if (*(*str + 1) == **str || *(*str + 1) == 'h' || *(*str + 1) == 'j')
 	{
 		g_flags |= flag;
@@ -166,7 +166,7 @@ void	find_modsymb(const char **str, short flag)
 void	def_type(const char **str)
 {
 	extern int	g_flags;
-	
+
 	if (**str == 'd' || **str == 'i')
 		g_flags |= 4096;
 	if (**str == 'u')

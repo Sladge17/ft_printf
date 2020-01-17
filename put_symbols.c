@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/16 17:34:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 12:21:54 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ char	check_lastfreesmb(const char **str, int *amt)
 	return (1);
 }
 
+void	putcycle(char symbol, int border, int *amt)
+{
+	int		i;
+	
+	i = 0;
+	while (i < border)
+	{
+		put_char(symbol, NULL, &(*amt));
+		i += 1;
+	}
+}
+
 void	put_space(void **value, int *amt)
 {
 	extern int	g_flags;
@@ -61,64 +73,12 @@ void	put_space(void **value, int *amt)
 	int			len_symbols;
 	char		space;
 	int			len_space;
-	int			i;
 
 	def_lensymbols(&len_symbols, &(*value));
 	space = g_flags & 16 && !(g_flags & 1) ? '0' : ' ';
 	len_space = g_width - len_symbols - len_sign(&(*value));
-	i = 0;
-	while (i < len_space)
-	{
-		put_char(space, NULL, &(*amt));
-		i += 1;
-	}
+	putcycle(space, len_space, &(*amt));
 }
-
-// void	put_space_f(long double *value_f, int *flags, int *amt)
-// {
-// 	extern int	g_width;
-// 	int			len_symbols;
-// 	char		space;
-// 	int			len_space;
-// 	int			i;
-
-// 	def_lensymbols_f(&len_symbols, &(*value_f));
-// 	space = *flags & 16 && !(*flags & 1) ? '0' : ' ';
-// 	len_space = g_width - len_symbols - len_sign_f(&(*value_f), &(*flags));
-// 	// if ((*flags & 8 && !g_accuracy) || (*flags & 2 && *value_f > 0))
-// 	if ((*flags & 8 && !g_accuracy))
-// 		len_space -= 1;
-// 	i = 0;
-// 	while (i < len_space)
-// 	{
-// 		put_char(space, NULL, &(*amt));
-// 		i += 1;
-// 	}
-// }
-
-// void	def_lensymbols_f(int *len_symbols, long double *value_f)
-// {
-// 	extern int	g_accuracy;
-// 	int			unit;
-
-// 	unit = *value_f < 0 ? -(int)(*value_f) : (int)(*value_f);
-// 	*len_symbols = len_unumb(unit) + g_accuracy;
-// 	if (g_accuracy)
-// 		*len_symbols += 1;
-
-// 	// *len_symbols = g_lenarg;
-// 	// if ((*flags & 64 && *flags & 12288 && *len_symbols < g_accuracy)
-// 	// 	|| (*flags & 64 && !g_accuracy && !(*value) && !(*flags & 32768))
-// 	// 	|| ((*flags & 16480) == 16480 && *len_symbols > g_accuracy)
-// 	// 	|| (*flags & 64 && *flags & 229376 && *len_symbols < g_accuracy))
-// 	// 	*len_symbols = g_accuracy;
-// 	// if (((*flags & 32776) == 32776 && *flags & 64
-// 	// 	&& *len_symbols > g_accuracy && *value)
-// 	// 	|| ((*flags & 32776) == 32776 && !(*flags & 64) && *value))
-// 	// 	*len_symbols += 1;
-// 	// if ((*flags & 8 && *flags & 196608 && *value) || *flags & 524288)
-// 	// 	*len_symbols += 2;
-// }
 
 void	def_lensymbols(int *len_symbols, void **value)
 {
@@ -146,7 +106,6 @@ void	put_zero(void **value, int *amt)
 	extern int	g_accuracy;
 	extern int	g_lenarg;
 	int			len_zero;
-	int			i;
 	int			len_symbols;
 
 	if (g_flags & 16384 || !(g_flags & 64) || (!g_accuracy && !(*value)))
@@ -158,12 +117,7 @@ void	put_zero(void **value, int *amt)
 	if (g_accuracy <= len_symbols)
 		return ;
 	len_zero = g_accuracy - len_symbols;
-	i = 0;
-	while (i < len_zero)
-	{
-		put_char('0', NULL, &(*amt));
-		i += 1;
-	}
+	putcycle('0', len_zero, &(*amt));
 }
 
 
