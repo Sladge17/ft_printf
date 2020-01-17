@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/16 17:33:17 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 12:34:14 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,16 +120,7 @@ void	binto_hex(void **value, char index)
 			len += 1;
 			bitend >>= 4;
 		}
-	}
-
-	
-	// def_bitend(&bitend, &(*value), &(*flags));
-	// len = 0;
-	// while (bitend)
-	// {
-	// 	len += 1;
-	// 	bitend >>= 4;
-	// }	
+	}	
 	
 	hex = (char *)malloc(sizeof(char) * (len + 1));
 	if (!hex)
@@ -178,12 +169,11 @@ void	binto_hex(void **value, char index)
 	free(hex);
 }
 
-
 void	def_bitend(unsigned long int *bitend, void **value)
 {
 	extern int	g_flags;
 	char	index;
-	
+
 	index = g_flags & 32768 ? 3 : 4;
 	if (g_flags & 128)
 	{

@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/16 17:15:36 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 13:26:11 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	parsing(const char **str, va_list *args)
 {
 	extern int	g_accuracy;
 	extern int	g_flags;
-	
+
 	g_flags = 0;
 	check_flags(&(*str));
 	def_width(&(*str), &(*args));
@@ -47,16 +47,11 @@ char	parsing(const char **str, va_list *args)
 		check_flags(&(*str));
 		def_type(&(*str));
 	}
-	if (((g_flags & 112) == 112 && !(g_flags & 15) && !(g_flags & 1048576) && g_accuracy >= 0)
+	if (((g_flags & 112) == 112 && !(g_flags & 15)
+		&& !(g_flags & 1048576) && g_accuracy >= 0)
 		|| (g_flags & 233472 && (g_flags & 80) == 80 && g_accuracy >= 0))
 		g_flags ^= 16;
 	if (g_accuracy < 0)
-	// 	{
-	// 		if (*flags & 16384)
-	// 			g_accuracy = -g_accuracy;
-	// 		else
-	// 			g_accuracy = 0;
-	// 	}
 		g_accuracy = g_flags & 16384 ? -g_accuracy : 0;
 	return (1);
 }
@@ -64,7 +59,7 @@ char	parsing(const char **str, va_list *args)
 char	exe_numstr(void **value, const char **str, int *amt)
 {
 	extern int	g_flags;
-	
+
 	if (!(g_flags & 782336))
 		return (0);
 	conversion(&(*value));
@@ -77,7 +72,7 @@ char	exe_numstr(void **value, const char **str, int *amt)
 	if ((g_flags & 48) == 48 && !(g_flags & 1))
 		put_space(&(*value), &(*amt));
 	put_abs(&(*value), &(*amt));
-	put_uabs(&(*value), &(*amt));
+	put_uabs(&(*value), &(*amt), &g_flags);
 	put_str(*value, &(*amt));
 	if ((g_flags & 33) == 33)
 		put_space(&(*value), &(*amt));
@@ -88,7 +83,7 @@ char	exe_numstr(void **value, const char **str, int *amt)
 char	exe_wsymb(void **value, const char **str, int *amt)
 {
 	extern int	g_flags;
-	
+
 	if (!(g_flags & 32))
 		return (0);
 	len_arg(&(*value));
@@ -106,7 +101,7 @@ char	exe_wsymb(void **value, const char **str, int *amt)
 void	exe_other(void **value, const char **str, int *amt)
 {
 	extern int	g_flags;
-	
+
 	if (exe_numstr(&(*value), &(*str), &(*amt)))
 		return ;
 	if (exe_wsymb(&(*value), &(*str), &(*amt)))
@@ -123,7 +118,7 @@ void	exe_other(void **value, const char **str, int *amt)
 void	intrp(va_list *args, long double *value_f, void **value)
 {
 	extern int	g_flags;
-	
+
 	if ((g_flags & 1050624) == 1050624)
 	{
 		*value_f = va_arg(*args, long double);
@@ -141,7 +136,6 @@ int		ft_printf(const char *str, ...)
 {
 	int				amt;
 	va_list			args;
-	// int				flags;
 	void			*value;
 	long double		value_f;
 

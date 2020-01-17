@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/17 11:51:01 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 12:44:22 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,12 @@ void	def_accuracy(const char **str, va_list *args)
 
 	if (**str != '.')
 		return ;
-	
 	g_accuracy = 0;
-
 	g_flags |= 64;
 	*str += 1;
 	if (**str == '*')
 	{
 		g_accuracy = va_arg(*args, int);
-		// if (g_accuracy < 0)
-		// {
-		// 	if (*(*str + 1) == 's')
-		// 		g_accuracy = -g_accuracy;
-		// 	else
-		// 		g_accuracy = 0;
-		// }
 		*str += 1;
 	}
 	if ('0' <= **str && **str <= '9')
@@ -116,25 +107,17 @@ void	def_modifier(const char **str)
 	{
 		g_flags |= 1024;
 		*str += 3;
-		return ;
 	}
 	if (**str == 'h')
-	{
 		find_modsymb(&(*str), 256);
-		return ;
-	}
 	if (**str == 'l' || **str == 'z')
-	{
 		find_modsymb(&(*str), 1024);
-		return ;
-	}
 	if (**str == 'j')
 	{
 		g_flags |= 1024;
 		*str += 1;
 		if (**str == 'z' || **str == 'h')
 			*str += 1;
-		return ;
 	}
 	if (**str == 'L')
 	{

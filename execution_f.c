@@ -6,11 +6,17 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 17:43:36 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/16 16:39:09 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 13:26:28 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	fixput_float(long int *unit, char **remainder, int *amt)
+{
+	fix_float(&(*unit), &(*remainder));
+	put_float(&(*unit), &(*remainder), &(*amt));
+}
 
 char	exe_float(long double *value_f, const char **str, int *amt)
 {
@@ -33,8 +39,7 @@ char	exe_float(long double *value_f, const char **str, int *amt)
 	if (!remainder)
 		exit(0);
 	def_remainder(&remainder, *value_f, unit);
-	fix_float(&unit, &remainder);
-	put_float(&unit, &remainder, &(*amt));
+	fixput_float(&unit, &remainder, &(*amt));
 	free(remainder);
 	if ((g_flags & 33) == 33)
 		put_space_f(&(*value_f), &(*amt));
@@ -49,19 +54,13 @@ void	put_space_f(long double *value_f, int *amt)
 	int			len_symbols;
 	char		space;
 	int			len_space;
-	int			i;
 
 	def_lensymbols_f(&len_symbols, &(*value_f));
 	space = g_flags & 16 && !(g_flags & 1) ? '0' : ' ';
 	len_space = g_width - len_symbols - len_sign_f(&(*value_f));
 	if ((g_flags & 8 && !g_accuracy))
 		len_space -= 1;
-	i = 0;
-	while (i < len_space)
-	{
-		put_char(space, NULL, &(*amt));
-		i += 1;
-	}
+	putcycle(space, len_space, &(*amt));
 }
 
 void	def_lensymbols_f(int *len_symbols, long double *value_f)
@@ -78,7 +77,7 @@ void	def_lensymbols_f(int *len_symbols, long double *value_f)
 void	put_sign_f(long double *value_f, int *amt)
 {
 	extern int	g_flags;
-	
+
 	if (*value_f < 0)
 	{
 		put_char('-', NULL, &(*amt));
@@ -155,7 +154,7 @@ void	put_float(long int *unit, char **remainder, int *amt)
 	extern int	g_accuracy;
 	int			i;
 
-	put_uabs((void *)unit, &(*amt));
+	put_uabs((void *)unit, &(*amt), &g_flags);
 	if (g_accuracy || g_flags & 8)
 		put_char('.', NULL, &(*amt));
 	i = 0;

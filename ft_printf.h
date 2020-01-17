@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/17 12:17:21 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 13:27:00 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	find_zero(const char **str);
 ** execution_f.c
 */
 char	exe_float(long double *value_f, const char **str, int *amt);
+void	fixput_float(long int *unit, char **remainder, int *amt);
 void	put_space_f(long double *value_f, int *amt);
 void	def_lensymbols_f(int *len_symbols, long double *value_f);
 void	put_sign_f(long double *value_f, int *amt);
@@ -105,7 +106,7 @@ void	put_abs_short(short value, int *amt);
 void	put_abs_char(char value, int *amt);
 void	put_abs_lint(long int value, int *amt);
 void	put_prefix(void **value, int *amt);
-void	put_uabs(void **value, int *amt);
+void	put_uabs(void **value, int *amt, int *g_flags);
 void	put_uabs_lint(unsigned long int value, int *amt);
 
 /*

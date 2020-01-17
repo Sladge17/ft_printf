@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/17 12:21:54 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 12:25:43 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ char	check_lastfreesmb(const char **str, int *amt)
 		i += 1;
 	if (*(*str + i) == 'h' || *(*str + i) == 'l' || *(*str + i) == 'L')
 		return (0);
-	if (*(*str + i) == '-' || *(*str + i) == '+'|| *(*str + i) == '#' || *(*str + i) == '.'
-		|| ('0' <= *(*str + i) && *(*str + i) <= '9') || *(*str + i) == 'c' 
-		|| *(*str + i) == 'd' || *(*str + i) == 'i' 
+	if (*(*str + i) == '-' || *(*str + i) == '+'
+		|| *(*str + i) == '#' || *(*str + i) == '.'
+		|| ('0' <= *(*str + i) && *(*str + i) <= '9') || *(*str + i) == 'c'
+		|| *(*str + i) == 'd' || *(*str + i) == 'i'
 		|| *(*str + i) == 'u' || *(*str + i) == 'o'
 		|| *(*str + i) == 'x' || *(*str + i) == 'X')
 		return (0);
@@ -57,7 +58,7 @@ char	check_lastfreesmb(const char **str, int *amt)
 void	putcycle(char symbol, int border, int *amt)
 {
 	int		i;
-	
+
 	i = 0;
 	while (i < border)
 	{
@@ -110,7 +111,6 @@ void	put_zero(void **value, int *amt)
 
 	if (g_flags & 16384 || !(g_flags & 64) || (!g_accuracy && !(*value)))
 		return ;
-
 	len_symbols = g_lenarg;
 	if ((g_flags & 32776) == 32776)
 		len_symbols += 1;
@@ -120,13 +120,12 @@ void	put_zero(void **value, int *amt)
 	putcycle('0', len_zero, &(*amt));
 }
 
-
 void	put_str(char *value, int *amt)
 {
 	extern int	g_flags;
 	extern int	g_accuracy;
 	int			i;
-	
+
 	if (g_flags & 12288 || (g_flags & 229376 && !value)
 		|| (g_flags & 524288 && !value))
 		return ;
