@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/17 12:34:14 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 19:13:28 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	conversion(void **value)
 {
 	extern int	g_flags;
-	
+
 	if (!(g_flags & 753664))
-		return;
+		return ;
 	if (g_flags & 753664 && !(long int)(*value))
 	{
 		*value = 0;
@@ -42,61 +42,85 @@ void	conversion(void **value)
 
 void	binto_oct(void **value)
 {
-	extern int			g_flags;
 	char				*oct;
 	unsigned long int	bitend;
-	int					i;
-	int					factor;
 	int					len;
-	unsigned long int	typeborder;
 
 	if ((unsigned long)(*value) == ~0UL)
 	{
 		*value = "1777777777777777777777";
 		return ;
 	}
-	
 	def_bitend(&bitend, &(*value));
-	len = 0;
-	while (bitend)
-	{
-		len += 1;
-		bitend >>= 3;
-	}
-	oct = (char *)malloc(sizeof(char) * (len + 1));
-	if (!oct)
+	def_lenb(&len, &bitend, 3);
+	if (new_str(&oct, &len))
 	{
 		*value = NULL;
 		return ;
 	}
-	oct[len] = '\0';
 	bitend = 1;
 	bitend <<= ((3 * len) - 1);
-	if (g_flags & 128)
-		typeborder = 1UL << 15;
-	if (g_flags & 256)
-		typeborder = 1UL << 7;
-	if (g_flags & 1536)
-		typeborder = 1UL << 63;
-	if (!(g_flags & 1920))
-		typeborder = 1UL << 31;
+	conv_oct(&(*value), &bitend, &oct);
+	*value = oct;
+	free(oct);
+}
+
+void	conv_oct(void **value, unsigned long *bitend, char **oct)
+{
+	int					len;
+	int					factor;
+	int					i;
+	unsigned long int	typeborder;
+
+	shift_typeborder(&typeborder);
 	len = 0;
-	while (bitend)
+	while (*bitend)
 	{
 		factor = 0;
 		i = 2;
 		while (i > -1)
 		{
-			if ((long int)(*value) & bitend && bitend <= typeborder)
+			if ((long int)(*value) & *bitend && *bitend <= typeborder)
 				factor += 1 << i;
-			bitend >>= 1;
+			*bitend >>= 1;
 			i -= 1;
 		}
-		oct[len] = factor + 48;
+		(*oct)[len] = factor + 48;
 		len += 1;
 	}
-	*value = oct;
-	free(oct);
+}
+
+void	def_lenb(int *len, unsigned long int *bitend, int count)
+{
+	*len = 0;
+	while (*bitend)
+	{
+		*len += 1;
+		*bitend >>= count;
+	}
+}
+
+char	new_str(char **numb, int *len)
+{
+	*numb = (char *)malloc(sizeof(char) * (*len + 1));
+	if (!(*numb))
+		return (1);
+	(*numb)[*len] = '\0';
+	return (0);
+}
+
+void	shift_typeborder(unsigned long int *typeborder)
+{
+	extern int	g_flags;
+
+	if (g_flags & 128)
+		*typeborder = 1UL << 15;
+	if (g_flags & 256)
+		*typeborder = 1UL << 7;
+	if (g_flags & 1536)
+		*typeborder = 1UL << 63;
+	if (!(g_flags & 1920))
+		*typeborder = 1UL << 31;
 }
 
 void	binto_hex(void **value, char index)
@@ -104,49 +128,41 @@ void	binto_hex(void **value, char index)
 	extern int			g_flags;
 	char				*hex;
 	unsigned long int	bitend;
-	int					i;
-	int					factor;
 	int					len;
-	char				zeroflag;
 
-	zeroflag = 0;
 	len = 12;
 	if (!(g_flags & 524288))
 	{
 		def_bitend(&bitend, &(*value));
-		len = 0;
-		while (bitend)
-		{
-			len += 1;
-			bitend >>= 4;
-		}
-	}	
-	
-	hex = (char *)malloc(sizeof(char) * (len + 1));
-	if (!hex)
+		def_lenb(&len, &bitend, 4);
+	}
+	if (new_str(&hex, &len))
 	{
 		*value = NULL;
 		return ;
 	}
-	hex[len] = '\0';
 	bitend = 1;
 	bitend <<= ((4 * len) - 1);
-	len = 0;
-	while (bitend)
-	{
-		factor = 0;
-		i = 3;
-		while (i > -1)
-		{
-			if ((long int)(*value) & bitend)
-				factor += 1 << i;
-			bitend >>= 1;
-			i -= 1;
-		}
+	conv_hex(&(*value), &bitend, &hex, index);
+	*value = hex;
+	free(hex);
+}
 
+void	conv_hex(void **value, unsigned long *bitend, char **hex, char index)
+{
+	extern int	g_flags;
+	int			len;
+	int			zeroflag;
+	int			factor;
+
+	len = 0;
+	zeroflag = 0;
+	while (*bitend)
+	{
+		def_factor(&factor, &(*value), &(*bitend));
 		if (!zeroflag && g_flags & 524288 && !factor)
 		{
-			hex[12 - len] = '\0';
+			(*hex)[12 - len] = '\0';
 			len += 1;
 			continue ;
 		}
@@ -155,24 +171,30 @@ void	binto_hex(void **value, char index)
 			zeroflag = 1;
 			len = 0;
 		}
-		
-		if (factor < 10)
-		{
-			hex[len] = factor + 48;
-			len += 1;
-			continue ;
-		}
-		hex[len] = factor + index - 33;
+		(*hex)[len] = factor < 10 ? factor + 48 : factor + index - 33;
 		len += 1;
 	}
-	*value = hex;
-	free(hex);
+}
+
+void	def_factor(int *factor, void **value, unsigned long *bitend)
+{
+	int		i;
+
+	*factor = 0;
+	i = 3;
+	while (i > -1)
+	{
+		if ((long int)(*value) & *bitend)
+			*factor += 1 << i;
+		*bitend >>= 1;
+		i -= 1;
+	}
 }
 
 void	def_bitend(unsigned long int *bitend, void **value)
 {
 	extern int	g_flags;
-	char	index;
+	char		index;
 
 	index = g_flags & 32768 ? 3 : 4;
 	if (g_flags & 128)

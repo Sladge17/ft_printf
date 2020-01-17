@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/17 13:27:00 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/17 18:47:24 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ int		g_lenarg;
 ** ft_printf.c
 */
 void	shift_garbage(const char **str);
-// char	parsing(int *flags, const char **str);
-
 char	parsing(const char **str, va_list *args);
-
 char	exe_numstr(void **value, const char **str, int *amt);
 char	exe_wsymb(void **value, const char **str, int *amt);
 void	exe_other(void **value, const char **str, int *amt);
@@ -39,14 +36,8 @@ void	intrp(va_list *args, long double *value_f, void **value);
 ** def_params.c
 */
 void	check_flags(const char **str);
-// void	def_width(int *flags, const char **str);
-
 void	def_width(const char **str, va_list *args);
-
-// void	def_accuracy(int *flags, const char **str);
-
 void	def_accuracy(const char **str, va_list *args);
-
 void	ft_atoi(int *param, const char **str);
 char	def_fasttype(const char **str);
 void	def_modifier(const char **str);
@@ -89,7 +80,13 @@ void	len_arg(void **value);
 */
 void	conversion(void **value);
 void	binto_oct(void **value);
+char	new_str(char **numb, int *len);
+void	shift_typeborder(unsigned long int	*typeborder);
+void	conv_oct(void **value, unsigned long *bitend, char **oct);
+void	def_lenb(int *len, unsigned long int *bitend, int count);
 void	binto_hex(void **value, char index);
+void	conv_hex(void **value, unsigned long *bitend, char **hex, char index);
+void	def_factor(int *factor, void **value, unsigned long *bitend);
 void	def_bitend(unsigned long int *bitend, void **value);
 void	def_bitend_int(unsigned long int *bitend, int value, char bitcnt);
 void	def_bitend_short(unsigned long int *bitend, short value, char bitcnt);
