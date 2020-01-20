@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 13:57:44 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 15:09:02 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,14 @@ int		len_str(const char *str);
 void	conversion(void **value);
 void	binto_oct(void **value);
 char	new_str(char **numb, int *len);
-void	shift_typeborder(unsigned long int	*typeborder);
-void	conv_oct(void **value, unsigned long *bitend, char **oct);
 void	def_lenb(int *len, unsigned long int *bitend, int count);
 void	binto_hex(void **value, char index);
+
+/*
+** conversion_2.c
+*/
+void	conv_oct(void **value, unsigned long *bitend, char **oct);
+void	shift_typeborder(unsigned long int	*typeborder);
 void	conv_hex(void **value, unsigned long *bitend, char **hex, char index);
 void	def_factor(int *factor, void **value, unsigned long *bitend);
 
