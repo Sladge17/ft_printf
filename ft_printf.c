@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 12:21:32 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 13:14:18 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,67 +68,6 @@ char	parsing(const char **str, va_list *args)
 	return (1);
 }
 
-
-
-char	exe_numstr(void **value, const char **str, int *amt)
-{
-	extern int	g_flags;
-
-	if (!(g_flags & 782336))
-		return (0);
-	conversion(&(*value));
-	len_arg(&(*value));
-	if (g_flags & 32 && !(g_flags & 17))
-		put_space(&(*value), &(*amt));
-	put_sign(&(*value), &(*amt));
-	put_prefix(&(*value), &(*amt));
-	put_zero(&(*value), &(*amt));
-	if ((g_flags & 48) == 48 && !(g_flags & 1))
-		put_space(&(*value), &(*amt));
-	put_abs(&(*value), &(*amt));
-	put_uabs(&(*value), &(*amt), &g_flags);
-	put_str(*value, &(*amt));
-	if ((g_flags & 33) == 33)
-		put_space(&(*value), &(*amt));
-	*str += 1;
-	return (1);
-}
-
-char	exe_wsymb(void **value, const char **str, int *amt)
-{
-	extern int	g_flags;
-
-	if (!(g_flags & 32))
-		return (0);
-	len_arg(&(*value));
-	if (!(g_flags & 1))
-		put_space(&(*value), &(*amt));
-	if (g_flags & 262144)
-		put_char((char)(*value), &(*str), &(*amt));
-	else
-		put_char(**str, &(*str), &(*amt));
-	if (g_flags & 1)
-		put_space(&(*value), &(*amt));
-	return (1);
-}
-
-void	exe_other(void **value, const char **str, int *amt)
-{
-	extern int	g_flags;
-
-	if (exe_numstr(&(*value), &(*str), &(*amt)))
-		return ;
-	if (exe_wsymb(&(*value), &(*str), &(*amt)))
-		return ;
-	if (g_flags & 262144)
-	{
-		put_char((char)(*value), &(*str), &(*amt));
-		return ;
-	}
-	if (**str != '\0')
-		put_char(**str, &(*str), &(*amt));
-}
-
 void	intrp(va_list *args, long double *value_f, void **value)
 {
 	extern int	g_flags;
@@ -144,4 +83,28 @@ void	intrp(va_list *args, long double *value_f, void **value)
 		return ;
 	}
 	*value = va_arg(*args, void *);
+}
+
+void	def_lenarg(void **value)
+{
+	extern int	g_flags;
+	extern int	g_accuracy;
+	extern int	g_lenarg;
+
+	g_lenarg = 1;
+	if (g_flags & 16384 && !(*value))
+	{
+		g_lenarg = 6;
+		return ;
+	}
+	if ((g_flags & 32864) == 32864 && !(g_flags & 8) && !g_accuracy)
+		g_lenarg = 0;
+	if (!(*value))
+		return ;
+	if (g_flags & 4096)
+		g_lenarg = len_numb(&(*value));
+	if (g_flags & 8192)
+		g_lenarg = len_unumb((long int)(*value));
+	if (g_flags & 245760 || g_flags & 524288)
+		g_lenarg = len_str((char *)(*value));
 }

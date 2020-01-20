@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:12:48 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/17 12:38:13 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 13:13:58 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,4 @@ int		len_str(const char *str)
 	while (str[len] != '\0')
 		len += 1;
 	return (len);
-}
-
-void	len_arg(void **value)
-{
-	extern int	g_flags;
-	extern int	g_accuracy;
-	extern int	g_lenarg;
-
-	g_lenarg = 1;
-	if (g_flags & 16384 && !(*value))
-	{
-		g_lenarg = 6;
-		return ;
-	}
-	if ((g_flags & 32864) == 32864 && !(g_flags & 8) && !g_accuracy)
-		g_lenarg = 0;
-	if (!(*value))
-		return ;
-	if (g_flags & 4096)
-		g_lenarg = len_numb(&(*value));
-	if (g_flags & 8192)
-		g_lenarg = len_unumb((long int)(*value));
-	if (g_flags & 245760 || g_flags & 524288)
-		g_lenarg = len_str((char *)(*value));
 }

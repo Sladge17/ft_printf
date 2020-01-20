@@ -6,46 +6,11 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 17:43:36 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/17 13:26:28 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 12:54:38 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	fixput_float(long int *unit, char **remainder, int *amt)
-{
-	fix_float(&(*unit), &(*remainder));
-	put_float(&(*unit), &(*remainder), &(*amt));
-}
-
-char	exe_float(long double *value_f, const char **str, int *amt)
-{
-	long int	unit;
-	char		*remainder;
-	extern int	g_flags;
-	extern int	g_accuracy;
-
-	if (!(g_flags & 1048576))
-		return (0);
-	if (!(g_flags & 64))
-		g_accuracy = 6;
-	if (g_flags & 32 && !(g_flags & 1) && !(g_flags & 16))
-		put_space_f(&(*value_f), &(*amt));
-	put_sign_f(&(*value_f), &(*amt));
-	if ((g_flags & 48) == 48 && !(g_flags & 1))
-		put_space_f(&(*value_f), &(*amt));
-	unit = *value_f < 0 ? -(long int)(*value_f) : (long int)(*value_f);
-	remainder = (char *)malloc(sizeof(char) * 21);
-	if (!remainder)
-		exit(0);
-	def_remainder(&remainder, *value_f, unit);
-	fixput_float(&unit, &remainder, &(*amt));
-	free(remainder);
-	if ((g_flags & 33) == 33)
-		put_space_f(&(*value_f), &(*amt));
-	*str += 1;
-	return (1);
-}
 
 void	put_space_f(long double *value_f, int *amt)
 {
