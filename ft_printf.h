@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 15:09:02 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 17:31:59 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		g_lenarg;
 char	parsing(const char **str, va_list *args);
 void	intrp(va_list *args, long double *value_f, void **value);
 void	def_lenarg(void **value);
+void	def_color(const char **str);
 
 /*
 ** def_params.c

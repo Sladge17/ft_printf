@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 13:49:45 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 17:31:11 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ char	put_freesmb(const char **str, int *amt)
 {
 	while (**str != '%')
 	{
+		if (**str == '{')
+		{
+			def_color(&(*str));
+			if (**str == '%')
+			{
+				*str += 1;
+				return (1);
+			}
+		}
 		if (**str == '\0')
 			return (0);
 		put_char(**str, &(*str), &(*amt));
