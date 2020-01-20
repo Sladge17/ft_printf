@@ -5,13 +5,14 @@ SRC = 	ft_printf.c\
 		find_flags.c\
 		exec_undef.c\
 		exec_data.c\
-		execution_f.c\
+		put_numbers_f.c\
 		def_lengths.c\
 		conversion.c\
 		def_bitend.c\
 		put_numbers.c\
 		put_abs.c\
-		put_symbols.c
+		put_symbols.c\
+		put_symbols_2.c
 OBJ = $(SRC:.c=.o)
 
 TMP = main.c ##### DELL IT <<<<<<<<<<<<<

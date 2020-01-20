@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 13:30:04 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 13:57:44 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,16 @@ void	find_modsymb(const char **str, short flag);
 ** exec_data.c
 */
 char	exe_float(long double *value_f, const char **str, int *amt);
-void	fixput_float(long int *unit, char **remainder, int *amt);
 void	exe_other(void **value, const char **str, int *amt);
 char	exe_numstr(void **value, const char **str, int *amt);
 char	exe_char(void **value, const char **str, int *amt);
 
 /*
-** execution_f.c
+** put_numbers_f.c
 */
-void	put_space_f(long double *value_f, int *amt);
-void	def_lensymbols_f(int *len_symbols, long double *value_f);
 void	put_sign_f(long double *value_f, int *amt);
 void	def_remainder(char **remainder, long double value_f, long int unit);
+void	fixput_float(long int *unit, char **remainder, int *amt);
 void	fix_float(long int *unit, char **remainder);
 void	put_float(long int *unit, char **remainder, int *amt);
 
@@ -126,12 +124,18 @@ void	put_abs_lint(long int value, int *amt);
 ** put_symbols.c
 */
 void	put_char(char symbol, const char **str, int *amt);
+void	put_charcycle(char symbol, int border, int *amt);
 char	put_freesmb(const char **str, int *amt);
 char	put_lastfreesmb(const char **str, int *amt);
 void	put_str(char *value, int *amt);
+
+/*
+** put_symbols_2.c
+*/
 void	put_space(void **value, int *amt);
 void	def_lensymbols(int *len_symbols, void **value);
 void	put_zero(void **value, int *amt);
-void	putcycle(char symbol, int border, int *amt);
+void	put_space_f(long double *value_f, int *amt);
+void	def_lensymbols_f(int *len_symbols, long double *value_f);
 
 #endif

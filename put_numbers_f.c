@@ -1,43 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_f.c                                      :+:      :+:    :+:   */
+/*   put_numbers_f.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/25 17:43:36 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 12:54:38 by jthuy            ###   ########.fr       */
+/*   Created: 2020/01/20 13:56:58 by jthuy             #+#    #+#             */
+/*   Updated: 2020/01/20 13:57:20 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	put_space_f(long double *value_f, int *amt)
-{
-	extern int	g_flags;
-	extern int	g_width;
-	int			len_symbols;
-	char		space;
-	int			len_space;
-
-	def_lensymbols_f(&len_symbols, &(*value_f));
-	space = g_flags & 16 && !(g_flags & 1) ? '0' : ' ';
-	len_space = g_width - len_symbols - len_sign_f(&(*value_f));
-	if ((g_flags & 8 && !g_accuracy))
-		len_space -= 1;
-	putcycle(space, len_space, &(*amt));
-}
-
-void	def_lensymbols_f(int *len_symbols, long double *value_f)
-{
-	extern int	g_accuracy;
-	int			unit;
-
-	unit = *value_f < 0 ? -(int)(*value_f) : (int)(*value_f);
-	*len_symbols = len_unumb(unit) + g_accuracy;
-	if (g_accuracy)
-		*len_symbols += 1;
-}
 
 void	put_sign_f(long double *value_f, int *amt)
 {
@@ -84,6 +57,12 @@ void	def_remainder(char **remainder, long double value_f, long int unit)
 			(*remainder)[i - 1] += 1;
 		i -= 1;
 	}
+}
+
+void	fixput_float(long int *unit, char **remainder, int *amt)
+{
+	fix_float(&(*unit), &(*remainder));
+	put_float(&(*unit), &(*remainder), &(*amt));
 }
 
 void	fix_float(long int *unit, char **remainder)

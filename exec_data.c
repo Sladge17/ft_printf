@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:53:25 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 13:15:37 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 13:55:43 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ char	exe_float(long double *value_f, const char **str, int *amt)
 		put_space_f(&(*value_f), &(*amt));
 	*str += 1;
 	return (1);
-}
-
-void	fixput_float(long int *unit, char **remainder, int *amt)
-{
-	fix_float(&(*unit), &(*remainder));
-	put_float(&(*unit), &(*remainder), &(*amt));
 }
 
 void	exe_other(void **value, const char **str, int *amt)
