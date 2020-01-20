@@ -6,25 +6,37 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/17 16:37:09 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 12:21:32 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	shift_garbage(const char **str)
+int		ft_printf(const char *str, ...)
 {
-	while (1)
+	int				amt;
+	va_list			args;
+	void			*value;
+	long double		value_f;
+
+	amt = 0;
+	va_start(args, str);
+	while (*str)
 	{
-		if (**str == '-' || **str == '+' || **str == ' ' || **str == '#'
-			|| **str == '0' || **str == 'h' || **str == 'l' || **str == 'L'
-			|| **str == 'j' || **str == 'z' || **str == 'Z' || **str == 'd'
-			|| **str == 'i' || **str == 'u' || **str == 's' || **str == 'o'
-			|| **str == 'x' || **str == 'X' || **str == 'c' || **str == 'p'
-			|| **str == 'f' || **str == 'U' || **str == '%' || **str == '\0')
+		if (!put_freesmb(&str, &amt))
 			break ;
-		*str += 1;
+		if (put_lastfreesmb(&str, &amt))
+			continue ;
+		if (!parsing(&str, &args))
+			break ;
+		if (*str != '%')
+			intrp(&args, &value_f, &value);
+		if (exe_float(&value_f, &str, &amt))
+			continue ;
+		exe_other(&value, &str, &amt);
 	}
+	va_end(args);
+	return (amt);
 }
 
 char	parsing(const char **str, va_list *args)
@@ -55,6 +67,8 @@ char	parsing(const char **str, va_list *args)
 		g_accuracy = g_flags & 16384 ? -g_accuracy : 0;
 	return (1);
 }
+
+
 
 char	exe_numstr(void **value, const char **str, int *amt)
 {
@@ -130,31 +144,4 @@ void	intrp(va_list *args, long double *value_f, void **value)
 		return ;
 	}
 	*value = va_arg(*args, void *);
-}
-
-int		ft_printf(const char *str, ...)
-{
-	int				amt;
-	va_list			args;
-	void			*value;
-	long double		value_f;
-
-	amt = 0;
-	va_start(args, str);
-	while (*str)
-	{
-		if (!put_freesmb(&str, &amt))
-			break ;
-		if (check_lastfreesmb(&str, &amt))
-			continue ;
-		if (!parsing(&str, &args))
-			break ;
-		if (*str != '%')
-			intrp(&args, &value_f, &value);
-		if (exe_float(&value_f, &str, &amt))
-			continue ;
-		exe_other(&value, &str, &amt);
-	}
-	va_end(args);
-	return (amt);
 }

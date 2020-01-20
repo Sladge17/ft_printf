@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/17 12:25:43 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 12:02:15 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	put_freesmb(const char **str, int *amt)
 	return (1);
 }
 
-char	check_lastfreesmb(const char **str, int *amt)
+char	put_lastfreesmb(const char **str, int *amt)
 {
 	int		i;
 
@@ -54,6 +54,38 @@ char	check_lastfreesmb(const char **str, int *amt)
 	put_char(**str, &(*str), &(*amt));
 	return (1);
 }
+
+void	put_str(char *value, int *amt)
+{
+	extern int	g_flags;
+	extern int	g_accuracy;
+	int			i;
+
+	if (g_flags & 12288 || (g_flags & 229376 && !value)
+		|| (g_flags & 524288 && !value))
+		return ;
+	if (!value)
+		value = "(null)";
+	if (g_flags & 64 && !(g_flags & 753664) && *value != '\0')
+	{
+		i = 0;
+		while (i < g_accuracy && *value != '\0')
+		{
+			put_char(*value, NULL, &(*amt));
+			value += 1;
+			i += 1;
+		}
+		return ;
+	}
+	while (*value != '\0')
+	{
+		put_char(*value, NULL, &(*amt));
+		value += 1;
+	}
+}
+
+
+
 
 void	putcycle(char symbol, int border, int *amt)
 {
@@ -118,33 +150,4 @@ void	put_zero(void **value, int *amt)
 		return ;
 	len_zero = g_accuracy - len_symbols;
 	putcycle('0', len_zero, &(*amt));
-}
-
-void	put_str(char *value, int *amt)
-{
-	extern int	g_flags;
-	extern int	g_accuracy;
-	int			i;
-
-	if (g_flags & 12288 || (g_flags & 229376 && !value)
-		|| (g_flags & 524288 && !value))
-		return ;
-	if (!value)
-		value = "(null)";
-	if (g_flags & 64 && !(g_flags & 753664) && *value != '\0')
-	{
-		i = 0;
-		while (i < g_accuracy && *value != '\0')
-		{
-			put_char(*value, NULL, &(*amt));
-			value += 1;
-			i += 1;
-		}
-		return ;
-	}
-	while (*value != '\0')
-	{
-		put_char(*value, NULL, &(*amt));
-		value += 1;
-	}
 }

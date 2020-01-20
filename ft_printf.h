@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/17 18:47:24 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 12:27:06 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		g_lenarg;
 /*
 ** ft_printf.c
 */
-void	shift_garbage(const char **str);
 char	parsing(const char **str, va_list *args);
 char	exe_numstr(void **value, const char **str, int *amt);
 char	exe_wsymb(void **value, const char **str, int *amt);
@@ -39,10 +38,15 @@ void	check_flags(const char **str);
 void	def_width(const char **str, va_list *args);
 void	def_accuracy(const char **str, va_list *args);
 void	ft_atoi(int *param, const char **str);
+void	def_type(const char **str);
+
+/*
+** exec_undef.c
+*/
+void	shift_garbage(const char **str);
 char	def_fasttype(const char **str);
 void	def_modifier(const char **str);
 void	find_modsymb(const char **str, short flag);
-void	def_type(const char **str);
 
 /*
 ** find_flags.c
@@ -111,11 +115,12 @@ void	put_uabs_lint(unsigned long int value, int *amt);
 */
 void	put_char(char symbol, const char **str, int *amt);
 char	put_freesmb(const char **str, int *amt);
-char	check_lastfreesmb(const char **str, int *amt);
+char	put_lastfreesmb(const char **str, int *amt);
+void	put_str(char *value, int *amt);
+
 void	put_space(void **value, int *amt);
 void	def_lensymbols(int *len_symbols, void **value);
 void	put_zero(void **value, int *amt);
-void	put_str(char *value, int *amt);
 void	putcycle(char symbol, int border, int *amt);
 
 #endif

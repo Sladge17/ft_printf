@@ -2,6 +2,7 @@ NAME = libftprintf.a
 FLAG = -Wall -Wextra -Werror
 SRC = 	ft_printf.c\
 		def_params.c\
+		exec_undef.c\
 		find_flags.c\
 		execution_f.c\
 		def_lengths.c\
