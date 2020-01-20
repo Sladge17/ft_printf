@@ -13,7 +13,9 @@ SRC = 	ft_printf.c\
 		put_numbers.c\
 		put_abs.c\
 		put_symbols.c\
-		put_symbols_2.c
+		put_symbols_2.c\
+		customize.c\
+		customize_2.c
 OBJ = $(SRC:.c=.o)
 
 TMP = main.c ##### DELL IT <<<<<<<<<<<<<

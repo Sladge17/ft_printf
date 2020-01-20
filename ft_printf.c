@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 17:30:02 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 18:17:11 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,23 +111,26 @@ void	def_lenarg(void **value)
 
 void	def_color(const char **str)
 {
-	if (**str != '{')
-		return ;
 	if (*(*str + 1) == '/' && *(*str + 2) == '}')
 	{
 		write(1, "\e[0m", 4);
 		*str += 3;
+		return ;
 	}
-	
-	if (*(*str + 1) == 'r' && *(*str + 2) == 'e' && *(*str + 3) && *(*str + 4) == '}')
-	{
-		write(1, "\e[31m", 5);
-		*str += 5;
-	}
-
-	if (*(*str + 1) == 'g' && *(*str + 2) == 'r' && *(*str + 3)  == 'e' && *(*str + 4) == 'e' && *(*str + 5) == 'n' && *(*str + 6) == '}')
-	{
-		write(1, "\e[32m", 5);
-		*str += 7;
-	}
+	if (black(&(*str)))
+		return ;
+	if (red(&(*str)))
+		return ;
+	if (green(&(*str)))
+		return ;
+	if (yellow(&(*str)))
+		return ;
+	if (blue(&(*str)))
+		return ;
+	if (magenta(&(*str)))
+		return ;
+	if (cyan(&(*str)))
+		return ;
+	if (white(&(*str)))
+		return ;
 }

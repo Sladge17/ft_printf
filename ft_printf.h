@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:38:44 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 17:31:59 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 18:05:13 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,21 @@ void	def_lensymbols(int *len_symbols, void **value);
 void	put_zero(void **value, int *amt);
 void	put_space_f(long double *value_f, int *amt);
 void	def_lensymbols_f(int *len_symbols, long double *value_f);
+
+/*
+** customize.c
+*/
+char	black(const char **str);
+char	red(const char **str);
+char	green(const char **str);
+char	yellow(const char **str);
+char	blue(const char **str);
+
+/*
+** customize_2.c
+*/
+char	magenta(const char **str);
+char	cyan(const char **str);
+char	white(const char **str);
 
 #endif

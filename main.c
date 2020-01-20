@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 17:14:20 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/20 18:23:45 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int		main()
 	printf("->%d\n", rez);
 	printf("---\n");
 	fflush(NULL);
-	rez = ft_printf("{red}%s %s", q1, q2);
+	// rez = ft_printf("{red}%s{/} %s", q1, q2);
+	rez = ft_printf("{magenta}%s{/} {red}%s", q1, q2);
 	
 	write(1, "\e[0m", 4);
 	printf("->%d\n", rez);
