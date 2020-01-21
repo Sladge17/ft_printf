@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:43:02 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 15:07:43 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 17:25:52 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ void	conversion(void **value)
 	}
 	if (g_flags & 32768)
 	{
-		binto_oct(&(*value));
+		binto_oct(value);
 		return ;
 	}
 	if (g_flags & 589824)
 	{
-		binto_hex(&(*value), 'x');
+		binto_hex(value, 'x');
 		return ;
 	}
 	if (g_flags & 131072)
 	{
-		binto_hex(&(*value), 'X');
+		binto_hex(value, 'X');
 		return ;
 	}
 }
@@ -51,7 +51,7 @@ void	binto_oct(void **value)
 		*value = "1777777777777777777777";
 		return ;
 	}
-	def_bitend(&bitend, &(*value));
+	def_bitend(&bitend, value);
 	def_lenb(&len, &bitend, 3);
 	if (new_str(&oct, &len))
 	{
@@ -60,7 +60,7 @@ void	binto_oct(void **value)
 	}
 	bitend = 1;
 	bitend <<= ((3 * len) - 1);
-	conv_oct(&(*value), &bitend, &oct);
+	conv_oct(value, &bitend, &oct);
 	*value = oct;
 	free(oct);
 }
@@ -75,7 +75,7 @@ void	binto_hex(void **value, char index)
 	len = 12;
 	if (!(g_flags & 524288))
 	{
-		def_bitend(&bitend, &(*value));
+		def_bitend(&bitend, value);
 		def_lenb(&len, &bitend, 4);
 	}
 	if (new_str(&hex, &len))
@@ -85,7 +85,7 @@ void	binto_hex(void **value, char index)
 	}
 	bitend = 1;
 	bitend <<= ((4 * len) - 1);
-	conv_hex(&(*value), &bitend, &hex, index);
+	conv_hex(value, &bitend, &hex, index);
 	*value = hex;
 	free(hex);
 }

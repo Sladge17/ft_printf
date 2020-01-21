@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:06:10 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/21 12:03:53 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 17:35:55 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	put_charcycle(char symbol, int border, int *amt)
 	i = 0;
 	while (i < border)
 	{
-		put_char(symbol, NULL, &(*amt));
+		put_char(symbol, NULL, amt);
 		i += 1;
 	}
 }
@@ -44,7 +44,7 @@ char	put_freesmb(const char **str, int *amt)
 		}
 		if (**str == '{')
 		{
-			def_color(&(*str));
+			def_color(str);
 			if (**str == '%')
 			{
 				*str += 1;
@@ -53,7 +53,7 @@ char	put_freesmb(const char **str, int *amt)
 		}
 		if (**str == '\0')
 			return (0);
-		put_char(**str, &(*str), &(*amt));
+		put_char(**str, str, amt);
 	}
 	*str += 1;
 	return (1);
@@ -78,7 +78,7 @@ char	put_lastfreesmb(const char **str, int *amt)
 		|| *(*str + i) == 'x' || *(*str + i) == 'X')
 		return (0);
 	*str += i;
-	put_char(**str, &(*str), &(*amt));
+	put_char(**str, str, amt);
 	return (1);
 }
 
@@ -98,7 +98,7 @@ void	put_str(char *value, int *amt)
 		i = 0;
 		while (i < g_accuracy && *value != '\0')
 		{
-			put_char(*value, NULL, &(*amt));
+			put_char(*value, NULL, amt);
 			value += 1;
 			i += 1;
 		}
@@ -106,7 +106,7 @@ void	put_str(char *value, int *amt)
 	}
 	while (*value != '\0')
 	{
-		put_char(*value, NULL, &(*amt));
+		put_char(*value, NULL, amt);
 		value += 1;
 	}
 }

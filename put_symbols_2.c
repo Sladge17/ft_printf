@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:48:58 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 15:22:10 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 17:35:10 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	put_space(void **value, int *amt)
 	char		space;
 	int			len_space;
 
-	def_lensymbols(&len_symbols, &(*value));
+	def_lensymbols(&len_symbols, value);
 	space = g_flags & 16 && !(g_flags & 1) ? '0' : ' ';
-	len_space = g_width - len_symbols - len_sign(&(*value));
-	put_charcycle(space, len_space, &(*amt));
+	len_space = g_width - len_symbols - len_sign(value);
+	put_charcycle(space, len_space, amt);
 }
 
 void	def_lensymbols(int *len_symbols, void **value)
@@ -62,7 +62,7 @@ void	put_zero(void **value, int *amt)
 	if (g_accuracy <= len_symbols)
 		return ;
 	len_zero = g_accuracy - len_symbols;
-	put_charcycle('0', len_zero, &(*amt));
+	put_charcycle('0', len_zero, amt);
 }
 
 void	put_space_f(long double *value_f, int *amt)
@@ -73,12 +73,12 @@ void	put_space_f(long double *value_f, int *amt)
 	char		space;
 	int			len_space;
 
-	def_lensymbols_f(&len_symbols, &(*value_f));
+	def_lensymbols_f(&len_symbols, value_f);
 	space = g_flags & 16 && !(g_flags & 1) ? '0' : ' ';
-	len_space = g_width - len_symbols - len_sign_f(&(*value_f));
+	len_space = g_width - len_symbols - len_sign_f(value_f);
 	if ((g_flags & 8 && !g_accuracy))
 		len_space -= 1;
-	put_charcycle(space, len_space, &(*amt));
+	put_charcycle(space, len_space, amt);
 }
 
 void	def_lensymbols_f(int *len_symbols, long double *value_f)

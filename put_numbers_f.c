@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:56:58 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 13:57:20 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 17:33:50 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	put_sign_f(long double *value_f, int *amt)
 
 	if (*value_f < 0)
 	{
-		put_char('-', NULL, &(*amt));
+		put_char('-', NULL, amt);
 		return ;
 	}
 	if (g_flags & 2)
 	{
-		put_char('+', NULL, &(*amt));
+		put_char('+', NULL, amt);
 		return ;
 	}
 	if (g_flags & 4)
 	{
-		put_char(' ', NULL, &(*amt));
+		put_char(' ', NULL, amt);
 		return ;
 	}
 }
@@ -61,8 +61,8 @@ void	def_remainder(char **remainder, long double value_f, long int unit)
 
 void	fixput_float(long int *unit, char **remainder, int *amt)
 {
-	fix_float(&(*unit), &(*remainder));
-	put_float(&(*unit), &(*remainder), &(*amt));
+	fix_float(unit, remainder);
+	put_float(unit, remainder, amt);
 }
 
 void	fix_float(long int *unit, char **remainder)
@@ -98,13 +98,13 @@ void	put_float(long int *unit, char **remainder, int *amt)
 	extern int	g_accuracy;
 	int			i;
 
-	put_uabs((void *)unit, &(*amt), &g_flags);
+	put_uabs((void *)unit, amt, &g_flags);
 	if (g_accuracy || g_flags & 8)
-		put_char('.', NULL, &(*amt));
+		put_char('.', NULL, amt);
 	i = 0;
 	while (i < g_accuracy)
 	{
-		put_char((*remainder)[i] + 48, NULL, &(*amt));
+		put_char((*remainder)[i] + 48, NULL, amt);
 		i += 1;
 	}
 }

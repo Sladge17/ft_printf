@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:12:07 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 12:37:18 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 17:31:12 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	def_modifier(const char **str)
 		*str += 3;
 	}
 	if (**str == 'h')
-		find_modsymb(&(*str), 256);
+		find_modsymb(str, 256);
 	if (**str == 'l' || **str == 'z')
-		find_modsymb(&(*str), 1024);
+		find_modsymb(str, 1024);
 	if (**str == 'j')
 	{
 		g_flags |= 1024;

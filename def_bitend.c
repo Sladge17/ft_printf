@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:28:32 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 13:29:19 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 17:26:34 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ void	def_bitend(unsigned long int *bitend, void **value)
 	index = g_flags & 32768 ? 3 : 4;
 	if (g_flags & 128)
 	{
-		def_bitend_short(&(*bitend), (short)(*value), index);
+		def_bitend_short(bitend, (short)(*value), index);
 		return ;
 	}
 	if (g_flags & 256)
 	{
-		def_bitend_char(&(*bitend), (char)(*value), index);
+		def_bitend_char(bitend, (char)(*value), index);
 		return ;
 	}
 	if (g_flags & 1536)
 	{
-		def_bitend_lint(&(*bitend), (long int)(*value), index);
+		def_bitend_lint(bitend, (long int)(*value), index);
 		return ;
 	}
-	def_bitend_int(&(*bitend), (int)(*value), index);
+	def_bitend_int(bitend, (int)(*value), index);
 }
 
 void	def_bitend_int(unsigned long int *bitend, int value, char bitcnt)

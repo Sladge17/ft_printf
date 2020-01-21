@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:31:02 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 13:23:38 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 17:34:32 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	put_sign(void **value, int *amt)
 		|| (g_flags & 1536 && (long int)(*value) < 0))
 		|| (!(g_flags & 3968) && (int)(*value) < 0))
 	{
-		put_char('-', NULL, &(*amt));
+		put_char('-', NULL, amt);
 		return ;
 	}
 	if (g_flags & 2)
 	{
-		put_char('+', NULL, &(*amt));
+		put_char('+', NULL, amt);
 		return ;
 	}
 	if (g_flags & 4)
 	{
-		put_char(' ', NULL, &(*amt));
+		put_char(' ', NULL, amt);
 		return ;
 	}
 }
@@ -75,34 +75,34 @@ void	put_uabs(void **value, int *amt, int *g_flags)
 		return ;
 	if (*g_flags & 524288 && !(*value))
 	{
-		put_char('0', NULL, &(*amt));
+		put_char('0', NULL, amt);
 		return ;
 	}
 	if (*g_flags & 128)
 	{
-		put_uabs_lint((unsigned short)(*value), &(*amt));
+		put_uabs_lint((unsigned short)(*value), amt);
 		return ;
 	}
 	if (*g_flags & 256)
 	{
-		put_uabs_lint((unsigned char)(*value), &(*amt));
+		put_uabs_lint((unsigned char)(*value), amt);
 		return ;
 	}
 	if (*g_flags & 1536 || *g_flags & 1048576)
 	{
-		put_uabs_lint((unsigned long int)(*value), &(*amt));
+		put_uabs_lint((unsigned long int)(*value), amt);
 		return ;
 	}
-	put_uabs_lint((unsigned int)(*value), &(*amt));
+	put_uabs_lint((unsigned int)(*value), amt);
 }
 
 void	put_uabs_lint(unsigned long int value, int *amt)
 {
 	if (value < 10)
 	{
-		put_char(value + 48, NULL, &(*amt));
+		put_char(value + 48, NULL, amt);
 		return ;
 	}
-	put_uabs_lint(value / 10, &(*amt));
-	put_char((value % 10) + 48, NULL, &(*amt));
+	put_uabs_lint(value / 10, amt);
+	put_char((value % 10) + 48, NULL, amt);
 }

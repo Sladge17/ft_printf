@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 18:17:11 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 17:23:39 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@ char	parsing(const char **str, va_list *args)
 	extern int	g_flags;
 
 	g_flags = 0;
-	check_flags(&(*str));
-	def_width(&(*str), &(*args));
+	check_flags(str);
+	def_width(str, args);
 	if (**str == '\0')
 		return (0);
-	check_flags(&(*str));
-	def_accuracy(&(*str), &(*args));
-	shift_garbage(&(*str));
-	check_flags(&(*str));
-	if (!def_fasttype(&(*str)))
+	check_flags(str);
+	def_accuracy(str, args);
+	shift_garbage(str);
+	check_flags(str);
+	if (!def_fasttype(str))
 	{
-		def_modifier(&(*str));
-		check_flags(&(*str));
-		def_type(&(*str));
+		def_modifier(str);
+		check_flags(str);
+		def_type(str);
 	}
 	if (((g_flags & 112) == 112 && !(g_flags & 15)
 		&& !(g_flags & 1048576) && g_accuracy >= 0)
@@ -102,7 +102,7 @@ void	def_lenarg(void **value)
 	if (!(*value))
 		return ;
 	if (g_flags & 4096)
-		g_lenarg = len_numb(&(*value));
+		g_lenarg = len_numb(value);
 	if (g_flags & 8192)
 		g_lenarg = len_unumb((long int)(*value));
 	if (g_flags & 245760 || g_flags & 524288)
@@ -117,20 +117,20 @@ void	def_color(const char **str)
 		*str += 3;
 		return ;
 	}
-	if (black(&(*str)))
+	if (black(str))
 		return ;
-	if (red(&(*str)))
+	if (red(str))
 		return ;
-	if (green(&(*str)))
+	if (green(str))
 		return ;
-	if (yellow(&(*str)))
+	if (yellow(str))
 		return ;
-	if (blue(&(*str)))
+	if (blue(str))
 		return ;
-	if (magenta(&(*str)))
+	if (magenta(str))
 		return ;
-	if (cyan(&(*str)))
+	if (cyan(str))
 		return ;
-	if (white(&(*str)))
+	if (white(str))
 		return ;
 }

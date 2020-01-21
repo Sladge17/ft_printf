@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 14:59:11 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 15:07:34 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 17:25:02 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	conv_hex(void **value, unsigned long *bitend, char **hex, char index)
 	zeroflag = 0;
 	while (*bitend)
 	{
-		def_factor(&factor, &(*value), &(*bitend));
+		def_factor(&factor, value, bitend);
 		if (!zeroflag && g_flags & 524288 && !factor)
 		{
 			(*hex)[12 - len] = '\0';

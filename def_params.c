@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:18:53 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/20 12:30:08 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 17:27:23 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	check_flags(const char **str)
 {
 	while (1)
 	{
-		if (find_minus(&(*str)))
+		if (find_minus(str))
 			continue ;
-		if (find_plus(&(*str)))
+		if (find_plus(str))
 			continue ;
-		if (find_space(&(*str)))
+		if (find_space(str))
 			continue ;
-		if (find_lattice(&(*str)))
+		if (find_lattice(str))
 			continue ;
-		if (find_zero(&(*str)))
+		if (find_zero(str))
 			continue ;
 		break ;
 	}
@@ -47,7 +47,7 @@ void	def_width(const char **str, va_list *args)
 		*str += 1;
 	}
 	if ('0' <= **str && **str <= '9')
-		ft_atoi(&g_width, &(*str));
+		ft_atoi(&g_width, str);
 	if (g_width)
 		g_flags |= 32;
 }
@@ -68,7 +68,7 @@ void	def_accuracy(const char **str, va_list *args)
 		*str += 1;
 	}
 	if ('0' <= **str && **str <= '9')
-		ft_atoi(&g_accuracy, &(*str));
+		ft_atoi(&g_accuracy, str);
 }
 
 void	ft_atoi(int *param, const char **str)

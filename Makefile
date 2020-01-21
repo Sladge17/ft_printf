@@ -1,5 +1,5 @@
 NAME = libftprintf.a
-FLAG = -Wall -Wextra -Werror
+#FLAG = -Wall -Wextra -Werror
 SRC = 	ft_printf.c\
 		def_params.c\
 		find_flags.c\
