@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:32:14 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/21 17:23:39 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 18:02:04 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		ft_printf(const char *str, ...)
 	void			*value;
 	long double		value_f;
 
+	if (!str)
+		return (0);
 	amt = 0;
 	va_start(args, str);
 	while (*str)

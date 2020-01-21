@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/21 17:13:09 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/21 18:07:08 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int		main()
 	char	*name;
 	int		numb;
 
-	char	*q1;
+	int	*q1;
 	char	*q2;
 	char	*q3;
 
-	
-	
-	q1 = "test1";
-	q2 = "test2";
-	q3 = "test3";
+	// q1 = "test1";
+	// q2 = "test2";
+	// q3 = "test3";
+
+	q1 = NULL;
 
 	c = 'w';
 	name = "School";
@@ -49,15 +49,14 @@ int		main()
 	
 	test += 1;
 
-	printf("\n");
-	printf("test %d  <----------\n", test);
-	rez = printf("%s", q1);
+	// printf("\n");
+	// printf("test %d  <----------\n", test);
+	// rez = printf("qw %s", q1);
 	
 	printf("->%d\n", rez);
 	printf("---\n");
 	fflush(NULL);
-	// rez = ft_printf("{red}%s{/} %s", q1, q2);
-	rez = ft_printf("{magenta}%s{/} {red}%s", q1, q2);
+	rez = ft_printf(q1, q1);
 	
 	write(1, "\e[0m", 4);
 	printf("->%d\n", rez);
