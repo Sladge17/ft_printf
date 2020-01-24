@@ -6,7 +6,7 @@
 /*   By: jthuy <jthuy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:12:02 by jthuy             #+#    #+#             */
-/*   Updated: 2020/01/21 18:07:08 by jthuy            ###   ########.fr       */
+/*   Updated: 2020/01/22 18:27:06 by jthuy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		main()
 	char	*name;
 	int		numb;
 
-	int	*q1;
+	char	*q1;
 	char	*q2;
 	char	*q3;
 
@@ -49,16 +49,16 @@ int		main()
 	
 	test += 1;
 
-	// printf("\n");
-	// printf("test %d  <----------\n", test);
-	// rez = printf("qw %s", q1);
+	printf("\n");
+	printf("test %d  <----------\n", test);
+	rez = printf("test");
 	
 	printf("->%d\n", rez);
 	printf("---\n");
 	fflush(NULL);
-	rez = ft_printf(q1, q1);
+	rez = ft_printf("test");
 	
-	write(1, "\e[0m", 4);
+	// write(1, "\e[0m", 4);
 	printf("->%d\n", rez);
 
 	// if (argc == 1)
